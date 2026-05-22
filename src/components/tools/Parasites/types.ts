@@ -1,5 +1,3 @@
-import React from 'react';
-
 export interface ParasiteInfo {
   site: string;
   treatment: string;

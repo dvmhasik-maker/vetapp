@@ -1,5 +1,3 @@
-import React from 'react';
-
 export interface EchoInput {
   weight: string;
   la: string; // Left Atrium

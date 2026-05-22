@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react';
-import { NeuroResult, PatientData, RankResult, Symptom } from './types';
+import { NeuroResult, PatientData, RankResult } from './types';
 import { symptomData } from './data';
 
 export const useNeuroLogic = () => {

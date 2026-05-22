@@ -1,5 +1,3 @@
-import React from 'react';
-
 export type Mode = 'diag' | 'manage';
 
 export interface PatientData {

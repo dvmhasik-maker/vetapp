@@ -1,5 +1,3 @@
-import React from 'react';
-
 export interface PatientData {
   name: string;
   species: 'dog' | 'cat';
