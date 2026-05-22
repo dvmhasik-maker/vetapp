@@ -56,7 +56,7 @@ header p {
 
 .tool-card {
   background: var(--card-bg);
-  padding: 2rem 1.5rem;
+  padding: 1.5rem;
   border-radius: var(--border-radius);
   box-shadow: var(--shadow);
   text-decoration: none;
@@ -67,36 +67,26 @@ header p {
   text-align: center;
   transition: var(--transition);
   border: 1px solid rgba(0,0,0,0.05);
-  height: 100%; /* 그리드 셀 높이에 맞춤 */
-}
-
-.tool-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-  border-color: var(--secondary-color);
+  height: 100%;
 }
 
 .tool-icon {
-  width: 60px;
-  height: 60px;
+  width: 70px;
+  height: 70px;
   background-color: #ebf5fb;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 1.25rem;
+  margin-bottom: 1rem;
   color: var(--secondary-color);
 }
 
 .tool-card h2 {
-  font-size: 1.25rem;
-  margin-bottom: 0.75rem;
+  font-size: 1.4rem;
+  font-weight: 700;
   color: var(--primary-color);
-}
-
-.tool-card p {
-  font-size: 0.95rem;
-  color: var(--text-secondary);
+  margin: 0;
 }
 
 footer {
@@ -130,4 +120,5 @@ footer {
   .tool-grid {
     grid-template-columns: 1fr;
   }
+}
 }

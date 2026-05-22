@@ -10,9 +10,11 @@ import {
   AlertTriangle, 
   Layers 
 } from 'lucide-react';
-import Hypothyroidism from './components/tools/Hypothyroidism';
-import Parasites from './components/tools/Parasites';
-import FoodAmount from './components/tools/FoodAmount';
+import Hypothyroidism from './components/tools/Hypothyroidism/index';
+import Parasites from './components/tools/Parasites/index';
+import FoodAmount from './components/tools/FoodAmount/index';
+import FluidTherapy from './components/tools/FluidTherapy/index';
+import Neurological from './components/tools/Neurological/index';
 
 interface Tool {
   id: string;
@@ -24,9 +26,9 @@ interface Tool {
 
 const tools: Tool[] = [
   {
-    id: 'hypoadrenocorticism',
+    id: 'hypothyroidism',
     name: '갑기저',
-    description: '부신피질기능저하증(Addison) 진단 및 관리 지원',
+    description: '갑상선기능저하증 진단 및 관리 지원',
     icon: <Layers size={32} />,
     path: '/hypothyroidism'
   },
@@ -49,14 +51,14 @@ const tools: Tool[] = [
     name: '수액',
     description: '탈수 정도 및 체중에 따른 정밀 수액 속도 계산',
     icon: <Droplets size={32} />,
-    path: '#fluid-therapy'
+    path: '/fluid-therapy'
   },
   {
     id: 'neurological',
     name: '신경증상',
     description: '신경계 이상 부위 확인 및 감별 진단 보조',
     icon: <Activity size={32} />,
-    path: '#neurological'
+    path: '/neurological'
   },
   {
     id: 'echocardiography',
@@ -96,7 +98,6 @@ const Dashboard = () => (
               {tool.icon}
             </div>
             <h2>{tool.name}</h2>
-            <p>{tool.description}</p>
           </Link>
         ))}
       </div>
@@ -125,6 +126,8 @@ function App() {
         <Route path="/hypothyroidism" element={<Hypothyroidism />} />
         <Route path="/parasites" element={<Parasites />} />
         <Route path="/food-amount" element={<FoodAmount />} />
+        <Route path="/fluid-therapy" element={<FluidTherapy />} />
+        <Route path="/neurological" element={<Neurological />} />
       </Routes>
     </Router>
   );
