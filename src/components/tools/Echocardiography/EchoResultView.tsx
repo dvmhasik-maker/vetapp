@@ -7,77 +7,264 @@ interface EchoResultViewProps {
 }
 
 const EchoResultView: React.FC<EchoResultViewProps> = ({ result, resultRef }) => {
+  const fmt = (n: number | null | undefined) => {
+    if (n === null || n === undefined) return '-';
+    if (isNaN(n) || !isFinite(n) || n === 0) return '-';
+    return Math.abs(n) >= 100 ? n.toFixed(0) : n.toFixed(2);
+  };
+
+  const renderDogResults = () => {
+    const groups = ['Volume Overload', 'Myocardial Failure', 'Diastolic Failure', 'Pulmonary Hypertension'];
+    const groupStyles: any = {
+      'Volume Overload': { color: '#eff6ff', border: '#3b82f6', title: 'Volume Overload' },
+      'Myocardial Failure': { color: '#fff1f2', border: '#f43f5e', title: 'Myocardial Failure' },
+      'Diastolic Failure': { color: '#f5f3ff', border: '#8b5cf6', title: 'Diastolic Failure' },
+      'Pulmonary Hypertension': { color: '#f0fdf4', border: '#22c55e', title: 'Pulmonary Hypertension' }
+    };
+
+    return groups.map(g => {
+      const groupItems = result.items.filter(it => it.group === g);
+      const style = groupStyles[g];
+      return (
+        <div key={g} className="result-group-echo" style={{ background: style.color }}>
+          <h3 style={{ borderLeft: `5px solid ${style.border}` }}>{style.title}</h3>
+          <table className="result-table-echo">
+            <thead>
+              <tr>
+                <th>항목</th>
+                <th>정상범위</th>
+                <th>측정값</th>
+                <th>해석</th>
+              </tr>
+            </thead>
+            <tbody>
+              {groupItems.map((it, idx) => {
+                const n = it.val;
+                const normalDisp = it.range ? `${it.range[0]} ~ ${it.range[1]}` : (it.normal !== null ? fmt(it.normal) : '-');
+                let color = '#64748b', txt = '-';
+
+                if (!isNaN(n) && isFinite(n) && n !== 0) {
+                  if (it.range) {
+                    if (n < it.range[0]) { color = it.inv ? '#059669' : '#1d4ed8'; txt = it.lo; }
+                    else if (n > it.range[1]) { color = it.inv ? '#1d4ed8' : '#b91c1c'; txt = it.hi; }
+                    else { color = '#059669'; txt = '정상'; }
+                  } else if (it.normal !== null) {
+                    if (n < it.normal) { color = it.inv ? '#059669' : '#1d4ed8'; txt = it.lo; }
+                    else if (n > it.normal) { color = it.inv ? '#1d4ed8' : '#b91c1c'; txt = it.hi; }
+                    else { color = '#059669'; txt = '정상'; }
+                  }
+                }
+
+                return (
+                  <tr key={idx}>
+                    <td>{it.name}</td>
+                    <td>{normalDisp}</td>
+                    <td style={{ color, fontWeight: 'bold' }}>{fmt(n)}</td>
+                    <td style={{ color }}>{txt}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      );
+    });
+  };
+
+  const renderCatResults = () => {
+    const dx = result.catDiagnosis!;
+    
+    const styledCat = (val: any, thresh: any) => {
+      const n = parseFloat(val);
+      if (isNaN(n) || n === 0) return '-';
+      const isOut = (thresh.min !== undefined && n < thresh.min) || (thresh.max !== undefined && n > thresh.max);
+      return (
+        <span style={{ color: isOut ? '#c0392b' : '#27ae60', fontWeight: 'bold' }}>
+          {n >= 100 ? n.toFixed(0) : n.toFixed(2)}
+        </span>
+      );
+    };
+
+    const threshLabel = (t: any) => {
+      if (!t) return '-';
+      if (t.min !== undefined && t.max !== undefined) return `${t.min} ~ ${t.max}`;
+      if (t.min !== undefined) return `≥ ${t.min}`;
+      if (t.max !== undefined) return `≤ ${t.max}`;
+      return '-';
+    };
+
+    return (
+      <>
+        <div className="diagnosis-banner-echo">
+          <div className="dx-label-echo">{dx.label}</div>
+          {dx.thrombosisRisk && <div className="dx-sub-echo">{dx.thrombosisRisk}</div>}
+          {dx.lvotTurbulence && <div className="dx-sub-echo danger">{dx.lvotTurbulence}</div>}
+          {dx.samPresent && <div className="dx-sub-echo danger">{dx.samPresent}</div>}
+        </div>
+
+        <div className="result-group-echo" style={{ background: '#eff6ff' }}>
+          <h3 style={{ borderLeft: '5px solid #3b82f6' }}>ACVIM 단계 평가 (B1 / B2 / C)</h3>
+          <table className="result-table-echo cat-stage-table">
+            <thead>
+              <tr>
+                <th>항목</th>
+                <th>B1</th>
+                <th>B2</th>
+                <th>C</th>
+                <th>측정값</th>
+              </tr>
+            </thead>
+            <tbody>
+              {result.catStageRows?.map((r, idx) => (
+                <tr key={idx}>
+                  <td>{r.label}</td>
+                  <td className="ref-val">{r.b1}</td>
+                  <td className="ref-val">{r.b2}</td>
+                  <td className="ref-val">{r.c}</td>
+                  <td>{styledCat(r.measured, r.thresh)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <div className="result-group-echo" style={{ background: '#f5f3ff' }}>
+          <h3 style={{ borderLeft: '5px solid #8b5cf6' }}>기타 측정값</h3>
+          <table className="result-table-echo">
+            <thead>
+              <tr>
+                <th>항목</th>
+                <th>정상 기준</th>
+                <th>측정값</th>
+              </tr>
+            </thead>
+            <tbody>
+              {result.catExtraRows?.map((r, idx) => (
+                <tr key={idx}>
+                  <td>{r.label}</td>
+                  <td>{threshLabel(r.thresh)}</td>
+                  <td>{styledCat(r.measured, r.thresh)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </>
+    );
+  };
+
   return (
-    <div className="result-col" ref={resultRef}>
+    <div className="result-col-echo" ref={resultRef}>
       <div className="tool-card-container">
-        <div className="tool-card-title">📊 심초음파 분석 결과</div>
+        <div className="tool-card-title">📊 분석 결과 리포트</div>
 
-        <div className="echo-main-metrics">
-          <div className="echo-metric-box">
-            <span className="label">LA:Ao 비율</span>
-            <span className={`value ${result.laAoRatio >= 1.6 ? 'danger' : 'normal'}`}>{result.laAoRatio}</span>
-            <span className="ref">참조: &lt; 1.6</span>
-          </div>
-          <div className="echo-metric-box">
-            <span className="label">LVIDdn (표준화)</span>
-            <span className={`value ${result.lviddn >= 1.7 ? 'danger' : 'normal'}`}>{result.lviddn}</span>
-            <span className="ref">참조: &lt; 1.7</span>
-          </div>
-          <div className="echo-metric-box">
-            <span className="label">FS (단축축축률)</span>
-            <span className="value">{result.fsPct}%</span>
-            <span className="ref">참조: 25~45%</span>
+        {/* 환자 요약 */}
+        <div className="patient-summary-echo">
+          <div className="summary-title">🐾 환자 정보 요약</div>
+          <div className="summary-grid">
+            <span>이름: <strong>{result.patientInfo.name || '-'}</strong></span>
+            <span>품종: {result.patientInfo.breed || '-'}</span>
+            <span>종: {result.species === 'dog' ? '강아지' : '고양이'}</span>
+            <span>성별: {result.patientInfo.sex || '-'}</span>
+            <span>나이: {result.patientInfo.age || '-'}</span>
+            <span className="date">진단일: {result.date}</span>
           </div>
         </div>
 
-        <div className="echo-stage-card">
-          <div className="stage-header">진단 단계 제안</div>
-          <div className={`stage-value ${result.stage.includes('B2') ? 'b2' : ''}`}>{result.stage}</div>
-          <div className="interpretation-text">{result.interpretation}</div>
-        </div>
+        {result.species === 'dog' ? renderDogResults() : renderCatResults()}
 
-        <div className="ref-label" style={{ marginTop: '2rem' }}>
-          ※ 본 분석은 ACVIM MMVD 가이드라인(2019)을 기준으로 합니다. 최종 진단은 임상 증상과 방사선 검사 결과를 종합하여 결정하십시오.
+        <div className="ref-label-echo">
+          ※ 본 분석은 ACVIM 가이드라인을 기준으로 하며, 최종 진단은 수의사의 전문적 판단하에 결정되어야 합니다.
         </div>
       </div>
 
       <style>{`
-        .echo-main-metrics {
+        .patient-summary-echo {
+          background: #f8fafc;
+          border-left: 4px solid #3b82f6;
+          padding: 16px;
+          border-radius: 8px;
+          margin-bottom: 20px;
+        }
+        .summary-title { font-weight: 800; font-size: 0.95rem; color: #1e293b; margin-bottom: 8px; }
+        .summary-grid {
           display: grid;
           grid-template-columns: repeat(3, 1fr);
-          gap: 15px;
-          margin-bottom: 2rem;
+          gap: 8px 20px;
+          font-size: 0.85rem;
+          color: #475569;
         }
-        .echo-metric-box {
-          background: #f8fafc;
-          padding: 16px;
-          border-radius: 12px;
-          text-align: center;
-          border: 1px solid #e2e8f0;
-          display: flex;
-          flex-direction: column;
-          gap: 4px;
-        }
-        .echo-metric-box .label { font-size: 0.75rem; font-weight: 700; color: #64748b; }
-        .echo-metric-box .value { font-size: 1.5rem; font-weight: 800; }
-        .echo-metric-box .value.danger { color: #e74c3c; }
-        .echo-metric-box .value.normal { color: #27ae60; }
-        .echo-metric-box .ref { font-size: 0.7rem; color: #94a3b8; }
+        .summary-grid .date { color: #94a3b8; }
 
-        .echo-stage-card {
-          background: #f0f7ff;
-          border-radius: 14px;
-          padding: 24px;
+        .diagnosis-banner-echo {
           text-align: center;
-          border: 1px solid #dbeafe;
+          padding: 24px;
+          border-radius: 12px;
+          background: #f0f9ff;
+          border: 1px solid #bae6fd;
+          margin-bottom: 24px;
         }
-        .stage-header { font-size: 0.85rem; font-weight: 700; color: #3b82f6; margin-bottom: 8px; text-transform: uppercase; }
-        .stage-value { font-size: 2.2rem; font-weight: 900; color: #1e40af; margin-bottom: 12px; }
-        .stage-value.b2 { color: #c0392b; }
-        .interpretation-text { font-size: 0.95rem; line-height: 1.6; color: #334155; font-weight: 600; }
+        .dx-label-echo { font-size: 1.8rem; font-weight: 900; color: #0369a1; margin-bottom: 8px; }
+        .dx-sub-echo { font-size: 1rem; font-weight: 600; color: #0ea5e9; }
+        .dx-sub-echo.danger { color: #e11d48; }
+
+        .result-group-echo {
+          margin-bottom: 24px;
+          border-radius: 12px;
+          overflow: hidden;
+          box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .result-group-echo h3 {
+          margin: 0;
+          padding: 12px 16px;
+          font-size: 1rem;
+          font-weight: 800;
+          background: #fff;
+          color: #1e293b;
+        }
+        .result-table-echo {
+          width: 100%;
+          border-collapse: collapse;
+          background: #fff;
+          table-layout: fixed; /* 컬럼 너비 고정 */
+        }
+        .result-table-echo th, .result-table-echo td {
+          padding: 10px 5px;
+          font-size: 0.85rem;
+          border-bottom: 1px solid #f1f5f9;
+          text-align: center;
+          color: #334155;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap; /* 텍스트 줄바꿈 방지 */
+        }
+        .result-table-echo th {
+          background: #f8fafc;
+          color: #64748b;
+          font-size: 0.8rem;
+          border-bottom: 1px solid #e2e8f0;
+        }
+        /* 컬럼별 너비 지정 */
+        .result-table-echo th:nth-child(1), .result-table-echo td:nth-child(1) { width: 22%; } /* 항목 */
+        .result-table-echo th:nth-child(2), .result-table-echo td:nth-child(2) { width: 18%; } /* 정상범위 */
+        .result-table-echo th:nth-child(3), .result-table-echo td:nth-child(3) { width: 15%; } /* 측정값 */
+        .result-table-echo th:nth-child(4), .result-table-echo td:nth-child(4) { width: 45%; text-align: left; padding-left: 10px; } /* 해석 - 최대 너비 확보 및 좌측 정렬 */
+
+        .result-table-echo tr:last-child td { border-bottom: none; }
+        .ref-val { font-size: 0.75rem !important; color: #94a3b8 !important; }
+
+        .ref-label-echo {
+          margin-top: 2rem;
+          font-size: 0.75rem;
+          color: #94a3b8;
+          text-align: center;
+          font-style: italic;
+          line-height: 1.5;
+        }
 
         @media (max-width: 640px) {
-          .echo-main-metrics { grid-template-columns: 1fr; }
+          .summary-grid { grid-template-columns: 1fr 1fr; }
+          .dx-label-echo { font-size: 1.4rem; }
         }
       `}</style>
     </div>

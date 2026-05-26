@@ -78,7 +78,7 @@ const FoodAmount: React.FC = () => {
               />
             </div>
 
-            <div className="grid-2-food">
+            <div className="patient-grid">
               <div>
                 <label className="input-label-food">연령</label>
                 <input 
@@ -230,66 +230,6 @@ const FoodAmount: React.FC = () => {
       </div>
 
       <style>{`
-        .tool-page {
-          max-width: 1000px;
-          margin: 0 auto;
-          padding: 1rem;
-        }
-        .tool-nav {
-          margin-bottom: 1.5rem;
-        }
-        .back-btn-prominent {
-          display: inline-flex;
-          align-items: center;
-          gap: 4px;
-          text-decoration: none;
-          color: #fff;
-          background-color: var(--secondary-color);
-          padding: 8px 16px;
-          border-radius: 8px;
-          font-weight: 600;
-          font-size: 0.9rem;
-          transition: var(--transition);
-          box-shadow: 0 2px 4px rgba(52, 152, 219, 0.2);
-        }
-        .back-btn-prominent:hover {
-          background-color: #2980b9;
-          transform: translateX(-2px);
-          box-shadow: 0 4px 8px rgba(52, 152, 219, 0.3);
-        }
-        .page-header-tool-white {
-          background: #fff;
-          color: var(--primary-color);
-          border-radius: 14px;
-          padding: 24px;
-          display: flex;
-          align-items: center;
-          gap: 16px;
-          margin-bottom: 1.5rem;
-          border: 1px solid rgba(0,0,0,0.05);
-          box-shadow: var(--shadow);
-        }
-        .page-header-tool-white .icon { font-size: 2.5rem; }
-        .page-header-tool-white h1 { font-size: 1.4rem; font-weight: 700; line-height: 1.3; margin: 0; color: var(--primary-color); }
-        .page-header-tool-white p { font-size: .9rem; color: var(--text-secondary); margin-top: 4px; }
-
-        .tool-card-container {
-          background: #fff;
-          border-radius: 12px;
-          box-shadow: var(--shadow);
-          padding: 20px;
-          margin-bottom: 1.5rem;
-          border: 1px solid rgba(0,0,0,0.05);
-        }
-        .tool-card-title {
-          font-size: 1rem;
-          font-weight: 700;
-          color: var(--secondary-color);
-          margin-bottom: 1.25rem;
-          padding-bottom: 10px;
-          border-bottom: 2px solid #f0f7ff;
-        }
-
         .layout-grid-food {
           display: grid;
           grid-template-columns: 1fr 1fr;
@@ -324,9 +264,9 @@ const FoodAmount: React.FC = () => {
           transition: all 0.2s;
         }
         .species-btn-food.active {
-          border-color: var(--secondary-color);
+          border-color: #3498db;
           background: #eef2ff;
-          color: var(--secondary-color);
+          color: #3498db;
         }
 
         .input-field-food, .select-field-food {
@@ -340,21 +280,15 @@ const FoodAmount: React.FC = () => {
           transition: border-color 0.2s;
         }
         .input-field-food:focus, .select-field-food:focus {
-          border-color: var(--secondary-color);
+          border-color: #3498db;
           background: white;
-        }
-
-        .grid-2-food {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 12px;
         }
 
         .btn-calculate-food {
           width: 100%;
           margin-top: 24px;
           padding: 16px;
-          background: var(--primary-color);
+          background: var(--primary);
           color: white;
           border: none;
           border-radius: 10px;
@@ -392,13 +326,13 @@ const FoodAmount: React.FC = () => {
           position: relative;
           overflow: hidden;
           border: 1px solid #e2e8f0;
-          box-shadow: var(--shadow);
+          box-shadow: var(--shadow-sm);
         }
         .result-accent-bar {
           position: absolute;
           top: 0; left: 0; right: 0;
           height: 6px;
-          background: var(--secondary-color);
+          background: #3498db;
         }
 
         .result-header-food {
@@ -411,7 +345,7 @@ const FoodAmount: React.FC = () => {
         .prescription-badge {
           display: inline-block;
           background: #eef2ff;
-          color: var(--secondary-color);
+          color: #3498db;
           font-size: 0.65rem;
           font-weight: 800;
           padding: 4px 10px;
@@ -420,8 +354,8 @@ const FoodAmount: React.FC = () => {
           letter-spacing: 0.05em;
           margin-bottom: 8px;
         }
-        .result-header-food h2 { font-size: 1.25rem; font-weight: 800; color: var(--primary-color); margin: 0; line-height: 1.4; }
-        .pet-name-highlight { color: var(--secondary-color); }
+        .result-header-food h2 { font-size: 1.25rem; font-weight: 800; color: var(--primary); margin: 0; line-height: 1.4; }
+        .pet-name-highlight { color: #3498db; }
         .result-date { font-size: 0.75rem; color: #94a3b8; font-weight: 600; }
 
         .metrics-grid-food {
@@ -442,8 +376,8 @@ const FoodAmount: React.FC = () => {
           border: 2px solid #c7d2fe;
         }
         .box-label { font-size: 0.65rem; font-weight: 700; color: #94a3b8; display: block; margin-bottom: 6px; line-height: 1.4; }
-        .box-label.highlight { color: var(--secondary-color); }
-        .box-value { font-size: 1.5rem; font-weight: 900; color: var(--primary-color); display: block; }
+        .box-label.highlight { color: #3498db; }
+        .box-value { font-size: 1.5rem; font-weight: 900; color: var(--primary); display: block; }
         .box-value.highlight { color: #4338ca; font-size: 1.8rem; }
         .box-unit { font-size: 0.75rem; font-weight: 700; color: #64748b; }
 
@@ -462,9 +396,9 @@ const FoodAmount: React.FC = () => {
         }
         .detail-item-food:last-child { border-bottom: none; }
         .detail-label { font-size: 0.8rem; color: #64748b; font-weight: 600; }
-        .detail-value { font-size: 0.85rem; color: var(--primary-color); font-weight: 700; text-align: right; }
+        .detail-value { font-size: 0.85rem; color: var(--primary); font-weight: 700; text-align: right; }
         .highlight-row { margin-top: 8px; padding-top: 15px; border-top: 2px solid #e2e8f0; }
-        .cup-label { color: var(--secondary-color); font-weight: 800; }
+        .cup-label { color: #3498db; font-weight: 800; }
         .cup-label span { font-weight: 400; font-size: 0.7rem; color: #94a3b8; }
         .cup-value { font-size: 1.1rem; color: #4338ca; }
 
@@ -484,7 +418,7 @@ const FoodAmount: React.FC = () => {
           width: 100%;
           margin-top: 16px;
           padding: 14px;
-          background: var(--primary-color);
+          background: var(--primary);
           color: white;
           border: none;
           border-radius: 10px;
@@ -501,8 +435,6 @@ const FoodAmount: React.FC = () => {
         }
 
         @media (max-width: 768px) {
-          .page-header-tool-white { padding: 16px; flex-direction: column; text-align: center; }
-          .page-header-tool-white h1 { font-size: 1.2rem; }
           .metrics-grid-food { grid-template-columns: 1fr; }
           .detail-item-food { flex-direction: column; text-align: left; }
           .detail-value { text-align: left; margin-top: 4px; }

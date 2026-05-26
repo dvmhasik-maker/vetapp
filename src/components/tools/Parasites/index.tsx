@@ -105,66 +105,6 @@ const Parasites: React.FC = () => {
       )}
 
       <style>{`
-        .tool-page {
-          max-width: 800px;
-          margin: 0 auto;
-          padding: 1rem;
-        }
-        .tool-nav {
-          margin-bottom: 1.5rem;
-        }
-        .back-btn-prominent {
-          display: inline-flex;
-          align-items: center;
-          gap: 4px;
-          text-decoration: none;
-          color: #fff;
-          background-color: var(--secondary-color);
-          padding: 8px 16px;
-          border-radius: 8px;
-          font-weight: 600;
-          font-size: 0.9rem;
-          transition: var(--transition);
-          box-shadow: 0 2px 4px rgba(52, 152, 219, 0.2);
-        }
-        .back-btn-prominent:hover {
-          background-color: #2980b9;
-          transform: translateX(-2px);
-          box-shadow: 0 4px 8px rgba(52, 152, 219, 0.3);
-        }
-        .page-header-tool-white {
-          background: #fff;
-          color: var(--primary-color);
-          border-radius: 14px;
-          padding: 24px;
-          display: flex;
-          align-items: center;
-          gap: 16px;
-          margin-bottom: 1.5rem;
-          border: 1px solid rgba(0,0,0,0.05);
-          box-shadow: var(--shadow);
-        }
-        .page-header-tool-white .icon { font-size: 2.5rem; }
-        .page-header-tool-white h1 { font-size: 1.4rem; font-weight: 700; line-height: 1.3; margin: 0; color: var(--primary-color); }
-        .page-header-tool-white p { font-size: .9rem; color: var(--text-secondary); margin-top: 4px; }
-
-        .tool-card-container {
-          background: #fff;
-          border-radius: 12px;
-          box-shadow: var(--shadow);
-          padding: 20px;
-          margin-bottom: 1.5rem;
-          border: 1px solid rgba(0,0,0,0.05);
-        }
-        .tool-card-title {
-          font-size: 1rem;
-          font-weight: 700;
-          color: var(--secondary-color);
-          margin-bottom: 1.25rem;
-          padding-bottom: 10px;
-          border-bottom: 2px solid #f0f7ff;
-        }
-
         .tag-grid-refined {
           display: grid;
           grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
@@ -181,18 +121,18 @@ const Parasites: React.FC = () => {
           cursor: pointer;
           transition: all 0.2s;
         }
-        .refined-tag:hover { border-color: var(--secondary-color); background: #fff; }
+        .refined-tag:hover { border-color: #3498db; background: #fff; }
         .refined-tag.active {
-          background: var(--secondary-color);
+          background: #3498db;
           color: white;
-          border-color: var(--secondary-color);
+          border-color: #3498db;
           box-shadow: 0 4px 12px rgba(52, 152, 219, 0.2);
         }
 
         .result-outer-container {
           background: white;
           border-radius: 12px;
-          box-shadow: var(--shadow);
+          box-shadow: 0 4px 6px rgba(0,0,0,0.05);
           padding: 24px;
           border: 1px solid rgba(0,0,0,0.05);
           margin-bottom: 2rem;
@@ -207,14 +147,14 @@ const Parasites: React.FC = () => {
         .main-result-title {
           font-size: 1.5rem;
           font-weight: 800;
-          color: var(--primary-color);
+          color: var(--primary);
           display: flex;
           align-items: center;
           justify-content: center;
           gap: 10px;
           margin-bottom: 6px;
         }
-        .sub-result-title { font-size: 1rem; color: var(--text-secondary); font-weight: 600; margin-bottom: 4px; }
+        .sub-result-title { font-size: 1rem; color: var(--text-muted); font-weight: 600; margin-bottom: 4px; }
         .sci-name { font-size: 0.8rem; color: #94a3b8; font-style: italic; }
 
         .protocol-stack {
@@ -243,7 +183,7 @@ const Parasites: React.FC = () => {
           padding: 16px;
           font-size: 0.95rem;
           line-height: 1.6;
-          color: var(--text-primary);
+          color: var(--text-main);
         }
         .mini-label {
           font-size: 0.75rem;
@@ -296,8 +236,6 @@ const Parasites: React.FC = () => {
         }
 
         @media (max-width: 768px) {
-          .page-header-tool-white { padding: 16px; flex-direction: column; text-align: center; }
-          .page-header-tool-white h1 { font-size: 1.2rem; }
           .tag-grid-refined { grid-template-columns: repeat(2, 1fr); }
         }
       `}</style>

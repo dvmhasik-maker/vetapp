@@ -76,49 +76,6 @@ const Hypothyroidism: React.FC = () => {
       )}
 
       <style>{`
-        .tool-page {
-          max-width: 800px;
-          margin: 0 auto;
-          padding: 1rem;
-        }
-        .tool-nav {
-          margin-bottom: 1.5rem;
-        }
-        .back-btn-prominent {
-          display: inline-flex;
-          align-items: center;
-          gap: 4px;
-          text-decoration: none;
-          color: #fff;
-          background-color: var(--secondary-color);
-          padding: 8px 16px;
-          border-radius: 8px;
-          font-weight: 600;
-          font-size: 0.9rem;
-          transition: var(--transition);
-          box-shadow: 0 2px 4px rgba(52, 152, 219, 0.2);
-        }
-        .back-btn-prominent:hover {
-          background-color: #2980b9;
-          transform: translateX(-2px);
-          box-shadow: 0 4px 8px rgba(52, 152, 219, 0.3);
-        }
-        .page-header-tool-white {
-          background: #fff;
-          color: var(--primary-color);
-          border-radius: 14px;
-          padding: 24px;
-          display: flex;
-          align-items: center;
-          gap: 16px;
-          margin-bottom: 1.5rem;
-          border: 1px solid rgba(0,0,0,0.05);
-          box-shadow: var(--shadow);
-        }
-        .page-header-tool-white .icon { font-size: 2.5rem; }
-        .page-header-tool-white h1 { font-size: 1.4rem; font-weight: 700; line-height: 1.3; margin: 0; color: var(--primary-color); }
-        .page-header-tool-white p { font-size: .9rem; color: var(--text-secondary); margin-top: 4px; }
-
         .tab-container-tool {
           display: flex;
           gap: 10px;
@@ -144,22 +101,8 @@ const Hypothyroidism: React.FC = () => {
           color: #fff;
           box-shadow: 0 4px 6px rgba(52, 152, 219, 0.2);
         }
-
-        .tool-card-container {
-          background: #fff;
-          border-radius: 12px;
-          box-shadow: var(--shadow);
-          padding: 20px;
-          margin-bottom: 1.5rem;
-          border: 1px solid rgba(0,0,0,0.05);
-        }
-        .tool-card-title {
-          font-size: 1rem;
-          font-weight: 700;
-          color: #3498db;
-          margin-bottom: 1.25rem;
-          padding-bottom: 10px;
-          border-bottom: 2px solid #f0f7ff;
+        .tab-btn-tool:hover:not(.active) {
+          background: #cbd5e1;
         }
 
         .patient-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }

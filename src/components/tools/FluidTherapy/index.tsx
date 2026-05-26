@@ -56,41 +56,14 @@ const FluidTherapy: React.FC = () => {
       </div>
 
       <style>{`
-        .tool-page { max-width: 1000px; margin: 0 auto; padding: 1rem; }
         .layout-grid-fluid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 1rem; padding-bottom: 20px; }
         
-        .tool-nav { margin-bottom: 1.5rem; }
-        .back-btn-prominent {
-          display: inline-flex; align-items: center; gap: 4px; text-decoration: none; color: #fff;
-          background-color: var(--secondary-color); padding: 8px 16px; border-radius: 8px;
-          font-weight: 600; font-size: 0.9rem; transition: var(--transition);
-          box-shadow: 0 2px 4px rgba(52, 152, 219, 0.2);
-        }
-
-        .page-header-tool-white {
-          background: #fff; color: var(--primary-color); border-radius: 14px; padding: 24px;
-          display: flex; align-items: center; gap: 16px; margin-bottom: 1.5rem;
-          border: 1px solid rgba(0,0,0,0.05); box-shadow: var(--shadow);
-        }
-        .page-header-tool-white .icon { font-size: 2.5rem; }
-        .page-header-tool-white h1 { font-size: 1.4rem; font-weight: 700; line-height: 1.3; margin: 0; color: var(--primary-color); }
-        .page-header-tool-white p { font-size: .9rem; color: var(--text-secondary); margin-top: 4px; }
-
-        .tool-card-container {
-          background: #fff; border-radius: 12px; box-shadow: var(--shadow);
-          padding: 20px; margin-bottom: 1.5rem; border: 1px solid rgba(0,0,0,0.05);
-        }
-        .tool-card-title {
-          font-size: 1rem; font-weight: 700; color: var(--secondary-color);
-          margin-bottom: 1.25rem; padding-bottom: 10px; border-bottom: 2px solid #f0f7ff;
-        }
-
         .patient-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
         .pf { display: flex; flex-direction: column; gap: 6px; }
         .pf label { font-size: .85rem; color: #4a5568; font-weight: 700; }
         .pf input, .pf select {
           padding: 10px 12px; border: 1px solid #cbd5e1; border-radius: 8px;
-          font-size: 1rem; outline: none; background: #f8fafc;
+          font-size: 1rem; outline: none; background: #fffdf0;
         }
 
         .species-toggle-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
@@ -99,11 +72,11 @@ const FluidTherapy: React.FC = () => {
           padding: 10px; border-radius: 8px; border: 1.5px solid #e2e8f0;
           background: #f8fafc; font-size: 0.85rem; font-weight: 600; cursor: pointer; color: #64748b;
         }
-        .species-btn-small.active { border-color: var(--secondary-color); background: #eef2ff; color: var(--secondary-color); }
+        .species-btn-small.active { border-color: #3498db; background: #eef2ff; color: #3498db; }
 
         .dehydration-badge { font-size: 0.75rem; font-weight: 800; color: #1d4ed8; background: #eff6ff; padding: 2px 8px; border-radius: 100px; border: 1px solid #dbeafe; }
         .fluid-range-slider { width: 100%; height: 6px; background: #e2e8f0; border-radius: 999px; outline: none; cursor: pointer; -webkit-appearance: none; }
-        .fluid-range-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 20px; height: 20px; background: var(--secondary-color); border-radius: 50%; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+        .fluid-range-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 20px; height: 20px; background: #3498db; border-radius: 50%; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
         .dehydration-ticks { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 8px; }
         .dehydration-ticks span { font-size: 0.65rem; color: #94a3b8; line-height: 1.3; }
         .dehydration-ticks span:last-child { text-align: right; }
@@ -171,20 +144,10 @@ const FluidTherapy: React.FC = () => {
         .alert-text { font-size: 0.75rem; color: #9f1239; line-height: 1.5; }
         .alert-text strong { display: block; margin-bottom: 4px; }
 
-        .save-action-area { max-width: 1000px; margin: 0 auto; padding: 1rem; }
-        .btn-save-full {
-          width: 100%; padding: 16px; background: #1e293b; color: #fff; border: none;
-          border-radius: 12px; font-weight: 700; font-size: 1rem; cursor: pointer;
-          display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.2s;
-        }
-        .btn-save-full:hover { background: #334155; transform: translateY(-2px); }
-
         @media (max-width: 1024px) {
           .layout-grid-fluid { grid-template-columns: 1fr; }
         }
         @media (max-width: 640px) {
-          .page-header-tool-white { padding: 16px; flex-direction: column; text-align: center; }
-          .page-header-tool-white h1 { font-size: 1.2rem; }
           .patient-grid { grid-template-columns: 1fr; }
           .hero-main-value .value { font-size: 2.75rem; }
           .hero-sub-metrics { grid-template-columns: 1fr; }
