@@ -75,15 +75,16 @@ const Terms: React.FC = () => {
         .legal-header h1 { font-size: 1.75rem; font-weight: 800; color: #0f172a; margin: 0; }
         .legal-header p { color: #64748b; margin-top: 0.5rem; font-weight: 500; }
 
-        .terms-section { position: relative; padding: 2rem 1.5rem 1.5rem; border-bottom: 1px solid #f1f5f9; }
+        .terms-section { padding: 1.5rem; border-bottom: 1px solid #f1f5f9; }
         .terms-section:last-of-type { border-bottom: none; }
         .terms-section.highlight { background: #f8fafc; border-radius: 12px; border-bottom: none; margin: 1rem 0; }
         
         .terms-badge { 
-          position: absolute; top: 1rem; left: 1.5rem;
+          display: inline-block;
           font-size: 0.65rem; font-weight: 800; color: #3b82f6;
           background: #eff6ff; padding: 2px 8px; border-radius: 4px;
           text-transform: uppercase;
+          margin-bottom: 0.75rem;
         }
 
         .terms-section h3 { font-size: 1.05rem; font-weight: 700; color: #1e293b; margin: 0 0 0.75rem; }
@@ -97,8 +98,7 @@ const Terms: React.FC = () => {
         .terms-date { margin-top: 3rem; text-align: center; color: #94a3b8; font-size: 0.8rem; font-style: italic; }
 
         @media (max-width: 640px) {
-          .terms-section { padding: 1.5rem 1rem 1rem; }
-          .terms-badge { left: 1rem; }
+          .terms-section { padding: 1.25rem 1rem; }
         }
       `}</style>
     </div>
