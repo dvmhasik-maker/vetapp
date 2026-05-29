@@ -18,20 +18,19 @@ const Neurological: React.FC = () => {
     localizeLesion
   } = useNeuroLogic();
 
-  const saveImg = (targetType: 'input' | 'result') => {
-    const target = targetType === 'result' ? resultRef.current : captureRef.current;
-    if (!target || (targetType === 'result' && !result)) {
-      alert('저장할 화면이 활성화되지 않았습니다.');
+  const saveImg = () => {
+    const target = resultRef.current;
+    if (!target || !result) {
+      alert('분석 결과가 없습니다. 먼저 분석을 실행해 주세요.');
       return;
     }
 
     const ptName = patient.name || '환자';
     const today = new Date().toLocaleDateString('ko-KR').replace(/\. /g, '-').replace('.', '');
-    const label = targetType === 'result' ? '신경병변_분석결과' : '신경병변_입력화면';
 
     html2canvas(target, { background: '#f4f6f9', scale: 2 } as any).then((canvas) => {
       const link = document.createElement('a');
-      link.download = `${ptName}_${label}_${today}.jpg`;
+      link.download = `${ptName}_신경병변_분석결과_${today}.jpg`;
       link.href = canvas.toDataURL('image/jpeg', 1.0);
       link.click();
     });
@@ -45,13 +44,13 @@ const Neurological: React.FC = () => {
         </Link>
       </div>
 
-      <div className="page-header-tool-white">
+      <header className="page-header-tool-white">
         <div className="icon">🧠</div>
         <div>
           <h1>반려동물 신경증상 기반 병변 위치 분석기</h1>
           <p>Veterinary Neurological Localization System (이상 증상 및 좌/우 방향 판정)</p>
         </div>
-      </div>
+      </header>
 
       <div className="layout-grid-neuro" ref={captureRef}>
         <NeuroForm
@@ -72,14 +71,9 @@ const Neurological: React.FC = () => {
       </div>
 
       <div className="save-action-area">
-        <div className="save-row">
-          <button className="btn-save input-save" onClick={() => saveImg('input')}>
-            <Camera size={18} style={{ marginRight: '6px' }} /> 입력화면 저장
-          </button>
-          <button className="btn-save result-save" onClick={() => saveImg('result')}>
-            <Camera size={18} style={{ marginRight: '6px' }} /> 결과화면 저장
-          </button>
-        </div>
+        <button className="btn-save-refined-neuro" onClick={saveImg}>
+          <Camera size={20} /> 결과 리포트 이미지 저장
+        </button>
       </div>
 
       <style>{`
@@ -91,26 +85,24 @@ const Neurological: React.FC = () => {
         .pf label { font-size: .85rem; color: #4a5568; font-weight: 700; }
         .pf input, .pf select {
           padding: 10px 12px; border: 1px solid #cbd5e1; border-radius: 8px;
-          font-size: 1rem; outline: none; background: #fffdf0;
+          font-size: 1rem; outline: none; background: #fff;
         }
 
         .save-action-area { max-width: 1200px; margin: 0 auto; padding: 1rem; display: flex; justify-content: center; }
-        .save-row { display: flex; gap: 12px; width: 100%; max-width: 600px; }
-        .btn-save {
-          flex: 1; padding: 14px; border: none; border-radius: 10px;
-          font-size: .95rem; font-weight: 700; cursor: pointer;
-          display: flex; align-items: center; justify-content: center; transition: all 0.2s;
+        .btn-save-refined-neuro {
+          width: 100%; max-width: 600px; padding: 16px; border: none; border-radius: 12px;
+          font-size: 1rem; font-weight: 700; cursor: pointer;
+          display: flex; align-items: center; justify-content: center; gap: 10px;
+          background: #10b981; color: #fff; transition: all 0.2s;
+          box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
         }
-        .input-save { background: #2ecc71; color: #fff; }
-        .result-save { background: #3498db; color: #fff; }
-        .btn-save:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        .btn-save-refined-neuro:hover { background: #059669; transform: translateY(-2px); box-shadow: 0 6px 15px rgba(16, 185, 129, 0.3); }
 
         @media (max-width: 1024px) {
           .layout-grid-neuro { grid-template-columns: 1fr; }
         }
         @media (max-width: 768px) {
           .patient-grid { grid-template-columns: 1fr; }
-          .save-row { flex-direction: column; }
         }
       `}</style>
     </div>
