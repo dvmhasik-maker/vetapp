@@ -8,8 +8,7 @@ const Parasites: React.FC = () => {
   const {
     selectedParasite,
     resultRef,
-    handleParasiteClick,
-    saveResultImg
+    handleParasiteClick
   } = useParasitesLogic();
 
   const sortedData = [...parasiteData].sort((a, b) => a.ko.localeCompare(b.ko, 'ko'));

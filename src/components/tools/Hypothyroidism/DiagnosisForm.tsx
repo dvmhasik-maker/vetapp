@@ -1,5 +1,5 @@
 import React from 'react';
-import { Search, Camera, Activity } from 'lucide-react';
+import { Search, Activity } from 'lucide-react';
 import { Mode, PatientData, ValueData } from './types';
 
 interface DiagnosisFormProps {
