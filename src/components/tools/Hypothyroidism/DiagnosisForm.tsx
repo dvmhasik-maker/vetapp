@@ -93,11 +93,8 @@ const DiagnosisForm: React.FC<DiagnosisFormProps> = ({
           <Search size={20} style={{ marginRight: '8px' }} /> 상태 분석하기
         </button>
         <div className="save-row-tool">
-          <button className="btn-save-tool input-save" onClick={() => saveImg('input')}>
-            <Camera size={18} style={{ marginRight: '6px' }} /> 입력화면 저장
-          </button>
           <button className="btn-save-tool result-save" onClick={() => saveImg('result')}>
-            <Activity size={18} style={{ marginRight: '6px' }} /> 결과화면 저장
+            <Activity size={18} style={{ marginRight: '6px' }} /> 결과 리포트 이미지 저장
           </button>
         </div>
       </div>
