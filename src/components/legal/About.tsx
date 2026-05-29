@@ -1,5 +1,5 @@
 import React from 'react';
-import { ChevronLeft, Info, CheckCircle, ShieldAlert, Zap, Layout, FileBarChart } from 'lucide-react';
+import { ChevronLeft, CheckCircle, ShieldAlert, Zap, Layout, FileBarChart } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const About: React.FC = () => {

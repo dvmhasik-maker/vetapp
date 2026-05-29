@@ -16,10 +16,6 @@ const Contact: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (FORMSPREE_ID === "YOUR_FORM_ID_HERE") {
-      alert("Formspree ID가 설정되지 않았습니다. 개발자에게 문의하세요.");
-      return;
-    }
 
     setStatus('sending');
 
