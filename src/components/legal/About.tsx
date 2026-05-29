@@ -1,5 +1,5 @@
 import React from 'react';
-import { ChevronLeft, Info, CheckCircle, ShieldAlert } from 'lucide-react';
+import { ChevronLeft, Info, CheckCircle, ShieldAlert, Zap, Layout, FileBarChart } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const About: React.FC = () => {
@@ -11,61 +11,179 @@ const About: React.FC = () => {
         </Link>
       </div>
 
+      <div className="about-hero">
+        <div className="hero-icon-wrapper">🥣</div>
+        <h1>VETAPP 소개</h1>
+        <p>수의사를 위한 스마트 임상 지원 플랫폼</p>
+      </div>
+
       <div className="tool-card-container">
-        <div className="tool-card-title flex items-center gap-2">
-          <Info size={20} className="text-blue-500" /> 서비스 소개
-        </div>
-        
         <div className="prose-content">
-          <section className="mb-8">
-            <h2 className="text-xl font-bold mb-4">VETAPP: 수의사를 위한 스마트 임상 지원 플랫폼</h2>
-            <p className="text-slate-600 leading-relaxed mb-4">
-              VETAPP은 바쁜 임상 현장에서 수의사 및 수의학도들이 빠르고 정확한 의사결정을 내릴 수 있도록 돕는 디지털 툴킷입니다. 
-              최신 수의학 가이드라인을 기반으로 복잡한 계산과 진단 프로토콜을 시각화하여 제공합니다.
+          <section className="about-section">
+            <div className="section-header">
+              <Zap size={20} className="text-blue-500" />
+              <h3>우리의 미션</h3>
+            </div>
+            <p>
+              VETAPP은 복잡하고 반복적인 수의학적 계산과 진단 과정을 단순화하여, 
+              수의사가 오직 환자의 건강과 치료에만 집중할 수 있는 환경을 만듭니다. 
+              최신 가이드라인을 데이터화하여 임상 현장의 효율성을 극대화합니다.
             </p>
           </section>
 
-          <section className="mb-8">
-            <h3 className="text-lg font-bold mb-4 flex items-center gap-2">
-              <CheckCircle size={18} className="text-green-500" /> 주요 특징
-            </h3>
-            <ul className="space-y-3 text-slate-600">
-              <li className="flex gap-2">
-                <span className="font-bold text-blue-500">•</span>
-                <span><strong>정밀 계산기:</strong> 수액 속도, 사료량, 약물 용량 등 오차가 없어야 할 필수 수치 계산 지원</span>
-              </li>
-              <li className="flex gap-2">
-                <span className="font-bold text-blue-500">•</span>
-                <span><strong>진단 보조:</strong> 쿠싱, 심초음파 등 복잡한 진단 기준을 단계별로 분석</span>
-              </li>
-              <li className="flex gap-2">
-                <span className="font-bold text-blue-500">•</span>
-                <span><strong>리포트 생성:</strong> 분석 결과를 이미지로 저장하여 보호자 상담 및 차트에 활용 가능</span>
-              </li>
-              <li className="flex gap-2">
-                <span className="font-bold text-blue-500">•</span>
-                <span><strong>반응형 디자인:</strong> PC와 모바일 어디서든 최적화된 화면으로 즉시 사용</span>
-              </li>
+          <div className="features-grid">
+            <div className="feature-item">
+              <Layout size={24} className="text-indigo-500" />
+              <h4>직관적 UI</h4>
+              <p>모바일과 PC 어디서든 즉시 사용 가능한 최적화된 인터페이스</p>
+            </div>
+            <div className="feature-item">
+              <FileBarChart size={24} className="text-green-500" />
+              <h4>데이터 기반</h4>
+              <p>Ettinger, AAHA 등 공인된 학술적 가이드라인 기반의 연산 로직</p>
+            </div>
+          </div>
+
+          <section className="about-section mt-6">
+            <div className="section-header">
+              <CheckCircle size={20} className="text-blue-500" />
+              <h3>핵심 기능</h3>
+            </div>
+            <ul className="feature-list">
+              <li><strong>정밀 계산:</strong> 수액 속도, 칼륨 보충량, 일일 에너지 요구량(DER) 자동 산출</li>
+              <li><strong>진단 보조:</strong> 쿠싱, 심초음파 지표 등 단계별 체크리스트 및 분석</li>
+              <li><strong>스마트 리포트:</strong> 상담용 이미지 저장 기능을 통해 보호자 신뢰도 향상</li>
             </ul>
           </section>
 
-          <section className="p-4 bg-amber-50 border border-amber-200 rounded-xl">
-            <h3 className="text-amber-800 font-bold mb-2 flex items-center gap-2">
-              <ShieldAlert size={18} /> 중요 면책 조항
-            </h3>
-            <p className="text-sm text-amber-700 leading-relaxed">
-              본 서비스에서 제공하는 모든 계산 결과와 정보는 공인된 수의학 텍스트 및 가이드라인을 기반으로 하지만, 
-              개별 환자의 임상 상태는 매우 다양할 수 있습니다. <strong>최종적인 진단과 처방에 대한 책임은 해당 환자를 담당하는 수의사 본인에게 있으며</strong>, 
-              VETAPP은 참고 도구로서의 역할만을 수행합니다.
+          <section className="disclaimer-box">
+            <div className="disclaimer-header">
+              <ShieldAlert size={18} />
+              <span>중요 고지 및 면책 사항</span>
+            </div>
+            <p>
+              본 서비스에서 제공하는 모든 결과는 의학적 참고용입니다. 
+              환자의 개별적인 특이 사항과 임상 증상을 종합적으로 고려한 최종적인 의학적 결정은 
+              반드시 <strong>담당 수의사의 전문적인 판단</strong>하에 이루어져야 합니다.
             </p>
           </section>
         </div>
       </div>
 
       <style>{`
-        .prose-content h2 { color: #0f172a; margin-top: 1.5rem; }
-        .prose-content h3 { color: #1e293b; margin-top: 1.25rem; }
-        .prose-content p { margin-bottom: 1rem; color: #475569; }
+        .about-hero {
+          text-align: center;
+          padding: 2rem 1rem 3rem;
+        }
+        .hero-icon-wrapper {
+          font-size: 3rem;
+          margin-bottom: 1rem;
+        }
+        .about-hero h1 {
+          font-size: 1.75rem;
+          font-weight: 800;
+          color: #0f172a;
+          margin-bottom: 0.5rem;
+        }
+        .about-hero p {
+          font-size: 1rem;
+          color: #64748b;
+          font-weight: 500;
+        }
+
+        .about-section {
+          margin-bottom: 2rem;
+        }
+        .section-header {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          margin-bottom: 1rem;
+        }
+        .section-header h3 {
+          font-size: 1.1rem;
+          font-weight: 700;
+          color: #1e293b;
+          margin: 0;
+        }
+        .prose-content p {
+          font-size: 0.95rem;
+          line-height: 1.7;
+          color: #475569;
+        }
+
+        .features-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 16px;
+          margin: 2rem 0;
+        }
+        .feature-item {
+          background: #f8fafc;
+          padding: 1.25rem;
+          border-radius: 12px;
+          border: 1px solid #e2e8f0;
+        }
+        .feature-item h4 {
+          font-size: 1rem;
+          font-weight: 700;
+          color: #1e293b;
+          margin: 10px 0 6px;
+        }
+        .feature-item p {
+          font-size: 0.85rem;
+          margin: 0;
+          line-height: 1.5;
+        }
+
+        .feature-list {
+          list-style: none;
+          padding: 0;
+        }
+        .feature-list li {
+          position: relative;
+          padding-left: 1.5rem;
+          margin-bottom: 0.75rem;
+          font-size: 0.9rem;
+          color: #475569;
+          line-height: 1.6;
+        }
+        .feature-list li::before {
+          content: "•";
+          position: absolute;
+          left: 0.5rem;
+          color: #3b82f6;
+          font-weight: bold;
+        }
+
+        .disclaimer-box {
+          margin-top: 3rem;
+          background: #fffbeb;
+          border: 1px solid #fef3c7;
+          border-radius: 14px;
+          padding: 1.25rem;
+        }
+        .disclaimer-header {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          color: #92400e;
+          font-weight: 800;
+          font-size: 0.9rem;
+          margin-bottom: 10px;
+        }
+        .disclaimer-box p {
+          font-size: 0.85rem;
+          color: #b45309;
+          margin: 0;
+          line-height: 1.6;
+        }
+
+        @media (max-width: 640px) {
+          .features-grid { grid-template-columns: 1fr; }
+          .about-hero { padding: 1.5rem 1rem 2rem; }
+          .about-hero h1 { font-size: 1.5rem; }
+        }
       `}</style>
     </div>
   );
