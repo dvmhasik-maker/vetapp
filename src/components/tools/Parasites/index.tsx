@@ -1,5 +1,5 @@
 import React from 'react';
-import { ChevronLeft, Camera, ShieldAlert, Info } from 'lucide-react';
+import { ChevronLeft, ShieldAlert, Info } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useParasitesLogic } from './useParasitesLogic';
 import { parasiteData } from './data';
@@ -90,12 +90,6 @@ const Parasites: React.FC = () => {
                 <li>인수공통감염 유의: 접촉 시 위생 장갑 착용 권장.</li>
               </ul>
             </div>
-          </div>
-
-          <div className="action-row">
-            <button className="btn-save-refined" onClick={saveResultImg}>
-              <Camera size={18} /> 결과 화면 저장
-            </button>
           </div>
           
           <div className="footer-ref">
