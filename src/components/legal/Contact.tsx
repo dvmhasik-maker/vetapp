@@ -165,7 +165,7 @@ const Contact: React.FC = () => {
           margin-top: 0.5rem; padding: 16px; border-radius: 12px; border: none;
           background: #0f172a; color: #fff; font-weight: 700; font-size: 1rem;
           display: flex; align-items: center; justify-content: center; gap: 10px;
-          cursor: pointer; transition: all 0.2s;
+          cursor: pointer; transition: all 0.2s; white-space: nowrap;
         }
         .submit-btn-refined:hover:not(:disabled) { background: #1e293b; transform: translateY(-1px); }
         .submit-btn-refined:disabled { opacity: 0.7; cursor: not-allowed; }
