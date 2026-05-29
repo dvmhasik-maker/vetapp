@@ -9,6 +9,12 @@ import Echocardiography from './components/tools/Echocardiography/index';
 import Poisoning from './components/tools/Poisoning/index';
 import Cushing from './components/tools/Cushing/index';
 
+// Legal & Static Pages
+import About from './components/legal/About';
+import Privacy from './components/legal/Privacy';
+import Terms from './components/legal/Terms';
+import Contact from './components/legal/Contact';
+
 function App() {
   return (
     <Router>
@@ -22,6 +28,12 @@ function App() {
         <Route path="/echocardiography" element={<Echocardiography />} />
         <Route path="/poisoning" element={<Poisoning />} />
         <Route path="/cushing" element={<Cushing />} />
+
+        {/* Legal & Static Routes */}
+        <Route path="/about" element={<About />} />
+        <Route path="/privacy" element={<Privacy />} />
+        <Route path="/terms" element={<Terms />} />
+        <Route path="/contact" element={<Contact />} />
       </Routes>
     </Router>
   );

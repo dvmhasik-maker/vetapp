@@ -110,9 +110,10 @@ const Dashboard: React.FC = () => {
       <footer className="main-footer">
         <div className="footer-content">
           <div className="footer-links">
-            <a href="#about">서비스 소개</a>
-            <a href="#privacy">개인정보처리방침</a>
-            <a href="#terms">이용약관</a>
+            <Link to="/about">서비스 소개</Link>
+            <Link to="/privacy">개인정보처리방침</Link>
+            <Link to="/terms">이용약관</Link>
+            <Link to="/contact">문의하기</Link>
           </div>
           <div className="footer-info">
             <p>&copy; 2026 VETAPP. All rights reserved.</p>

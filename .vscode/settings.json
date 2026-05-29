@@ -1,0 +1,8 @@
+{
+    "chat.tools.terminal.autoApprove": {
+        "/^cd /workspaces/Vetapp && git status --short && git branch --show-current && git remote -v$/": {
+            "approve": true,
+            "matchCommandLine": true
+        }
+    }
+}
