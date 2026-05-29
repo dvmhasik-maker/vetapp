@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChevronLeft, Mail, MessageCircle, Send, Clock, CheckCircle2, AlertCircle, Loader2 } from 'lucide-react';
+import { ChevronLeft, Send, Clock, CheckCircle2, AlertCircle, Loader2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Contact: React.FC = () => {
@@ -135,24 +135,7 @@ const Contact: React.FC = () => {
 
         {/* Info Sidebar */}
         <div className="contact-info-sidebar">
-          <div className="info-card">
-            <div className="info-item">
-              <div className="info-icon"><Mail size={20} /></div>
-              <div className="info-text">
-                <label>Direct Email</label>
-                <p>support@vetapp.com</p>
-              </div>
-            </div>
-            <div className="info-item">
-              <div className="info-icon"><MessageCircle size={20} /></div>
-              <div className="info-text">
-                <label>Channel Talk</label>
-                <p>준비 중입니다</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="support-notice">
+          <div className="support-notice no-margin-top">
             <div className="notice-header">
               <Clock size={16} />
               <span>운영 안내</span>
@@ -201,13 +184,8 @@ const Contact: React.FC = () => {
 
         .error-note { display: flex; align-items: center; gap: 8px; color: #ef4444; font-size: 0.85rem; margin-top: -0.5rem; }
 
-        .info-card { background: #fff; border-radius: 16px; border: 1px solid #e2e8f0; padding: 24px; display: flex; flex-direction: column; gap: 24px; }
-        .info-item { display: flex; gap: 16px; align-items: center; }
-        .info-icon { width: 44px; height: 44px; border-radius: 12px; background: #f0f7ff; color: #3b82f6; display: flex; align-items: center; justify-content: center; }
-        .info-text label { display: block; font-size: 0.65rem; font-weight: 800; color: #94a3b8; text-transform: uppercase; margin-bottom: 2px; }
-        .info-text p { font-size: 0.9rem; font-weight: 700; color: #1e293b; margin: 0; }
-
-        .support-notice { margin-top: 16px; background: #f8fafc; border-radius: 12px; padding: 16px; border: 1px solid #e2e8f0; }
+        .support-notice { background: #f8fafc; border-radius: 12px; padding: 16px; border: 1px solid #e2e8f0; }
+        .support-notice.no-margin-top { margin-top: 0; }
         .notice-header { display: flex; align-items: center; gap: 8px; font-size: 0.75rem; font-weight: 800; color: #64748b; margin-bottom: 8px; }
         .support-notice p { font-size: 0.85rem; color: #475569; margin: 0; line-height: 1.5; }
 
