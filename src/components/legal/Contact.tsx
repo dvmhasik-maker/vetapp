@@ -1,11 +1,44 @@
-import React from 'react';
-import { ChevronLeft, Mail, MessageCircle, Send, MapPin, Clock } from 'lucide-react';
+import React, { useState } from 'react';
+import { ChevronLeft, Mail, MessageCircle, Send, Clock, CheckCircle2, AlertCircle, Loader2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Contact: React.FC = () => {
-  const handleSubmit = (e: React.FormEvent) => {
+  // --- [설정] 발급받은 Formspree ID를 여기에 입력하세요 ---
+  const FORMSPREE_ID = "mdajbbee"; 
+  // --------------------------------------------------
+
+  const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
+  const [formData, setFormData] = useState({
+    email: '',
+    type: '기능 제안 및 개선',
+    message: ''
+  });
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    alert('문의가 성공적으로 접수되었습니다. 최대한 빠른 시일 내에 답변드리겠습니다.');
+    if (FORMSPREE_ID === "YOUR_FORM_ID_HERE") {
+      alert("Formspree ID가 설정되지 않았습니다. 개발자에게 문의하세요.");
+      return;
+    }
+
+    setStatus('sending');
+
+    try {
+      const response = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
+
+      if (response.ok) {
+        setStatus('success');
+        setFormData({ email: '', type: '기능 제안 및 개선', message: '' });
+      } else {
+        setStatus('error');
+      }
+    } catch (error) {
+      setStatus('error');
+    }
   };
 
   return (
@@ -28,33 +61,76 @@ const Contact: React.FC = () => {
             <Send size={18} className="text-blue-500" /> 문의 양식
           </div>
           
-          <form onSubmit={handleSubmit} className="contact-form">
-            <div className="form-group">
-              <label>이메일 주소</label>
-              <input type="email" placeholder="example@email.com" required />
+          {status === 'success' ? (
+            <div className="success-message-area">
+              <CheckCircle2 size={48} className="text-green-500 mb-4" />
+              <h3>문의가 성공적으로 전송되었습니다!</h3>
+              <p>소중한 의견 감사드립니다. 최대한 빨리 확인하여 답변드리겠습니다.</p>
+              <button onClick={() => setStatus('idle')} className="btn-back-to-form">새로운 문의 작성</button>
             </div>
-            
-            <div className="form-group">
-              <label>문의 유형</label>
-              <select>
-                <option>기능 제안 및 개선</option>
-                <option>버그 제보</option>
-                <option>데이터 오류 신고</option>
-                <option>광고 및 제휴 문의</option>
-                <option>기타</option>
-              </select>
-            </div>
+          ) : (
+            <form onSubmit={handleSubmit} className="contact-form">
+              <div className="form-group">
+                <label>이메일 주소</label>
+                <input 
+                  type="email" 
+                  placeholder="example@email.com" 
+                  value={formData.email}
+                  onChange={(e) => setFormData({...formData, email: e.target.value})}
+                  required 
+                  disabled={status === 'sending'}
+                />
+              </div>
+              
+              <div className="form-group">
+                <label>문의 유형</label>
+                <select 
+                  value={formData.type}
+                  onChange={(e) => setFormData({...formData, type: e.target.value})}
+                  disabled={status === 'sending'}
+                >
+                  <option>기능 제안 및 개선</option>
+                  <option>버그 제보</option>
+                  <option>데이터 오류 신고</option>
+                  <option>광고 및 제휴 문의</option>
+                  <option>기타</option>
+                </select>
+              </div>
 
-            <div className="form-group">
-              <label>상세 내용</label>
-              <textarea rows={6} placeholder="궁금하신 점이나 제안하고 싶은 내용을 자유롭게 작성해 주세요."></textarea>
-            </div>
+              <div className="form-group">
+                <label>상세 내용</label>
+                <textarea 
+                  rows={6} 
+                  placeholder="궁금하신 점이나 제안하고 싶은 내용을 자유롭게 작성해 주세요."
+                  value={formData.message}
+                  onChange={(e) => setFormData({...formData, message: e.target.value})}
+                  required
+                  disabled={status === 'sending'}
+                ></textarea>
+              </div>
 
-            <button type="submit" className="submit-btn-refined">
-              <span>문의하기</span>
-              <Send size={18} />
-            </button>
-          </form>
+              {status === 'error' && (
+                <div className="error-note">
+                  <AlertCircle size={16} />
+                  <span>전송 중 오류가 발생했습니다. 다시 시도해 주세요.</span>
+                </div>
+              )}
+
+              <button type="submit" className="submit-btn-refined" disabled={status === 'sending'}>
+                {status === 'sending' ? (
+                  <>
+                    <Loader2 size={18} className="animate-spin" />
+                    <span>보내는 중...</span>
+                  </>
+                ) : (
+                  <>
+                    <span>문의하기</span>
+                    <Send size={18} />
+                  </>
+                )}
+              </button>
+            </form>
+          )}
         </div>
 
         {/* Info Sidebar */}
@@ -112,7 +188,18 @@ const Contact: React.FC = () => {
           display: flex; align-items: center; justify-content: center; gap: 10px;
           cursor: pointer; transition: all 0.2s;
         }
-        .submit-btn-refined:hover { background: #1e293b; transform: translateY(-1px); }
+        .submit-btn-refined:hover:not(:disabled) { background: #1e293b; transform: translateY(-1px); }
+        .submit-btn-refined:disabled { opacity: 0.7; cursor: not-allowed; }
+
+        .animate-spin { animation: spin 1s linear infinite; }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        .success-message-area { text-align: center; padding: 3rem 1rem; }
+        .success-message-area h3 { font-size: 1.25rem; font-weight: 800; color: #0f172a; margin-bottom: 0.75rem; }
+        .success-message-area p { color: #64748b; font-size: 0.95rem; margin-bottom: 2rem; line-height: 1.6; }
+        .btn-back-to-form { padding: 10px 20px; border-radius: 10px; border: 1px solid #e2e8f0; background: #fff; color: #475569; font-weight: 700; cursor: pointer; }
+
+        .error-note { display: flex; align-items: center; gap: 8px; color: #ef4444; font-size: 0.85rem; margin-top: -0.5rem; }
 
         .info-card { background: #fff; border-radius: 16px; border: 1px solid #e2e8f0; padding: 24px; display: flex; flex-direction: column; gap: 24px; }
         .info-item { display: flex; gap: 16px; align-items: center; }
