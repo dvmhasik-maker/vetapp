@@ -16,10 +16,12 @@ const CushingResultView: React.FC<CushingResultViewProps> = ({ result, resultRef
 
         {/* 환자 요약 */}
         <div className="patient-bar-cushing">
-          <span>이름: <strong>{result.patientInfo.name || '-'}</strong></span>
-          <span>품종: {result.patientInfo.breed || '-'}</span>
-          <span>성별: {result.patientInfo.sex || '-'}</span>
-          <span>나이: {result.patientInfo.age || '-'}</span>
+          <div className="pb-info">
+            <span>이름: <strong>{result.patientInfo.name || '-'}</strong></span>
+            <span>품종: {result.patientInfo.breed || '-'}</span>
+            <span>성별: {result.patientInfo.sex || '-'}</span>
+            <span>나이: {result.patientInfo.age || '-'}</span>
+          </div>
           <span className="date-poison">{result.date}</span>
         </div>
 
@@ -65,28 +67,29 @@ const CushingResultView: React.FC<CushingResultViewProps> = ({ result, resultRef
         .patient-bar-cushing {
           background: #f0f7ff;
           border-left: 4px solid #3498db;
-          border-radius: 8px;
+          border-radius: 10px;
           padding: 12px 16px;
           margin-bottom: 1rem;
           font-size: 0.85rem;
           display: flex;
-          flex-wrap: wrap;
-          gap: 6px 20px;
+          justify-content: space-between;
+          align-items: center;
         }
+        .pb-info { display: flex; flex-wrap: wrap; gap: 4px 12px; }
         .patient-bar-cushing strong { color: #1d4ed8; }
-        .date-poison { margin-left: auto; color: #94a3b8; }
+        .date-poison { color: #94a3b8; font-size: 0.75rem; white-space: nowrap; }
 
         .input-summary-cushing {
           background: #f8fafc;
           border-radius: 12px;
-          padding: 16px;
+          padding: 14px;
           margin-bottom: 1.5rem;
           border: 1px solid #e2e8f0;
         }
         .summary-row {
           display: flex;
           justify-content: space-between;
-          padding: 8px 0;
+          padding: 10px 0;
           border-bottom: 1px solid #f1f5f9;
         }
         .summary-row:last-child { border-bottom: none; }
@@ -99,21 +102,35 @@ const CushingResultView: React.FC<CushingResultViewProps> = ({ result, resultRef
           padding: 20px;
           border-left: 6px solid;
           margin-bottom: 1.5rem;
+          box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
         }
-        .rb-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+        .rb-header { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
         .rb-icon { font-size: 1.5rem; }
-        .rb-label { font-size: 1.1rem; font-weight: 800; }
+        .rb-label { font-size: 1.05rem; font-weight: 800; line-height: 1.3; }
         
-        .rb-actions { margin-left: 1.5rem; }
-        .rb-actions li { margin-bottom: 8px; font-size: 0.95rem; font-weight: 500; line-height: 1.5; }
+        .rb-actions { margin-left: 1.4rem; padding: 0; list-style-type: none; }
+        .rb-actions li { 
+          margin-bottom: 10px; 
+          font-size: 0.9rem; 
+          font-weight: 600; 
+          line-height: 1.4;
+          position: relative;
+        }
+        .rb-actions li::before {
+          content: '•';
+          position: absolute;
+          left: -1.2rem;
+          color: currentColor;
+          opacity: 0.6;
+        }
         
-        .rb-note { margin-top: 15px; font-size: 0.75rem; opacity: 0.8; font-style: italic; border-top: 1px dashed rgba(0,0,0,0.1); padding-top: 10px; }
+        .rb-note { margin-top: 15px; font-size: 0.75rem; opacity: 0.7; font-style: italic; border-top: 1px dashed rgba(0,0,0,0.1); padding-top: 10px; }
 
-        .theme-green { background: #ecfdf5; border-color: #10b981; color: #064e3b; }
-        .theme-orange { background: #fffaf3; border-color: #f59e0b; color: #78350f; }
-        .theme-red { background: #fef2f2; border-color: #ef4444; color: #7f1d1d; }
-        .theme-purple { background: #f5f3ff; border-color: #8b5cf6; color: #4c1d95; }
-        .theme-yellow { background: #fefbeb; border-color: #eab308; color: #713f12; }
+        .theme-green { background: #f0fdf4; border-color: #22c55e; color: #166534; }
+        .theme-orange { background: #fffbeb; border-color: #f59e0b; color: #92400e; }
+        .theme-red { background: #fef2f2; border-color: #ef4444; color: #991b1b; }
+        .theme-purple { background: #f5f3ff; border-color: #8b5cf6; color: #5b21b6; }
+        .theme-yellow { background: #fefce8; border-color: #eab308; color: #854d0e; }
 
         .ref-label-poison {
           margin-top: 25px;
@@ -126,8 +143,11 @@ const CushingResultView: React.FC<CushingResultViewProps> = ({ result, resultRef
         }
 
         @media (max-width: 640px) {
-          .summary-row { flex-direction: column; text-align: left; gap: 4px; }
+          .patient-bar-cushing { flex-direction: column; align-items: flex-start; gap: 8px; }
+          .summary-row { flex-direction: column; text-align: left; gap: 4px; padding: 12px 0; }
           .summary-row .value { text-align: left; }
+          .rb-label { font-size: 1rem; }
+          .rb-actions li { font-size: 0.85rem; }
         }
       `}</style>
     </div>

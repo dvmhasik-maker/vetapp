@@ -82,7 +82,7 @@ export const useFluidLogic = () => {
       {
         bagName: '100mL 생리식염수 (0.9% NaCl)',
         volume: 100,
-        addAmount: kTarget === 0 ? '0.0' : ((kTarget * 100 / 1000) / mEqPerMl).toFixed(2),
+        addAmount: kTarget === 0 ? '0.0' : ((kTarget * 100 / 1000) / mEqPerMl).toFixed(1),
         totalK: kTarget === 0 ? '0.0' : (kTarget * 100 / 1000).toFixed(1),
         isLRS: false
       },

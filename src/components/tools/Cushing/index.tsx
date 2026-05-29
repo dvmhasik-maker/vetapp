@@ -39,14 +39,14 @@ const Cushing = () => {
           onClick={() => handleModeSwitch('acth')}
         >
           ACTH Stimulation
-          <small style={{ display: 'block', fontSize: '0.7rem', fontWeight: 400 }}>Post Cortisol 기준</small>
+          <small>Post Cortisol 기준</small>
         </button>
         <button 
           className={`tab-btn-tool ${mode === 'prepill' ? 'active' : ''}`}
           onClick={() => handleModeSwitch('prepill')}
         >
           Pre-Pill Cortisol
-          <small style={{ display: 'block', fontSize: '0.7rem', fontWeight: 400 }}>복약 직전 채혈 기준</small>
+          <small>복약 직전 채혈 기준</small>
         </button>
       </div>
 
@@ -83,13 +83,13 @@ const Cushing = () => {
 
         .tab-container-tool {
           display: flex;
-          gap: 12px;
+          gap: 10px;
           margin-bottom: 1.5rem;
         }
         .tab-btn-tool {
           flex: 1;
-          padding: 16px 12px;
-          font-size: 1.05rem;
+          padding: 14px 10px;
+          font-size: 1rem;
           font-weight: 800;
           background: #fff;
           color: #64748b;
@@ -107,8 +107,7 @@ const Cushing = () => {
           background: #fff;
           border-color: #3498db;
           color: #1d4ed8;
-          box-shadow: 0 4px 15px rgba(52, 152, 219, 0.15);
-          transform: translateY(-2px);
+          box-shadow: 0 4px 12px rgba(52, 152, 219, 0.12);
         }
         .tab-btn-tool:hover:not(.active) {
           border-color: #cbd5e1;
@@ -116,10 +115,11 @@ const Cushing = () => {
         }
         .tab-btn-tool small {
           display: block;
-          font-size: 0.75rem;
+          font-size: 0.7rem;
           font-weight: 500;
-          margin-top: 4px;
+          margin-top: 2px;
           opacity: 0.8;
+          word-break: keep-all;
         }
         .tab-btn-tool.active small { color: #3b82f6; }
 
@@ -137,7 +137,7 @@ const Cushing = () => {
           border: none;
           border-radius: 12px;
           font-weight: 700;
-          font-size: 1.05rem;
+          font-size: 1rem;
           cursor: pointer;
           display: flex;
           align-items: center;
@@ -150,11 +150,12 @@ const Cushing = () => {
         .btn-save-refined:hover {
           transform: translateY(-2px);
           box-shadow: 0 6px 20px rgba(16, 185, 129, 0.3);
-          filter: brightness(1.05);
         }
 
-        @media (max-width: 768px) {
-          .tab-container-tool { flex-direction: column; }
+        @media (max-width: 640px) {
+          .tab-btn-tool { padding: 12px 6px; font-size: 0.85rem; border-radius: 12px; }
+          .tab-btn-tool small { font-size: 0.6rem; }
+          .btn-save-refined { font-size: 0.95rem; }
         }
       `}</style>
     </div>

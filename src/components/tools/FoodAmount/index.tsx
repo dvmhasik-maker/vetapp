@@ -47,28 +47,26 @@ const FoodAmount: React.FC = () => {
         {/* Input Column */}
         <div className="input-col">
           <div className="tool-card-container">
-            <div className="tool-card-title">1. 기본 프로필 입력</div>
+            <div className="tool-card-title">1. 반려동물 프로필</div>
 
-            <div className="mb-4">
-              <label className="input-label-food">대상 축종</label>
-              <div className="species-grid-food">
-                <button 
-                  className={`species-btn-food ${species === 'dog' ? 'active' : ''}`}
-                  onClick={() => setSpecies('dog')}
-                >
-                  <Dog size={18} /> <span>강아지</span>
-                </button>
-                <button 
-                  className={`species-btn-food ${species === 'cat' ? 'active' : ''}`}
-                  onClick={() => setSpecies('cat')}
-                >
-                  <Cat size={18} /> <span>고양이</span>
-                </button>
-              </div>
+            {/* 축종 선택을 탭 스타일로 개선 */}
+            <div className="species-tabs-food">
+              <button 
+                className={`species-tab ${species === 'dog' ? 'active' : ''}`}
+                onClick={() => setSpecies('dog')}
+              >
+                <Dog size={20} /> <span>강아지</span>
+              </button>
+              <button 
+                className={`species-tab ${species === 'cat' ? 'active' : ''}`}
+                onClick={() => setSpecies('cat')}
+              >
+                <Cat size={20} /> <span>고양이</span>
+              </button>
             </div>
 
-            <div className="mb-4">
-              <label className="input-label-food">반려동물 이름</label>
+            <div className="input-group-food">
+              <label className="input-label-food">이름</label>
               <input 
                 type="text" 
                 value={petName} 
@@ -78,9 +76,9 @@ const FoodAmount: React.FC = () => {
               />
             </div>
 
-            <div className="patient-grid">
-              <div>
-                <label className="input-label-food">연령</label>
+            <div className="patient-grid-food">
+              <div className="input-group-food no-margin">
+                <label className="input-label-food">나이</label>
                 <input 
                   type="text" 
                   value={petAge} 
@@ -89,13 +87,13 @@ const FoodAmount: React.FC = () => {
                   className="input-field-food"
                 />
               </div>
-              <div>
+              <div className="input-group-food no-margin">
                 <label className="input-label-food">체중 (kg)</label>
                 <input 
                   type="number" 
                   value={petWeight} 
                   onChange={(e) => setPetWeight(e.target.value)}
-                  placeholder="0.00" 
+                  placeholder="0.0" 
                   className="input-field-food"
                 />
               </div>
@@ -103,52 +101,50 @@ const FoodAmount: React.FC = () => {
           </div>
 
           <div className="tool-card-container">
-            <div className="tool-card-title">2. 임상 상태 및 사료 매칭</div>
+            <div className="tool-card-title">2. 임상 상태 및 사료 정보</div>
 
-            <div className="space-y-4-food">
-              <div>
-                <label className="input-label-food">반려동물 현재 상태</label>
-                <select 
-                  className="select-field-food"
-                  value={petStatus}
-                  onChange={(e) => setPetStatus(parseFloat(e.target.value))}
-                >
-                  {statusConfig[species].map((s, idx) => (
-                    <option key={idx} value={s.val}>{s.text} (계수: {s.val})</option>
-                  ))}
-                </select>
-              </div>
+            <div className="input-group-food">
+              <label className="input-label-food">임상 상태 (Status Factor)</label>
+              <select 
+                className="select-field-food"
+                value={petStatus}
+                onChange={(e) => setPetStatus(parseFloat(e.target.value))}
+              >
+                {statusConfig[species].map((s, idx) => (
+                  <option key={idx} value={s.val}>{s.text} ({s.val})</option>
+                ))}
+              </select>
+            </div>
 
-              <div>
-                <label className="input-label-food">제조 회사 (Brand)</label>
-                <select 
-                  className="select-field-food"
-                  value={brand}
-                  onChange={(e) => setBrand(e.target.value)}
-                >
-                  <option value="royal_canin">로얄캐닌 (Royal Canin)</option>
-                  <option value="hills">힐스 (Hill's)</option>
-                  <option value="healmedix">힐메딕스 (Healmedix)</option>
-                  <option value="velixer">벨릭서 (Velixer)</option>
-                </select>
-              </div>
+            <div className="input-group-food">
+              <label className="input-label-food">사료 제조사</label>
+              <select 
+                className="select-field-food"
+                value={brand}
+                onChange={(e) => setBrand(e.target.value)}
+              >
+                <option value="royal_canin">로얄캐닌 (Royal Canin)</option>
+                <option value="hills">힐스 (Hill's)</option>
+                <option value="healmedix">힐메딕스 (Healmedix)</option>
+                <option value="velixer">벨릭서 (Velixer)</option>
+              </select>
+            </div>
 
-              <div>
-                <label className="input-label-food">선택 사료 제품명</label>
-                <select 
-                  className="select-field-food"
-                  value={productKcal}
-                  onChange={(e) => setProductKcal(parseFloat(e.target.value))}
-                >
-                  {brandProductPreset[species][brand]?.map((p, idx) => (
-                    <option key={idx} value={p.kcal}>{p.name} [{p.kcal.toFixed(2)} kcal/g]</option>
-                  ))}
-                </select>
-              </div>
+            <div className="input-group-food">
+              <label className="input-label-food">사료 제품명</label>
+              <select 
+                className="select-field-food"
+                value={productKcal}
+                onChange={(e) => setProductKcal(parseFloat(e.target.value))}
+              >
+                {brandProductPreset[species][brand]?.map((p, idx) => (
+                  <option key={idx} value={p.kcal}>{p.name} [{p.kcal.toFixed(2)} kcal/g]</option>
+                ))}
+              </select>
             </div>
 
             <button onClick={calculateNutrition} className="btn-calculate-food">
-              <Calculator size={20} /> 처방 급여 가이드라인 산출
+              <Calculator size={20} /> 급여 가이드라인 생성하기
             </button>
           </div>
         </div>
@@ -157,9 +153,9 @@ const FoodAmount: React.FC = () => {
         <div className="result-col-food" ref={resultColRef}>
           {!result ? (
             <div className="result-placeholder-food">
-              <div className="placeholder-icon">📊</div>
-              <h3>급여 시뮬레이션 대기 중</h3>
-              <p>환자 프로필 정보 및 급여 제품을 고르신 후 산출 버튼을 실행해 주십시오.</p>
+              <div className="placeholder-icon">📋</div>
+              <h3>급여 설계 준비 완료</h3>
+              <p>환자 정보를 입력하고 버튼을 누르면<br/>정밀 급여량이 산출됩니다.</p>
             </div>
           ) : (
             <div className="result-content-food">
@@ -168,61 +164,64 @@ const FoodAmount: React.FC = () => {
                 
                 <div className="result-header-food">
                   <div className="header-left">
-                    <span className="prescription-badge">Nutritional Prescription</span>
-                    <h2><span className="pet-name-highlight">{result.name}</span> 환자 맞춤형 정밀 급여량 설계표</h2>
+                    <span className="prescription-badge">Dietary Guideline</span>
+                    <h2><span className="pet-name-highlight">{result.name}</span> 맞춤 급여 솔루션</h2>
                   </div>
                   <span className="result-date">{result.date}</span>
                 </div>
 
                 <div className="metrics-grid-food">
                   <div className="metric-box-food">
-                    <span className="box-label">하루 필요 에너지<br/>(DER)</span>
+                    <span className="box-label">일일 필요 열량<br/>(DER)</span>
                     <span className="box-value">{result.der}</span>
                     <span className="box-unit">kcal</span>
                   </div>
                   <div className="metric-box-food">
-                    <span className="box-label">사료 칼로리<br/>밀도</span>
+                    <span className="box-label">사료 에너지<br/>밀도</span>
                     <span className="box-value">{result.kcalPerG}</span>
                     <span className="box-unit">kcal/g</span>
                   </div>
                   <div className="metric-box-food highlight">
                     <span className="box-label highlight">일일 권장<br/>급여량</span>
                     <span className="box-value highlight">{result.foodG}</span>
-                    <span className="box-unit highlight">g / 일</span>
+                    <span className="box-unit highlight">g / day</span>
                   </div>
                 </div>
 
                 <div className="details-list-food">
                   <div className="detail-item-food">
-                    <span className="detail-label">개체 식별 데이터</span>
+                    <span className="detail-label">프로필 요약</span>
                     <span className="detail-value">{result.profile}</span>
                   </div>
                   <div className="detail-item-food">
-                    <span className="detail-label">평가 상태 및 계수</span>
+                    <span className="detail-label">적용 계수</span>
                     <span className="detail-value">{result.status}</span>
                   </div>
                   <div className="detail-item-food">
-                    <span className="detail-label">휴식기 대사량 (RER)</span>
-                    <span className="detail-value">{result.rer} kcal/day</span>
+                    <span className="detail-label">RER (기초대사량)</span>
+                    <span className="detail-value">{result.rer} kcal</span>
                   </div>
                   <div className="detail-item-food">
-                    <span className="detail-label">처방 제품 상세</span>
+                    <span className="detail-label">선택 제품</span>
                     <span className="detail-value">{result.foodInfo}</span>
                   </div>
                   <div className="detail-item-food highlight-row">
-                    <span className="detail-label cup-label">계량 컵 환산<br/><span>(종이컵 약 75g 기준)</span></span>
+                    <div className="detail-label cup-label">
+                      계량컵 환산
+                      <small>종이컵(약 75g) 기준</small>
+                    </div>
                     <span className="detail-value cup-value">{result.cupInfo}</span>
                   </div>
                 </div>
 
                 <div className="nutrition-warning-food">
-                  <Info size={16} />
-                  <p>본 결과는 공식 가이드라인 기반 기준량입니다. 개체 대사 상태 및 환경에 따라 편차가 생길 수 있으므로 주기적으로 체중과 BCS를 체크하며 조절하십시오.</p>
+                  <Info size={16} style={{ flexShrink: 0 }} />
+                  <p>본 결과는 참고 수치입니다. 반려동물의 실제 체중 변화에 따라 급여량을 조절해 주세요.</p>
                 </div>
               </div>
 
               <button onClick={exportToImage} className="btn-save-food">
-                <Camera size={18} /> 이미지 저장
+                <Camera size={18} /> 설계표 이미지로 저장
               </button>
             </div>
           )}
@@ -236,103 +235,119 @@ const FoodAmount: React.FC = () => {
           gap: 24px;
         }
 
-        .mb-4 { margin-bottom: 1rem; }
-        .input-label-food {
-          display: block;
-          font-size: 0.75rem;
-          font-weight: 700;
-          color: #64748b;
-          margin-bottom: 8px;
+        .species-tabs-food {
+          display: flex;
+          gap: 8px;
+          margin-bottom: 1.5rem;
+          background: #f1f5f9;
+          padding: 4px;
+          border-radius: 12px;
         }
-
-        .species-grid-food {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 12px;
-        }
-        .species-btn-food {
+        .species-tab {
+          flex: 1;
           display: flex;
           align-items: center;
           justify-content: center;
           gap: 8px;
-          padding: 12px;
-          border-radius: 10px;
-          border: 1.5px solid #e2e8f0;
-          background: #f8fafc;
-          font-weight: 600;
+          padding: 10px;
+          border-radius: 9px;
+          border: none;
+          background: transparent;
+          font-weight: 700;
+          color: #64748b;
           cursor: pointer;
-          transition: all 0.2s;
+          transition: all 0.2s ease;
         }
-        .species-btn-food.active {
-          border-color: #3498db;
-          background: #eef2ff;
-          color: #3498db;
+        .species-tab.active {
+          background: #fff;
+          color: #3b82f6;
+          box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .input-group-food { margin-bottom: 1.25rem; }
+        .input-group-food.no-margin { margin-bottom: 0; }
+        
+        .input-label-food {
+          display: block;
+          font-size: 0.8rem;
+          font-weight: 700;
+          color: #475569;
+          margin-bottom: 6px;
+        }
+
+        .patient-grid-food {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 12px;
         }
 
         .input-field-food, .select-field-food {
           width: 100%;
-          padding: 12px;
+          padding: 11px 12px;
           border-radius: 10px;
           border: 1.5px solid #e2e8f0;
-          background: #f8fafc;
+          background: #fff;
           font-size: 0.95rem;
+          color: #1e293b;
           outline: none;
-          transition: border-color 0.2s;
+          transition: all 0.2s;
         }
         .input-field-food:focus, .select-field-food:focus {
-          border-color: #3498db;
-          background: white;
+          border-color: #3b82f6;
+          box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
         }
 
         .btn-calculate-food {
           width: 100%;
-          margin-top: 24px;
+          margin-top: 1rem;
           padding: 16px;
-          background: var(--primary);
+          background: #0f172a;
           color: white;
           border: none;
-          border-radius: 10px;
+          border-radius: 12px;
           font-weight: 700;
           font-size: 1rem;
           cursor: pointer;
           display: flex;
           align-items: center;
           justify-content: center;
-          gap: 10px;
-          transition: transform 0.1s;
+          gap: 8px;
+          transition: all 0.2s;
         }
-        .btn-calculate-food:active { transform: scale(0.98); }
+        .btn-calculate-food:hover { background: #1e293b; transform: translateY(-1px); }
+        .btn-calculate-food:active { transform: translateY(0); }
 
         .result-placeholder-food {
           height: 100%;
+          min-height: 450px;
           display: flex;
           flex-direction: column;
           align-items: center;
           justify-content: center;
-          background: white;
+          background: #fff;
           border-radius: 12px;
           border: 2px dashed #e2e8f0;
-          padding: 40px;
+          padding: 30px;
           text-align: center;
           color: #94a3b8;
         }
-        .placeholder-icon { font-size: 3.5rem; margin-bottom: 16px; }
+        .placeholder-icon { font-size: 3rem; margin-bottom: 12px; opacity: 0.4; }
         .result-placeholder-food h3 { font-size: 1.1rem; color: #475569; margin-bottom: 8px; }
 
         .result-card-food {
-          background: white;
-          border-radius: 12px;
+          background: #fff;
+          border-radius: 16px;
           padding: 24px;
           position: relative;
-          overflow: hidden;
           border: 1px solid #e2e8f0;
-          box-shadow: var(--shadow-sm);
+          box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
         }
         .result-accent-bar {
           position: absolute;
           top: 0; left: 0; right: 0;
           height: 6px;
-          background: #3498db;
+          background: #3b82f6;
+          border-radius: 16px 16px 0 0;
         }
 
         .result-header-food {
@@ -340,89 +355,83 @@ const FoodAmount: React.FC = () => {
           justify-content: space-between;
           align-items: flex-start;
           margin-bottom: 24px;
-          padding-top: 8px;
+          padding-top: 6px;
         }
         .prescription-badge {
           display: inline-block;
-          background: #eef2ff;
-          color: #3498db;
+          background: #eff6ff;
+          color: #1d4ed8;
           font-size: 0.65rem;
           font-weight: 800;
           padding: 4px 10px;
           border-radius: 100px;
           text-transform: uppercase;
-          letter-spacing: 0.05em;
-          margin-bottom: 8px;
+          margin-bottom: 6px;
         }
-        .result-header-food h2 { font-size: 1.25rem; font-weight: 800; color: var(--primary); margin: 0; line-height: 1.4; }
-        .pet-name-highlight { color: #3498db; }
-        .result-date { font-size: 0.75rem; color: #94a3b8; font-weight: 600; }
+        .result-header-food h2 { font-size: 1.2rem; font-weight: 800; color: #0f172a; margin: 0; line-height: 1.3; }
+        .pet-name-highlight { color: #3b82f6; }
+        .result-date { font-size: 0.75rem; color: #94a3b8; white-space: nowrap; }
 
         .metrics-grid-food {
           display: grid;
           grid-template-columns: repeat(3, 1fr);
-          gap: 12px;
+          gap: 10px;
           margin-bottom: 24px;
         }
         .metric-box-food {
           background: #f8fafc;
-          border: 1px solid #e2e8f0;
           border-radius: 12px;
-          padding: 16px 8px;
+          padding: 14px 6px;
           text-align: center;
+          border: 1px solid #f1f5f9;
         }
-        .metric-box-food.highlight {
-          background: #eef2ff;
-          border: 2px solid #c7d2fe;
-        }
-        .box-label { font-size: 0.65rem; font-weight: 700; color: #94a3b8; display: block; margin-bottom: 6px; line-height: 1.4; }
-        .box-label.highlight { color: #3498db; }
-        .box-value { font-size: 1.5rem; font-weight: 900; color: var(--primary); display: block; }
-        .box-value.highlight { color: #4338ca; font-size: 1.8rem; }
-        .box-unit { font-size: 0.75rem; font-weight: 700; color: #64748b; }
+        .metric-box-food.highlight { background: #f0f7ff; border: 1.5px solid #3b82f6; }
+        .box-label { font-size: 0.6rem; font-weight: 700; color: #64748b; display: block; margin-bottom: 4px; }
+        .box-label.highlight { color: #3b82f6; }
+        .box-value { font-size: 1.4rem; font-weight: 800; color: #1e293b; display: block; }
+        .box-value.highlight { color: #1d4ed8; font-size: 1.6rem; }
+        .box-unit { font-size: 0.7rem; font-weight: 600; color: #64748b; }
 
         .details-list-food {
           background: #f8fafc;
           border-radius: 12px;
-          padding: 20px;
+          padding: 16px;
           margin-bottom: 24px;
-          border: 1px solid #f1f5f9;
         }
         .detail-item-food {
           display: flex;
           justify-content: space-between;
-          padding: 10px 0;
+          padding: 8px 0;
           border-bottom: 1px solid #e2e8f0;
         }
         .detail-item-food:last-child { border-bottom: none; }
         .detail-label { font-size: 0.8rem; color: #64748b; font-weight: 600; }
-        .detail-value { font-size: 0.85rem; color: var(--primary); font-weight: 700; text-align: right; }
-        .highlight-row { margin-top: 8px; padding-top: 15px; border-top: 2px solid #e2e8f0; }
-        .cup-label { color: #3498db; font-weight: 800; }
-        .cup-label span { font-weight: 400; font-size: 0.7rem; color: #94a3b8; }
-        .cup-value { font-size: 1.1rem; color: #4338ca; }
+        .detail-value { font-size: 0.85rem; color: #0f172a; font-weight: 700; text-align: right; }
+        .highlight-row { margin-top: 6px; padding-top: 12px; border-top: 1.5px solid #cbd5e1; }
+        .cup-label { color: #1d4ed8; font-weight: 800; font-size: 0.85rem; }
+        .cup-label small { font-weight: 400; font-size: 0.65rem; color: #64748b; display: block; margin-top: 1px; }
+        .cup-value { font-size: 1.15rem; color: #1d4ed8; }
 
         .nutrition-warning-food {
           display: flex;
-          gap: 12px;
+          gap: 10px;
           background: #fffbeb;
-          border: 1px solid #fde68a;
-          border-radius: 12px;
-          padding: 14px;
+          border-radius: 10px;
+          padding: 12px;
           font-size: 0.75rem;
           color: #92400e;
-          line-height: 1.6;
         }
 
         .btn-save-food {
           width: 100%;
-          margin-top: 16px;
+          margin-top: 1rem;
           padding: 14px;
-          background: var(--primary);
+          background: #10b981;
           color: white;
           border: none;
-          border-radius: 10px;
+          border-radius: 12px;
           font-weight: 700;
+          font-size: 0.95rem;
           cursor: pointer;
           display: flex;
           align-items: center;
@@ -432,12 +441,18 @@ const FoodAmount: React.FC = () => {
 
         @media (max-width: 1024px) {
           .layout-grid-food { grid-template-columns: 1fr; }
+          .result-placeholder-food { min-height: 150px; }
         }
 
-        @media (max-width: 768px) {
-          .metrics-grid-food { grid-template-columns: 1fr; }
-          .detail-item-food { flex-direction: column; text-align: left; }
-          .detail-value { text-align: left; margin-top: 4px; }
+        @media (max-width: 640px) {
+          .patient-grid-food { grid-template-columns: 1fr; gap: 0; }
+          .patient-grid-food .input-group-food { margin-bottom: 1.25rem; }
+          .patient-grid-food .input-group-food:last-child { margin-bottom: 0; }
+          .metrics-grid-food { grid-template-columns: repeat(2, 1fr); }
+          .metrics-grid-food .metric-box-food:last-child { grid-column: span 2; }
+          .detail-item-food { flex-direction: column; gap: 2px; }
+          .detail-value { text-align: left; }
+          .result-header-food { flex-direction: column; gap: 8px; }
         }
       `}</style>
     </div>
