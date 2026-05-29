@@ -452,7 +452,8 @@ const FoodAmount: React.FC = () => {
           .metrics-grid-food .metric-box-food:last-child { grid-column: span 2; }
           .detail-item-food { flex-direction: column; gap: 2px; }
           .detail-value { text-align: left; }
-          .result-header-food { flex-direction: column; gap: 8px; }
+          .result-header-food { flex-direction: column; gap: 8px; align-items: flex-start; }
+          .result-date { white-space: nowrap; font-size: 0.7rem; }
         }
       `}</style>
     </div>
