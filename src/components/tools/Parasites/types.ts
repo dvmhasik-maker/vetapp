@@ -9,4 +9,9 @@ export interface ParasiteData {
   sci: string;
   dog: ParasiteInfo;
   cat: ParasiteInfo;
+  image?: {
+    url: string;
+    magnification: string;
+    description: string;
+  };
 }

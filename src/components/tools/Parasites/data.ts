@@ -2,7 +2,7 @@ import { ParasiteData } from './types';
 
 export const parasiteData: ParasiteData[] = [
   {
-    ko: "원충 (기아르디아 / 콕시듐 등)",
+    ko: "원충 (지아르디아 / 콕시듐 등)",
     en: "Protozoa (Giardia, Coccidia spp.)",
     sci: "Giardia duodenalis / Cystoisospora spp.",
     dog: {
@@ -22,6 +22,11 @@ export const parasiteData: ParasiteData[] = [
           <li><b>Coccidia 치료:</b> Sulfadimethoxine 부하량 55 mg/kg 복용 후 27.5 mg/kg, PO, q24h 간격으로 5~10일간 유지. Ponazuril 20 mg/kg 단회 혹은 3일 요법 가능.</li>
         </ul>
       `
+    },
+    image: {
+      url: "https://upload.wikimedia.org/wikipedia/commons/3/39/Giardia_intestinalis_trophozoite.png",
+      magnification: "400x (High Power)",
+      description: "지아르디아 영양형(Trophozoite). 광학 현미경(400배율) 하에서 관찰되는 전형적인 서양배 모양과 두 개의 핵(눈 모양)을 확인할 수 있음."
     }
   },
   {
@@ -45,6 +50,11 @@ export const parasiteData: ParasiteData[] = [
           <li>북미 및 국내 고양이에서의 자생적 감염은 매우 드문 편이나, 확진 시 개에 준하여 Fenbendazole(50 mg/kg, PO, 3일) 투여를 고려하거나 임상 증상에 따른 대증치료를 병행함.</li>
         </ul>
       `
+    },
+    image: {
+      url: "https://upload.wikimedia.org/wikipedia/commons/1/18/Whipworm_egg.JPG",
+      magnification: "400x (High Power)",
+      description: "특징적인 럭비공 모양의 충란. 양 끝에 투명한 극성 플러그(Polar plugs)가 있음."
     }
   },
   {
@@ -70,6 +80,11 @@ export const parasiteData: ParasiteData[] = [
           <li>고양이 구충은 인수공통감염증(cutaneous larva migrans)을 유발하므로 보호자 접촉 주의 필요.</li>
         </ul>
       `
+    },
+    image: {
+      url: "https://upload.wikimedia.org/wikipedia/commons/6/63/Canine_hookworm_egg_1.JPG",
+      magnification: "100x (Scanning/Low Power)",
+      description: "얇은 벽으로 둘러싸인 타원형 충란. 내부에는 할구(Blastomere)가 관찰됨."
     }
   },
   {
@@ -94,6 +109,11 @@ export const parasiteData: ParasiteData[] = [
           <li><b>Milbemycin / Selamectin / Moxidectin / Emodepside:</b> 스팟온 복합제를 통해 자충 및 성충 동시 제어 가능. 고양이는 태반 이행은 없으나 모유 감염이 주된 경로임.</li>
         </ul>
       `
+    },
+    image: {
+      url: "https://upload.wikimedia.org/wikipedia/commons/e/e0/Toxocara_canis.JPG",
+      magnification: "400x (High Power)",
+      description: "두꺼운 벽과 거친 표면(Pitted shell)을 가진 원형의 충란."
     }
   },
   {
@@ -118,6 +138,11 @@ export const parasiteData: ParasiteData[] = [
           <li>개와 마찬가지로 주변 환경의 벼룩 및 중간숙주(쥐 등 소동물) 섭식 차단이 예방의 핵심.</li>
         </ul>
       `
+    },
+    image: {
+      url: "https://upload.wikimedia.org/wikipedia/commons/1/11/Dipyl_can_egg1.JPG",
+      magnification: "400x (High Power)",
+      description: "개조충(Dipylidium)의 특징적인 충란 주머니(Egg packet). 내부에 여러 개의 충란이 들어있음."
     }
   },
   {
@@ -142,6 +167,11 @@ export const parasiteData: ParasiteData[] = [
           <li><span style="color:red;">⚠️ 절대 금기: 개 전용 개선충 스프레이나 퍼메트린 성분 제품을 고양이에게 적용 시 치명적인 신경독성 유발.</span></li>
         </ul>
       `
+    },
+    image: {
+      url: "https://upload.wikimedia.org/wikipedia/commons/f/fc/Canine_scabies_mite.JPG",
+      magnification: "100x (Scanning/Low Power)",
+      description: "개선충(Sarcoptes scabiei) 실물 현미경 사진. 원형의 몸체와 짧은 다리가 특징."
     }
   },
   {
@@ -166,6 +196,11 @@ export const parasiteData: ParasiteData[] = [
           <li>이도 내 직접 점적하는 Ear drop 약물 사용 시 고양이 이독성(Ototoxicity) 및 전정계 증상(고개 기울임)이 유발될 수 있으므로, 안전성이 검증된 국소 스팟온 치료를 우선 권장.</li>
         </ul>
       `
+    },
+    image: {
+      url: "https://upload.wikimedia.org/wikipedia/commons/c/c8/Otodectes_cynotis.jpg",
+      magnification: "100x (Scanning/Low Power)",
+      description: "귀지로 가득 찬 이도에서 발견되는 귀진드기. 다리가 길고 활동성이 좋음."
     }
   },
   {
@@ -191,6 +226,11 @@ export const parasiteData: ParasiteData[] = [
           <li><span style="color:red;">⚠️ 중요: 고양이 투약 후 식도염/식도협착 방지를 위해 정제 투여 직후 반드시 물 5ml 이상 강제 급여할 것.</span></li>
         </ul>
       `
+    },
+    image: {
+      url: "https://upload.wikimedia.org/wikipedia/commons/5/5a/Haemaphysalis_longicornis_1.jpg",
+      magnification: "육안 / Macro",
+      description: "작은소참진드기(Haemaphysalis longicornis) 성충. 국내에서 바베시아 등을 매개하는 주요 진드기."
     }
   }
 ];

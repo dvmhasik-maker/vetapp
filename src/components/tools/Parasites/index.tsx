@@ -1,8 +1,53 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { ChevronLeft, ShieldAlert, Info } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useParasitesLogic } from './useParasitesLogic';
 import { parasiteData } from './data';
+
+const ParasiteImage: React.FC<{ url: string; alt: string; description: string; magnification: string }> = ({ url, alt, description, magnification }) => {
+  const [status, setStatus] = useState<'loading' | 'success' | 'error'>('loading');
+  const [retryCount, setRetryCount] = useState(0);
+
+  useEffect(() => {
+    setStatus('loading');
+    const timeout = setTimeout(() => {
+      if (status === 'loading') setStatus('error');
+    }, 10000); // 프록시 사용 시 10초면 충분
+    return () => clearTimeout(timeout);
+  }, [url, retryCount]);
+
+  return (
+    <div className="microscope-image-container">
+      <div className="microscope-image-header">
+        <span className="magnification-badge">{magnification}</span>
+        <span className="image-label">🔬 현미경 소견</span>
+      </div>
+      <div className="image-wrapper">
+        {status === 'loading' && <div className="image-loading-placeholder">이미지 최적화 중...</div>}
+        {status === 'error' && (
+          <div className="image-loading-placeholder error">
+            이미지를 불러올 수 없습니다.<br/>
+            <small style={{fontSize: '0.7rem', color: '#94a3b8', marginTop: '5px'}}>네트워크 환경에 의해 차단되었을 수 있습니다.</small>
+            <div style={{display: 'flex', gap: '8px', marginTop: '10px'}}>
+              <button onClick={() => setRetryCount(prev => prev + 1)} className="retry-btn">다시 시도</button>
+              <a href={url} target="_blank" rel="noreferrer" className="retry-btn" style={{background: '#94a3b8', textDecoration: 'none'}}>원본 보기</a>
+            </div>
+          </div>
+        )}
+        <img 
+          key={`${url}-${retryCount}`}
+          src={url} 
+          alt={alt} 
+          className="parasite-micro-img"
+          onLoad={() => setStatus('success')}
+          onError={() => setStatus('error')}
+          style={{ display: status === 'success' ? 'block' : 'none' }}
+        />
+      </div>
+      <p className="image-desc">{description}</p>
+    </div>
+  );
+};
 
 const Parasites: React.FC = () => {
   const {
@@ -53,6 +98,15 @@ const Parasites: React.FC = () => {
             <p className="sub-result-title">{selectedParasite.en}</p>
             <p className="sci-name">학명: {selectedParasite.sci}</p>
           </div>
+
+          {selectedParasite.image && (
+            <ParasiteImage 
+              url={selectedParasite.image.url}
+              alt={selectedParasite.ko}
+              description={selectedParasite.image.description}
+              magnification={selectedParasite.image.magnification}
+            />
+          )}
 
           <div className="protocol-stack">
             <div className="protocol-box dog">
@@ -149,6 +203,84 @@ const Parasites: React.FC = () => {
         }
         .sub-result-title { font-size: 1rem; color: var(--text-muted); font-weight: 600; margin-bottom: 4px; }
         .sci-name { font-size: 0.8rem; color: #94a3b8; font-style: italic; }
+
+        .microscope-image-container {
+          margin-bottom: 24px;
+          background: #f8fafc;
+          border-radius: 12px;
+          padding: 16px;
+          border: 1px solid #e2e8f0;
+          text-align: center;
+        }
+        .microscope-image-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 12px;
+        }
+        .magnification-badge {
+          background: #3498db;
+          color: white;
+          padding: 2px 8px;
+          border-radius: 4px;
+          font-size: 0.75rem;
+          font-weight: 700;
+        }
+        .image-label {
+          font-size: 0.8rem;
+          font-weight: 800;
+          color: #64748b;
+        }
+        .image-wrapper {
+          width: 100%;
+          min-height: 200px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: #fff;
+          border-radius: 8px;
+          border: 1px solid #e2e8f0;
+          margin-bottom: 12px;
+          overflow: hidden;
+        }
+        .parasite-micro-img {
+          max-width: 100%;
+          max-height: 400px;
+          object-fit: contain;
+          display: block;
+        }
+        .image-loading-placeholder {
+          font-size: 0.85rem;
+          color: #94a3b8;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          height: 100%;
+          gap: 10px;
+          text-align: center;
+          padding: 20px;
+        }
+        .image-loading-placeholder.error {
+          color: #e11d48;
+        }
+        .retry-btn {
+          padding: 6px 12px;
+          background: #3498db;
+          color: white;
+          border: none;
+          border-radius: 4px;
+          font-size: 0.8rem;
+          cursor: pointer;
+        }
+        .image-desc {
+          font-size: 0.85rem;
+          color: #475569;
+          line-height: 1.5;
+          text-align: left;
+          padding-left: 4px;
+          border-left: 3px solid #cbd5e1;
+        }
 
         .protocol-stack {
           display: flex;
