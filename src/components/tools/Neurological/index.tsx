@@ -1,5 +1,5 @@
 import React from 'react';
-import { ChevronLeft, Camera } from 'lucide-react';
+import { ChevronLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useNeuroLogic } from './useNeuroLogic';
 import NeuroForm from './NeuroForm';
@@ -59,6 +59,8 @@ const Neurological: React.FC = () => {
           selectedSymptomIds={selectedSymptomIds}
           toggleSymptom={toggleSymptom}
           localizeLesion={localizeLesion}
+          saveImg={saveImg}
+          result={!!result}
         />
 
         {result && (
@@ -68,12 +70,6 @@ const Neurological: React.FC = () => {
             resultRef={resultRef}
           />
         )}
-      </div>
-
-      <div className="save-action-area">
-        <button className="btn-save-refined-neuro" onClick={saveImg}>
-          <Camera size={20} /> 결과 리포트 이미지 저장
-        </button>
       </div>
 
       <style>{`

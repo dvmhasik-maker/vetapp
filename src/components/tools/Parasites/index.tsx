@@ -4,45 +4,64 @@ import { Link } from 'react-router-dom';
 import { useParasitesLogic } from './useParasitesLogic';
 import { parasiteData } from './data';
 
-const ParasiteImage: React.FC<{ url: string; alt: string; description: string; magnification: string }> = ({ url, alt, description, magnification }) => {
+const ParasiteMedia: React.FC<{ url: string; videoUrl?: string; alt: string; description: string; magnification: string }> = ({ url, videoUrl, alt, description, magnification }) => {
   const [status, setStatus] = useState<'loading' | 'success' | 'error'>('loading');
   const [retryCount, setRetryCount] = useState(0);
 
   useEffect(() => {
+    if (videoUrl) {
+      setStatus('success');
+      return;
+    }
     setStatus('loading');
     const timeout = setTimeout(() => {
       if (status === 'loading') setStatus('error');
-    }, 10000); // 프록시 사용 시 10초면 충분
+    }, 10000);
     return () => clearTimeout(timeout);
-  }, [url, retryCount]);
+  }, [url, videoUrl, retryCount]);
 
   return (
     <div className="microscope-image-container">
       <div className="microscope-image-header">
         <span className="magnification-badge">{magnification}</span>
-        <span className="image-label">🔬 현미경 소견</span>
+        <span className="image-label">🔬 {videoUrl ? '현미경 영상 (Video)' : '현미경 소견'}</span>
       </div>
       <div className="image-wrapper">
-        {status === 'loading' && <div className="image-loading-placeholder">이미지 최적화 중...</div>}
-        {status === 'error' && (
-          <div className="image-loading-placeholder error">
-            이미지를 불러올 수 없습니다.<br/>
-            <small style={{fontSize: '0.7rem', color: '#94a3b8', marginTop: '5px'}}>네트워크 환경에 의해 차단되었을 수 있습니다.</small>
-            <div style={{display: 'flex', gap: '8px', marginTop: '10px'}}>
-              <button onClick={() => setRetryCount(prev => prev + 1)} className="retry-btn">다시 시도</button>
-              <a href={url} target="_blank" rel="noreferrer" className="retry-btn" style={{background: '#94a3b8', textDecoration: 'none'}}>원본 보기</a>
-            </div>
-          </div>
+        {videoUrl ? (
+          <video 
+            src={videoUrl}
+            className="parasite-micro-img"
+            autoPlay 
+            loop 
+            muted 
+            playsInline
+            controls
+            style={{ width: '100%', maxHeight: '400px' }}
+          />
+        ) : (
+          <>
+            {status === 'loading' && <div className="image-loading-placeholder">이미지 최적화 중...</div>}
+            {status === 'error' && (
+              <div className="image-loading-placeholder error">
+                이미지를 불러올 수 없습니다.<br/>
+                <small style={{fontSize: '0.7rem', color: '#94a3b8', marginTop: '5px'}}>네트워크 환경에 의해 차단되었을 수 있습니다.</small>
+                <div style={{display: 'flex', gap: '8px', marginTop: '10px'}}>
+                  <button onClick={() => setRetryCount(prev => prev + 1)} className="retry-btn">다시 시도</button>
+                  <a href={url} target="_blank" rel="noreferrer" className="retry-btn" style={{background: '#94a3b8', textDecoration: 'none'}}>원본 보기</a>
+                </div>
+              </div>
+            )}
+            <img 
+              key={`${url}-${retryCount}`}
+              src={url} 
+              alt={alt} 
+              className="parasite-micro-img"
+              onLoad={() => setStatus('success')}
+              onError={() => setStatus('error')}
+              style={{ display: status === 'success' ? 'block' : 'none' }}
+            />
+          </>
         )}
-        <img 
-          key={`${url}-${retryCount}`}
-          src={url} 
-          alt={alt} 
-          className="parasite-micro-img"
-          onLoad={() => setStatus('success')}
-          onError={() => setStatus('error')}
-          style={{ display: status === 'success' ? 'block' : 'none' }}
-        />
       </div>
       <p className="image-desc">{description}</p>
     </div>
@@ -100,8 +119,9 @@ const Parasites: React.FC = () => {
           </div>
 
           {selectedParasite.image && (
-            <ParasiteImage 
+            <ParasiteMedia 
               url={selectedParasite.image.url}
+              videoUrl={selectedParasite.image.videoUrl}
               alt={selectedParasite.ko}
               description={selectedParasite.image.description}
               magnification={selectedParasite.image.magnification}

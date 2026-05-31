@@ -1,5 +1,4 @@
-import React from 'react';
-import { ClipboardList } from 'lucide-react';
+import { ClipboardList, Camera } from 'lucide-react';
 import { PatientData } from './types';
 import { symptomData } from './data';
 
@@ -9,6 +8,8 @@ interface NeuroFormProps {
   selectedSymptomIds: string[];
   toggleSymptom: (id: string) => void;
   localizeLesion: () => void;
+  saveImg: () => void;
+  result: boolean;
 }
 
 const NeuroForm: React.FC<NeuroFormProps> = ({
@@ -16,7 +17,9 @@ const NeuroForm: React.FC<NeuroFormProps> = ({
   setPatient,
   selectedSymptomIds,
   toggleSymptom,
-  localizeLesion
+  localizeLesion,
+  saveImg,
+  result
 }) => {
   return (
     <div className="input-col">
@@ -112,9 +115,16 @@ const NeuroForm: React.FC<NeuroFormProps> = ({
           ))}
         </div>
 
-        <button className="btn-localize-stylish" onClick={localizeLesion}>
-          <ClipboardList size={22} style={{ marginRight: '10px' }} /> 병변 위치 분석하기
-        </button>
+        <div className="action-area-common">
+          <button className="btn-primary-action" onClick={localizeLesion}>
+            <ClipboardList size={22} /> 병변 위치 분석하기
+          </button>
+          {result && (
+            <button className="btn-secondary-action" onClick={saveImg}>
+              <Camera size={20} /> 분석 결과 리포트 이미지 저장
+            </button>
+          )}
+        </div>
       </div>
 
       <style>{`

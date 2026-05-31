@@ -24,9 +24,10 @@ export const parasiteData: ParasiteData[] = [
       `
     },
     image: {
-      url: "https://upload.wikimedia.org/wikipedia/commons/3/39/Giardia_intestinalis_trophozoite.png",
+      url: "https://upload.wikimedia.org/wikipedia/commons/c/c9/Giardia_lamblia_trophozoite.jpg",
+      videoUrl: "/assets/videos/giardia.mp4",
       magnification: "400x (High Power)",
-      description: "지아르디아 영양형(Trophozoite). 광학 현미경(400배율) 하에서 관찰되는 전형적인 서양배 모양과 두 개의 핵(눈 모양)을 확인할 수 있음."
+      description: "지아르디아 영양형(Trophozoite)의 현미경 영상. 특징적인 '낙엽이 떨어지는 듯한(Falling leaf)' 움직임을 통해 진단할 수 있습니다."
     }
   },
   {

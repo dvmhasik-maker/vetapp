@@ -1,4 +1,4 @@
-import { ChevronLeft, Camera } from 'lucide-react';
+import { ChevronLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useEchoLogic } from './useEchoLogic';
 import EchoForm from './EchoForm';
@@ -13,14 +13,13 @@ const Echocardiography = () => {
     catInput, setCatInput,
     result,
     resultRef,
-    captureRef,
     calculateEcho
   } = useEchoLogic();
 
   const saveImg = () => {
-    if (!captureRef.current) return;
+    if (!resultRef.current) return;
     
-    html2canvas(captureRef.current, { 
+    html2canvas(resultRef.current, { 
       background: '#f8fafc',
       scale: 2,
       useCORS: true,
@@ -50,7 +49,7 @@ const Echocardiography = () => {
         </div>
       </header>
 
-      <div className="tool-content-echo" ref={captureRef}>
+      <div className="tool-content-echo">
         <EchoForm
           species={species}
           setSpecies={setSpecies}
@@ -61,6 +60,8 @@ const Echocardiography = () => {
           catInput={catInput}
           setCatInput={setCatInput}
           calculateEcho={calculateEcho}
+          saveImg={saveImg}
+          result={!!result}
         />
 
         {result && (
@@ -71,51 +72,11 @@ const Echocardiography = () => {
         )}
       </div>
 
-      <div className="action-area-echo">
-        <button className="btn-save-refined" onClick={saveImg}>
-          <Camera size={20} /> 분석 결과 리포트 이미지 저장
-        </button>
-      </div>
-
       <style>{`
         .tool-content-echo {
           display: flex;
           flex-direction: column;
           gap: 1rem;
-        }
-
-        .action-area-echo {
-          margin-top: 2rem;
-          display: flex;
-          justify-content: center;
-        }
-
-        .btn-save-refined {
-          width: 100%;
-          padding: 16px;
-          background: linear-gradient(135deg, #10b981, #059669);
-          color: white;
-          border: none;
-          border-radius: 12px;
-          font-weight: 700;
-          font-size: 1.05rem;
-          cursor: pointer;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 10px;
-          transition: all 0.3s ease;
-          box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
-        }
-
-        .btn-save-refined:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 6px 20px rgba(16, 185, 129, 0.3);
-          filter: brightness(1.05);
-        }
-
-        .btn-save-refined:active {
-          transform: translateY(0);
         }
       `}</style>
     </div>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ChevronLeft, Camera } from 'lucide-react';
+import { ChevronLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useFluidLogic } from './useFluidLogic';
 import FluidForm from './FluidForm';
@@ -12,9 +12,7 @@ const FluidTherapy: React.FC = () => {
     input,
     setInput,
     result,
-    resultRef,
-    captureRef,
-    saveImg
+    resultRef
   } = useFluidLogic();
 
   return (
@@ -33,7 +31,7 @@ const FluidTherapy: React.FC = () => {
         </div>
       </div>
 
-      <div className="layout-grid-fluid" ref={captureRef}>
+      <div className="layout-grid-fluid">
         <FluidForm
           patient={patient}
           setPatient={setPatient}
@@ -47,12 +45,6 @@ const FluidTherapy: React.FC = () => {
             resultRef={resultRef}
           />
         )}
-      </div>
-
-      <div className="save-action-area">
-        <button className="btn-save-refined-fluid" onClick={saveImg}>
-          <Camera size={20} /> 처방 리포트 이미지 저장
-        </button>
       </div>
 
       <style>{`

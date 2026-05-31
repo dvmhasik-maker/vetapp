@@ -1,5 +1,4 @@
-import React from 'react';
-import { Search } from 'lucide-react';
+import { Search, Camera } from 'lucide-react';
 import { CushingMode, PatientInfo, CushingValues } from './types';
 
 interface CushingFormProps {
@@ -9,10 +8,12 @@ interface CushingFormProps {
   handlePatientChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
   setToxValue: (type: keyof CushingValues, val: any) => void;
   executeAnalysis: () => void;
+  saveImg: () => void;
+  result: boolean;
 }
 
 const CushingForm: React.FC<CushingFormProps> = ({
-  mode, patientInfo, values, handlePatientChange, setToxValue, executeAnalysis
+  mode, patientInfo, values, handlePatientChange, setToxValue, executeAnalysis, saveImg, result
 }) => {
   return (
     <div className="cushing-form-container">
@@ -90,9 +91,16 @@ const CushingForm: React.FC<CushingFormProps> = ({
           </div>
         </div>
 
-        <button className="btn-analyze-tool" style={{ marginTop: '2rem' }} onClick={executeAnalysis}>
-          <Search size={20} style={{ marginRight: '8px' }} /> 분석 실행하기
-        </button>
+        <div className="action-area-common">
+          <button className="btn-primary-action" onClick={executeAnalysis}>
+            <Search size={20} /> 분석 실행하기
+          </button>
+          {result && (
+            <button className="btn-secondary-action" onClick={saveImg}>
+              <Camera size={20} /> 분석 결과 리포트 이미지 저장
+            </button>
+          )}
+        </div>
       </div>
 
       <style>{`
@@ -171,29 +179,6 @@ const CushingForm: React.FC<CushingFormProps> = ({
         }
         .input-wrap-cushing input:focus { border-color: #3498db; }
         .input-wrap-cushing .unit { font-weight: 700; color: #64748b; font-size: 0.8rem; }
-
-        .btn-analyze-tool {
-          width: 100%;
-          margin: 20px 0 0;
-          padding: 16px;
-          background: linear-gradient(135deg, #3b82f6, #1d4ed8);
-          color: white;
-          border: none;
-          border-radius: 12px;
-          font-size: 1.1rem;
-          font-weight: 700;
-          cursor: pointer;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          transition: all 0.3s ease;
-          box-shadow: 0 4px 15px rgba(37, 99, 235, 0.25);
-        }
-        .btn-analyze-tool:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 6px 20px rgba(37, 99, 235, 0.35);
-          filter: brightness(1.05);
-        }
 
         @media (max-width: 640px) {
           .patient-grid { grid-template-columns: 1fr; }

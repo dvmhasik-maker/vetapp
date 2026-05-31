@@ -1,5 +1,4 @@
-import React from 'react';
-import { Calculator } from 'lucide-react';
+import { Calculator, Camera } from 'lucide-react';
 import { Species, PatientInfo, DogInput, CatInput } from './types';
 
 interface EchoFormProps {
@@ -12,6 +11,8 @@ interface EchoFormProps {
   catInput: CatInput;
   setCatInput: (c: CatInput) => void;
   calculateEcho: () => void;
+  saveImg: () => void;
+  result: boolean;
 }
 
 const EchoForm: React.FC<EchoFormProps> = ({
@@ -19,7 +20,7 @@ const EchoForm: React.FC<EchoFormProps> = ({
   patientInfo, setPatientInfo,
   dogInput, setDogInput,
   catInput, setCatInput,
-  calculateEcho
+  calculateEcho, saveImg, result
 }) => {
   const handlePatientChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setPatientInfo({ ...patientInfo, [e.target.id.replace('pt_', '')]: e.target.value });
@@ -294,9 +295,16 @@ const EchoForm: React.FC<EchoFormProps> = ({
         </div>
       )}
 
-      <button className="btn-analyze-tool" onClick={calculateEcho}>
-        <Calculator size={20} style={{ marginRight: '8px' }} /> 심장 초음파 분석 실행
-      </button>
+      <div className="action-area-common">
+        <button className="btn-primary-action" onClick={calculateEcho}>
+          <Calculator size={20} /> 심장 초음파 분석 실행
+        </button>
+        {result && (
+          <button className="btn-secondary-action" onClick={saveImg}>
+            <Camera size={20} /> 분석 결과 리포트 이미지 저장
+          </button>
+        )}
+      </div>
 
       <style>{`
         .tab-container-tool {
@@ -425,25 +433,6 @@ const EchoForm: React.FC<EchoFormProps> = ({
           flex-direction: column;
           gap: 10px;
         }
-
-        .btn-analyze-tool {
-          width: 100%;
-          margin: 10px 0 0;
-          padding: 16px;
-          background: #3498db;
-          color: #fff;
-          border: none;
-          border-radius: 12px;
-          font-size: 1.1rem;
-          font-weight: 700;
-          cursor: pointer;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          transition: all 0.2s;
-          box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
-        }
-        .btn-analyze-tool:hover { background: #2980b9; transform: translateY(-2px); }
 
         @media (max-width: 640px) {
           .patient-grid, .pair-grid, .lv-form-grid { grid-template-columns: 1fr; }

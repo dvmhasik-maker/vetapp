@@ -1,5 +1,5 @@
 import React from 'react';
-import { Search, Activity } from 'lucide-react';
+import { Search, Camera } from 'lucide-react';
 import { Mode, PatientData, ValueData } from './types';
 
 interface DiagnosisFormProps {
@@ -89,12 +89,12 @@ const DiagnosisForm: React.FC<DiagnosisFormProps> = ({
           </div>
         )}
 
-        <button className="btn-analyze-tool" onClick={executeAnalysis}>
-          <Search size={20} style={{ marginRight: '8px' }} /> 상태 분석하기
-        </button>
-        <div className="save-row-tool">
-          <button className="btn-save-tool result-save" onClick={() => saveImg('result')}>
-            <Activity size={18} style={{ marginRight: '6px' }} /> 결과 리포트 이미지 저장
+        <div className="action-area-common">
+          <button className="btn-primary-action" onClick={executeAnalysis}>
+            <Search size={20} /> 상태 분석하기
+          </button>
+          <button className="btn-secondary-action" onClick={() => saveImg('result')}>
+            <Camera size={20} /> 분석 결과 리포트 이미지 저장
           </button>
         </div>
       </div>

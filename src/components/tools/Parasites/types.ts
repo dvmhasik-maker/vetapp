@@ -13,5 +13,6 @@ export interface ParasiteData {
     url: string;
     magnification: string;
     description: string;
+    videoUrl?: string;
   };
 }

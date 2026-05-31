@@ -156,8 +156,8 @@ export const useCushingLogic = () => {
   };
 
   const saveImg = () => {
-    if (!captureRef.current) return;
-    html2canvas(captureRef.current, { background: '#f8fafc', scale: 2 } as any).then(canvas => {
+    if (!resultRef.current) return;
+    html2canvas(resultRef.current, { background: '#f8fafc', scale: 2 } as any).then(canvas => {
       const link = document.createElement('a');
       link.download = `VETAPP_쿠싱분석_${patientInfo.name || '환자'}_${new Date().getTime()}.jpg`;
       link.href = canvas.toDataURL('image/jpeg', 0.9);

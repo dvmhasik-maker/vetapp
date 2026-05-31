@@ -1,5 +1,4 @@
 import { useState, useRef, useEffect } from 'react';
-import html2canvas from 'html2canvas';
 import { PatientData, FluidInput, FluidResult, KSupplementResult } from './types';
 
 export const useFluidLogic = () => {
@@ -17,9 +16,7 @@ export const useFluidLogic = () => {
   const [result, setResult] = useState<FluidResult | null>(null);
 
   const resultRef = useRef<HTMLDivElement>(null);
-  const captureRef = useRef<HTMLDivElement>(null);
 
-  // Auto-calculate whenever patient or input changes
   useEffect(() => {
     calculateFluid();
   }, [patient, input]);
@@ -126,24 +123,12 @@ export const useFluidLogic = () => {
     });
   };
 
-  const saveImg = () => {
-    if (!captureRef.current) return;
-    html2canvas(captureRef.current, { background: '#f8fafc', scale: 2 } as any).then((canvas) => {
-      const link = document.createElement('a');
-      link.download = `VET_수액처방리포트_${patient.name || '환자'}.jpg`;
-      link.href = canvas.toDataURL('image/jpeg', 0.95);
-      link.click();
-    });
-  };
-
   return {
     patient,
     setPatient,
     input,
     setInput,
     result,
-    resultRef,
-    captureRef,
-    saveImg
+    resultRef
   };
 };
