@@ -100,7 +100,7 @@ const Dashboard: React.FC = () => {
         <AdSlot className="top-ad" />
 
         <div className="tool-grid">
-          {tools.map((tool) => (
+          {[...tools].sort((a, b) => a.name.localeCompare(b.name, 'ko')).map((tool) => (
             <Link key={tool.id} to={tool.path} className="tool-card">
               <div className="tool-icon-wrapper">
                 {tool.icon}

@@ -234,7 +234,7 @@ const AtopyResultView: React.FC<AtopyResultViewProps> = ({
         .color-box.p-100 { background-color: #ef4444; } /* Red */
         .color-box.p-75 { background-color: #f97316; }  /* Orange */
         .color-box.p-50 { background-color: #facc15; }  /* Yellow */
-        .color-box.p-25 { background-color: #0ea5e9; }  /* Skyblue */
+        .color-box.p-25 { background-color: #afddea; }  /* Custom Skyblue */
         
         .l-text {
           font-size: 11px;
