@@ -1,11 +1,14 @@
 import { AtopyBreed } from './types';
 
+// GitHub Pages base path prefix
+const BASE_PATH = '/Vetapp/assets/images/atopy';
+
 export const atopyBreedData: AtopyBreed[] = [
   {
     id: "maltese",
     ko: "말티즈",
     en: "Maltese",
-    img: "/assets/images/atopy/Maltese.jpg",
+    img: `${BASE_PATH}/Maltese.jpg`,
     sites: "안면부(눈 주변, 주둥이), 귀(귓바퀴 하부), 겨드랑이(Axillae), 앞발 지간부(Interdigital)",
     features: [
       "국내에서 가장 높은 유병률을 보이는 품종 중 하나로, 초기에는 발을 핥는 증상(Pododermatitis)으로 다수 내원합니다.",
@@ -18,7 +21,7 @@ export const atopyBreedData: AtopyBreed[] = [
     id: "poodle",
     ko: "푸들",
     en: "Poodle",
-    img: "/assets/images/atopy/Poodle.jpg",
+    img: `${BASE_PATH}/Poodle.jpg`,
     sites: "외이도 및 귀 주변, 복부, 서혜부(Groin), 사지 말단부",
     features: [
       "외이염(Otitis Externa)이 아토피의 최우선 혹은 유일한 임상 증상으로 발현되는 경우가 매우 흔합니다.",
@@ -31,7 +34,7 @@ export const atopyBreedData: AtopyBreed[] = [
     id: "shihtzu",
     ko: "시츄",
     en: "Shih Tzu",
-    img: "/assets/images/atopy/Shihtzu.jpg",
+    img: `${BASE_PATH}/Shihtzu.jpg`,
     sites: "안면부 주름, 귀, 겨드랑이, 목 아래, 복부 전체, 사지 원위부",
     features: [
       "전신성 피부염으로 이행되기 가장 쉬운 견종으로, 지루성 피부염(Seborrheic Dermatitis)을 동반하는 경우가 많습니다.",
@@ -44,7 +47,7 @@ export const atopyBreedData: AtopyBreed[] = [
     id: "bichon",
     ko: "비숑 프리제",
     en: "Bichon Frise",
-    img: "/assets/images/atopy/Bichonfrise.jpg",
+    img: `${BASE_PATH}/Bichonfrise.jpg`,
     sites: "눈 및 입 주변, 지간부전체, 전흉부(가슴 앞쪽), 회음부",
     features: [
       "미용 관리가 잦은 품종으로, 클리퍼 증후군이나 미용 후 자극이 아토피 증상을 촉발(Trigger)하는 경우가 잦습니다.",
@@ -56,8 +59,8 @@ export const atopyBreedData: AtopyBreed[] = [
   {
     id: "cocker",
     ko: "코커 스패니얼",
-    en: "Cockerspaniel.jpg",
-    img: "/assets/images/atopy/Cockerspaniel.jpg",
+    en: "Cocker Spaniel",
+    img: `${BASE_PATH}/Cockerspaniel.jpg`,
     sites: "귀(귓바퀴 전체 및 외이도), 이도 하부 목 피부, 전흉부, 지간부",
     features: [
       "해부학적으로 늘어진 귀 구조와 아토피 유전 소인이 결합하여 심각한 만성 증식성 외이염을 앓는 경우가 대다수입니다.",
@@ -70,7 +73,7 @@ export const atopyBreedData: AtopyBreed[] = [
     id: "pomeranian",
     ko: "포메라니안",
     en: "Pomeranian",
-    img: "/assets/images/atopy/Pomeranian.jpg",
+    img: `${BASE_PATH}/Pomeranian.jpg`,
     sites: "눈 주위, 주둥이, 지간부, 엉덩이 및 미근부",
     features: [
       "이중모 품종 특성상 피부 가려움증을 긁는 행위 외에도 털을 뜯거나 씹는 행동으로 표출하는 경우가 많습니다.",
@@ -83,7 +86,7 @@ export const atopyBreedData: AtopyBreed[] = [
     id: "frenchbulldog",
     ko: "프렌치 불독",
     en: "French Bulldog",
-    img: "/assets/images/atopy/Frenchbulldog.jpg",
+    img: `${BASE_PATH}/Frenchbulldog.jpg`,
     sites: "안면 주름부, 액와부(겨드랑이), 서혜부, 지간부, 꼬리 주름",
     features: [
       "피부 접힘(Skin folds) 부위 전체가 일차적인 타겟이며, 마찰과 습기로 인한 피부염 강도가 매우 높습니다.",
@@ -96,7 +99,7 @@ export const atopyBreedData: AtopyBreed[] = [
     id: "yorkshire",
     ko: "요크셔 테리어",
     en: "Yorkshire Terrier",
-    img: "/assets/images/atopy/Yorkshireterrier.jpg",
+    img: `${BASE_PATH}/Yorkshireterrier.jpg`,
     sites: "귀 기부, 안면부, 등선(Dorsal midline)을 포함한 전신 피부",
     features: [
       "전형적인 아토피 분포 구역 외에도 등줄기나 몸통 측면 부위의 소양감 및 건조성 각질을 호소하는 특이성을 보입니다.",
@@ -109,7 +112,7 @@ export const atopyBreedData: AtopyBreed[] = [
     id: "dachshund",
     ko: "닥스훈트",
     en: "Dachshund",
-    img: "/assets/images/atopy/Dachshund.jpg",
+    img: `${BASE_PATH}/Dachshund.jpg`,
     sites: "복부, 서혜부, 액와부(겨드랑이), 이도 하부",
     features: [
       "신체 구조상 지면과 복부 피부의 거리가 가까워 외부 환경 알러젠(잔디, 먼지 등)에 직접 접촉하여 발생하는 접촉성 복부 알러지 양상이 자주 복합됩니다.",

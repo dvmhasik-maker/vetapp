@@ -1,17 +1,14 @@
 import React from 'react';
-import { Camera } from 'lucide-react';
 import { AtopyBreed } from './types';
 
 interface AtopyResultViewProps {
   breed: AtopyBreed;
   resultRef: React.RefObject<HTMLDivElement>;
-  onSave: () => void;
 }
 
 const AtopyResultView: React.FC<AtopyResultViewProps> = ({
   breed,
-  resultRef,
-  onSave
+  resultRef
 }) => {
   return (
     <div className="atopy-result-container" ref={resultRef}>
@@ -21,9 +18,6 @@ const AtopyResultView: React.FC<AtopyResultViewProps> = ({
           <span className="header-sub">{breed.en} Atopy Analysis</span>
           <h3 className="header-title">{breed.ko}</h3>
         </div>
-        <button onClick={onSave} className="btn-capture">
-          <Camera size={16} /> 차트 저장
-        </button>
       </div>
 
       {/* Main Content */}
@@ -125,21 +119,6 @@ const AtopyResultView: React.FC<AtopyResultViewProps> = ({
           font-weight: 800;
           margin: 0;
         }
-        .btn-capture {
-          background: rgba(255, 255, 255, 0.1);
-          border: 1px solid rgba(255, 255, 255, 0.2);
-          color: #fff;
-          padding: 8px 12px;
-          border-radius: 8px;
-          font-size: 12px;
-          font-weight: 500;
-          display: flex;
-          align-items: center;
-          gap: 6px;
-          cursor: pointer;
-          transition: background 0.2s;
-        }
-        .btn-capture:hover { background: rgba(255, 255, 255, 0.2); }
 
         .result-body {
           padding: 24px;

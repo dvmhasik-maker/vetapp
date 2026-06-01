@@ -11,7 +11,6 @@ const Atopy: React.FC = () => {
     sortedBreeds,
     selectedBreed,
     selectBreed,
-    saveCapture,
     resultRef
   } = useAtopyLogic();
 
@@ -51,7 +50,6 @@ const Atopy: React.FC = () => {
           <AtopyResultView 
             breed={selectedBreed}
             resultRef={resultRef}
-            onSave={saveCapture}
           />
         )}
 
