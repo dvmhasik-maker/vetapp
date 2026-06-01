@@ -3,7 +3,6 @@ import { PatientData, FluidInput, FluidResult, KSupplementResult } from './types
 
 export const useFluidLogic = () => {
   const [patient, setPatient] = useState<PatientData>({
-    name: '',
     species: 'dog',
     weight: '5.0'
   });

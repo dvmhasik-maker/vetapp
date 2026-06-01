@@ -61,11 +61,14 @@ const FluidTherapy: React.FC = () => {
         .input-label-fluid { display: block; font-size: 0.8rem; font-weight: 700; color: #475569; margin-bottom: 6px; }
 
         .patient-grid-fluid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-        .input-field-fluid, .select-field-fluid {
+        .input-field-fluid, .select-field-fluid, .input-field-fluid-large {
           width: 100%; padding: 11px 12px; border-radius: 10px; border: 1.5px solid #e2e8f0;
           background: #fff; font-size: 0.95rem; color: #1e293b; outline: none; transition: all 0.2s;
         }
-        .input-field-fluid:focus, .select-field-fluid:focus { border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1); }
+        .input-field-fluid-large {
+          padding: 18px 16px; font-size: 1.5rem; font-weight: 800; text-align: center; color: #2563eb; border-color: #3b82f6;
+        }
+        .input-field-fluid:focus, .select-field-fluid:focus, .input-field-fluid-large:focus { border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1); }
 
         .species-toggle-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
         .species-btn-small {
@@ -136,7 +139,9 @@ const FluidTherapy: React.FC = () => {
         .k-row-mini-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px; }
         .k-row-mini-card.lrs { border-color: #86efac; background: #f0fdf4; }
         .mini-card-title { font-size: 0.8rem; font-weight: 800; color: #1e293b; margin-bottom: 10px; }
-        .mini-card-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        .mini-card-grid, .mini-card-grid-refined { display: grid; gap: 10px; }
+        .mini-card-grid { grid-template-columns: repeat(3, 1fr); }
+        .mini-card-grid-refined { grid-template-columns: 1fr 1fr; }
         .cell { display: flex; flex-direction: column; align-items: center; }
         .c-label { font-size: 0.6rem; color: #94a3b8; font-weight: 600; margin-bottom: 2px; }
         .c-val { font-size: 0.9rem; font-weight: 800; color: #334155; }

@@ -1,5 +1,4 @@
 export interface PatientData {
-  name: string;
   species: 'dog' | 'cat';
   weight: string;
 }

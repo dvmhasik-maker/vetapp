@@ -84,7 +84,6 @@ const FluidResultView: React.FC<FluidResultViewProps> = ({
               <thead>
                 <tr>
                   <th>수액 백 종류</th>
-                  <th className="text-right">용량</th>
                   <th className="text-right highlight">첨가량(mL)</th>
                   <th className="text-right">최종 K⁺</th>
                 </tr>
@@ -93,7 +92,6 @@ const FluidResultView: React.FC<FluidResultViewProps> = ({
                 {result.kSupplements.map((sup, idx) => (
                   <tr key={idx} className={sup.isLRS ? 'lrs-row' : ''}>
                     <td>{sup.bagName}</td>
-                    <td className="text-right">{sup.volume}ml</td>
                     <td className="text-right highlight font-bold">{sup.addAmount}ml</td>
                     <td className="text-right">{sup.totalK}mEq</td>
                   </tr>
@@ -107,8 +105,7 @@ const FluidResultView: React.FC<FluidResultViewProps> = ({
             {result.kSupplements.map((sup, idx) => (
               <div key={idx} className={`k-row-mini-card ${sup.isLRS ? 'lrs' : ''}`}>
                 <div className="mini-card-title">{sup.bagName}</div>
-                <div className="mini-card-grid">
-                  <div className="cell"><span className="c-label">용량</span><span className="c-val">{sup.volume}ml</span></div>
+                <div className="mini-card-grid-refined">
                   <div className="cell"><span className="c-label">첨가량</span><span className="c-val highlight">{sup.addAmount}ml</span></div>
                   <div className="cell"><span className="c-label">K⁺총량</span><span className="c-val">{sup.totalK}mEq</span></div>
                 </div>

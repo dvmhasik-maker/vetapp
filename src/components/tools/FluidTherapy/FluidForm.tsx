@@ -41,17 +41,6 @@ const FluidForm: React.FC<FluidFormProps> = ({
           </div>
         </div>
 
-        <div className="input-group-fluid">
-          <label className="input-label-fluid">환자 이름</label>
-          <input 
-            type="text" 
-            value={patient.name} 
-            onChange={(e) => setPatient({...patient, name: e.target.value})} 
-            placeholder="예: 대박이" 
-            className="input-field-fluid"
-          />
-        </div>
-
         <div className="input-group-fluid no-margin">
           <label className="input-label-fluid">체중 (kg)</label>
           <input 
@@ -60,7 +49,7 @@ const FluidForm: React.FC<FluidFormProps> = ({
             onChange={(e) => setPatient({...patient, weight: e.target.value})} 
             step="0.1"
             placeholder="0.0" 
-            className="input-field-fluid"
+            className="input-field-fluid-large"
           />
         </div>
       </div>
