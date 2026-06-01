@@ -4,6 +4,7 @@ import { useCushingLogic } from './useCushingLogic';
 import CushingForm from './CushingForm';
 import CushingResultView from './CushingResultView';
 import { CushingMode } from './types';
+import AdSlot from '../../common/AdSlot';
 
 const Cushing = () => {
   const {
@@ -33,44 +34,54 @@ const Cushing = () => {
         </div>
       </header>
 
-      <div className="tab-container-tool">
-        <button 
-          className={`tab-btn-tool ${mode === 'acth' ? 'active' : ''}`}
-          onClick={() => handleModeSwitch('acth')}
-        >
-          ACTH Stimulation
-          <small>Post Cortisol 기준</small>
-        </button>
-        <button 
-          className={`tab-btn-tool ${mode === 'prepill' ? 'active' : ''}`}
-          onClick={() => handleModeSwitch('prepill')}
-        >
-          Pre-Pill Cortisol
-          <small>복약 직전 채혈 기준</small>
-        </button>
-      </div>
+      <div className="tool-content-standard">
+        <AdSlot className="mb-6" />
 
-      <div className="tool-content-cushing">
-        <CushingForm
-          mode={mode}
-          patientInfo={patientInfo}
-          values={values}
-          handlePatientChange={handlePatientChange}
-          setToxValue={setToxValue}
-          executeAnalysis={executeAnalysis}
-          saveImg={saveImg}
-          result={!!result}
-        />
+        <div className="tab-container-tool">
+          <button 
+            className={`tab-btn-tool ${mode === 'acth' ? 'active' : ''}`}
+            onClick={() => handleModeSwitch('acth')}
+          >
+            ACTH Stimulation
+            <small>Post Cortisol 기준</small>
+          </button>
+          <button 
+            className={`tab-btn-tool ${mode === 'prepill' ? 'active' : ''}`}
+            onClick={() => handleModeSwitch('prepill')}
+          >
+            Pre-Pill Cortisol
+            <small>복약 직전 채혈 기준</small>
+          </button>
+        </div>
 
-        {result && (
-          <CushingResultView
-            result={result}
-            resultRef={resultRef}
+        <div className="tool-content-cushing">
+          <CushingForm
+            mode={mode}
+            patientInfo={patientInfo}
+            values={values}
+            handlePatientChange={handlePatientChange}
+            setToxValue={setToxValue}
+            executeAnalysis={executeAnalysis}
+            saveImg={saveImg}
+            result={!!result}
           />
-        )}
+
+          {result && (
+            <CushingResultView
+              result={result}
+              resultRef={resultRef}
+            />
+          )}
+        </div>
+
+        <AdSlot className="mt-8" />
       </div>
 
       <style>{`
+        .tool-content-standard {
+          max-width: 1200px;
+          margin: 0 auto;
+        }
         .tool-content-cushing {
           display: flex;
           flex-direction: column;

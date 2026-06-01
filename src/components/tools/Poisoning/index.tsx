@@ -3,6 +3,7 @@ import { ChevronLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { usePoisoningLogic } from './usePoisoningLogic';
 import { toxinDatabase } from './data';
+import AdSlot from '../../common/AdSlot';
 
 const Poisoning: React.FC = () => {
   const {
@@ -33,98 +34,108 @@ const Poisoning: React.FC = () => {
         </div>
       </header>
 
-      {/* 축종 선택 탭 - 심초음파와 동일하게 카드 외부로 이동 */}
-      <div className="tab-container-tool">
-        <button 
-          className={`tab-btn-tool ${species === 'dog' ? 'active' : ''}`}
-          onClick={() => setSpecies('dog')}
-        >
-          🐶 강아지
-        </button>
-        <button 
-          className={`tab-btn-tool ${species === 'cat' ? 'active' : ''}`}
-          onClick={() => setSpecies('cat')}
-        >
-          🐱 고양이
-        </button>
-      </div>
+      <div className="tool-content-standard">
+        <AdSlot className="mb-6" />
 
-      {/* 물질 선택 그리드 */}
-      <div className="tool-card-container">
-        <div className="tool-card-title">🔍 중독 물질 선택 (가나다순)</div>
-        <div className="toxin-grid">
-          {sortedToxins.map((toxin) => (
-            <button
-              key={toxin.id}
-              className={`toxin-item-btn ${selectedToxin?.id === toxin.id ? 'active' : ''}`}
-              onClick={() => selectToxin(toxin.id)}
-            >
-              <span className="ko-name">{toxin.emoji} {toxin.ko}</span>
-              <span className="en-name">{toxin.en}</span>
-            </button>
-          ))}
+        {/* 축종 선택 탭 - 심초음파와 동일하게 카드 외부로 이동 */}
+        <div className="tab-container-tool">
+          <button 
+            className={`tab-btn-tool ${species === 'dog' ? 'active' : ''}`}
+            onClick={() => setSpecies('dog')}
+          >
+            🐶 강아지
+          </button>
+          <button 
+            className={`tab-btn-tool ${species === 'cat' ? 'active' : ''}`}
+            onClick={() => setSpecies('cat')}
+          >
+            🐱 고양이
+          </button>
         </div>
-      </div>
 
-      {/* 결과 영역 */}
-      {result && (
-        <div className="poison-result-section" ref={resultRef}>
-          <div className="tool-card-container result-card">
-            <div className="result-header-poison">
-              <div className="header-main-info">
-                <span className="result-emoji">{result.toxin.emoji}</span>
-                <div>
-                  <h2>{result.toxin.ko} <span className="en-sub">{result.toxin.en}</span></h2>
-                  <span className={`species-badge-${result.species}`}>
-                    {result.species === 'dog' ? '🐶 강아지' : '🐱 고양이'}
-                  </span>
-                </div>
-              </div>
-              <div className="result-date-poison">진단일: {result.date}</div>
-            </div>
-
-            <div className="poison-info-grid">
-              <div className="info-box-poison">
-                <div className="info-title organ">🧠 손상 부위</div>
-                <div className="info-content">{result.toxin.organ}</div>
-              </div>
-              <div className="info-box-poison">
-                <div className="info-title dose">⚖️ 중독 용량 (Tox Dose)</div>
-                <div className="info-content">{result.toxin.dose}</div>
-              </div>
-              <div className="info-box-poison">
-                <div className="info-title symptoms">🤮 주요 임상 증상</div>
-                <div className="info-content">{result.toxin.symptoms}</div>
-              </div>
-              <div className="info-box-poison">
-                <div className="info-title tests">🧪 권장 진단 검사</div>
-                <div className="info-content">{result.toxin.tests}</div>
-              </div>
-              <div className="info-box-poison full-width">
-                <div className="info-title treatment">🏥 추천 치료 프로토콜</div>
-                <div className="info-content treatment-text">{result.toxin.treatment}</div>
-              </div>
-            </div>
-
-            <div className="prognosis-duration-grid">
-              <div className="extra-info-box prognosis">
-                <span className="extra-label">🔮 임상 예후 (Prognosis)</span>
-                <span className="extra-content">{result.toxin.prognosis}</span>
-              </div>
-              <div className="extra-info-box duration">
-                <span className="extra-label">⏱️ 중독 반응 및 지속 기간</span>
-                <span className="extra-content">{result.toxin.duration}</span>
-              </div>
-            </div>
-
-            <div className="ref-label-poison">
-              ※ 본 정보는 참고용이며, 최종 처방과 치료는 수의사의 임상적 판단하에 결정되어야 합니다.
-            </div>
+        {/* 물질 선택 그리드 */}
+        <div className="tool-card-container">
+          <div className="tool-card-title">🔍 중독 물질 선택 (가나다순)</div>
+          <div className="toxin-grid">
+            {sortedToxins.map((toxin) => (
+              <button
+                key={toxin.id}
+                className={`toxin-item-btn ${selectedToxin?.id === toxin.id ? 'active' : ''}`}
+                onClick={() => selectToxin(toxin.id)}
+              >
+                <span className="ko-name">{toxin.emoji} {toxin.ko}</span>
+                <span className="en-name">{toxin.en}</span>
+              </button>
+            ))}
           </div>
         </div>
-      )}
+
+        {/* 결과 영역 */}
+        {result && (
+          <div className="poison-result-section" ref={resultRef}>
+            <div className="tool-card-container result-card">
+              <div className="result-header-poison">
+                <div className="header-main-info">
+                  <span className="result-emoji">{result.toxin.emoji}</span>
+                  <div>
+                    <h2>{result.toxin.ko} <span className="en-sub">{result.toxin.en}</span></h2>
+                    <span className={`species-badge-${result.species}`}>
+                      {result.species === 'dog' ? '🐶 강아지' : '🐱 고양이'}
+                    </span>
+                  </div>
+                </div>
+                <div className="result-date-poison">진단일: {result.date}</div>
+              </div>
+
+              <div className="poison-info-grid">
+                <div className="info-box-poison">
+                  <div className="info-title organ">🧠 손상 부위</div>
+                  <div className="info-content">{result.toxin.organ}</div>
+                </div>
+                <div className="info-box-poison">
+                  <div className="info-title dose">⚖️ 중독 용량 (Tox Dose)</div>
+                  <div className="info-content">{result.toxin.dose}</div>
+                </div>
+                <div className="info-box-poison">
+                  <div className="info-title symptoms">🤮 주요 임상 증상</div>
+                  <div className="info-content">{result.toxin.symptoms}</div>
+                </div>
+                <div className="info-box-poison">
+                  <div className="info-title tests">🧪 권장 진단 검사</div>
+                  <div className="info-content">{result.toxin.tests}</div>
+                </div>
+                <div className="info-box-poison full-width">
+                  <div className="info-title treatment">🏥 추천 치료 프로토콜</div>
+                  <div className="info-content treatment-text">{result.toxin.treatment}</div>
+                </div>
+              </div>
+
+              <div className="prognosis-duration-grid">
+                <div className="extra-info-box prognosis">
+                  <span className="extra-label">🔮 임상 예후 (Prognosis)</span>
+                  <span className="extra-content">{result.toxin.prognosis}</span>
+                </div>
+                <div className="extra-info-box duration">
+                  <span className="extra-label">⏱️ 중독 반응 및 지속 기간</span>
+                  <span className="extra-content">{result.toxin.duration}</span>
+                </div>
+              </div>
+
+              <div className="ref-label-poison">
+                ※ 본 정보는 참고용이며, 최종 처방과 치료는 수의사의 임상적 판단하에 결정되어야 합니다.
+              </div>
+            </div>
+          </div>
+        )}
+
+        <AdSlot className="mt-8" />
+      </div>
 
       <style>{`
+        .tool-content-standard {
+          max-width: 1200px;
+          margin: 0 auto;
+        }
         .tab-container-tool {
           display: flex;
           gap: 10px;

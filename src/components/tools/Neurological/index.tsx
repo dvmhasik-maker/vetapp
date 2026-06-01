@@ -5,6 +5,7 @@ import { useNeuroLogic } from './useNeuroLogic';
 import NeuroForm from './NeuroForm';
 import NeuroResultView from './NeuroResultView';
 import html2canvas from 'html2canvas';
+import AdSlot from '../../common/AdSlot';
 
 const Neurological: React.FC = () => {
   const {
@@ -52,27 +53,37 @@ const Neurological: React.FC = () => {
         </div>
       </header>
 
-      <div className="layout-grid-neuro" ref={captureRef}>
-        <NeuroForm
-          patient={patient}
-          setPatient={setPatient}
-          selectedSymptomIds={selectedSymptomIds}
-          toggleSymptom={toggleSymptom}
-          localizeLesion={localizeLesion}
-          saveImg={saveImg}
-          result={!!result}
-        />
+      <div className="tool-content-standard">
+        <AdSlot className="mb-6" />
 
-        {result && (
-          <NeuroResultView
-            result={result}
+        <div className="layout-grid-neuro" ref={captureRef}>
+          <NeuroForm
             patient={patient}
-            resultRef={resultRef}
+            setPatient={setPatient}
+            selectedSymptomIds={selectedSymptomIds}
+            toggleSymptom={toggleSymptom}
+            localizeLesion={localizeLesion}
+            saveImg={saveImg}
+            result={!!result}
           />
-        )}
+
+          {result && (
+            <NeuroResultView
+              result={result}
+              patient={patient}
+              resultRef={resultRef}
+            />
+          )}
+        </div>
+
+        <AdSlot className="mt-8" />
       </div>
 
       <style>{`
+        .tool-content-standard {
+          max-width: 1200px;
+          margin: 0 auto;
+        }
         .layout-grid-neuro { display: flex; flex-direction: column; gap: 1.5rem; margin-top: 1rem; padding-bottom: 20px; align-items: center; }
         .layout-grid-neuro > div { width: 100%; }
         

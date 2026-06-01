@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { useHypoLogic } from './useHypoLogic';
 import DiagnosisForm from './DiagnosisForm';
 import ResultView from './ResultView';
+import AdSlot from '../../common/AdSlot';
 
 const Hypothyroidism: React.FC = () => {
   const {
@@ -38,44 +39,54 @@ const Hypothyroidism: React.FC = () => {
         </div>
       </div>
 
-      <div className="tab-container-tool">
-        <button 
-          className={`tab-btn-tool ${mode === 'diag' ? 'active' : ''}`} 
-          onClick={() => { setMode('diag'); setResult(null); }}
-        >
-          <ClipboardList size={18} style={{ marginRight: '6px' }} /> 1단계 초기 진단
-        </button>
-        <button 
-          className={`tab-btn-tool ${mode === 'manage' ? 'active' : ''}`} 
-          onClick={() => { setMode('manage'); setResult(null); }}
-        >
-          <Activity size={18} style={{ marginRight: '6px' }} /> 2단계 치료 관리
-        </button>
-      </div>
+      <div className="tool-content-standard">
+        <AdSlot className="mb-6" />
 
-      <DiagnosisForm
-        mode={mode}
-        patient={patient}
-        values={values}
-        handlePatientChange={handlePatientChange}
-        handleValueChange={handleValueChange}
-        executeAnalysis={executeAnalysis}
-        saveImg={saveImg}
-        patientCardRef={patientCardRef}
-        inputPanelRef={inputPanelRef}
-      />
+        <div className="tab-container-tool">
+          <button 
+            className={`tab-btn-tool ${mode === 'diag' ? 'active' : ''}`} 
+            onClick={() => { setMode('diag'); setResult(null); }}
+          >
+            <ClipboardList size={18} style={{ marginRight: '6px' }} /> 1단계 초기 진단
+          </button>
+          <button 
+            className={`tab-btn-tool ${mode === 'manage' ? 'active' : ''}`} 
+            onClick={() => { setMode('manage'); setResult(null); }}
+          >
+            <Activity size={18} style={{ marginRight: '6px' }} /> 2단계 치료 관리
+          </button>
+        </div>
 
-      {result && (
-        <ResultView
-          result={result}
+        <DiagnosisForm
+          mode={mode}
           patient={patient}
           values={values}
-          mode={mode}
-          resultRef={resultRef}
+          handlePatientChange={handlePatientChange}
+          handleValueChange={handleValueChange}
+          executeAnalysis={executeAnalysis}
+          saveImg={saveImg}
+          patientCardRef={patientCardRef}
+          inputPanelRef={inputPanelRef}
         />
-      )}
+
+        {result && (
+          <ResultView
+            result={result}
+            patient={patient}
+            values={values}
+            mode={mode}
+            resultRef={resultRef}
+          />
+        )}
+
+        <AdSlot className="mt-8" />
+      </div>
 
       <style>{`
+        .tool-content-standard {
+          max-width: 1200px;
+          margin: 0 auto;
+        }
         .tab-container-tool {
           display: flex;
           gap: 10px;

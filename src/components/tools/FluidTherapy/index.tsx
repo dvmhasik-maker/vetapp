@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { useFluidLogic } from './useFluidLogic';
 import FluidForm from './FluidForm';
 import FluidResultView from './FluidResultView';
+import AdSlot from '../../common/AdSlot';
 
 const FluidTherapy: React.FC = () => {
   const {
@@ -31,23 +32,33 @@ const FluidTherapy: React.FC = () => {
         </div>
       </div>
 
-      <div className="layout-grid-fluid">
-        <FluidForm
-          patient={patient}
-          setPatient={setPatient}
-          input={input}
-          setInput={setInput}
-        />
+      <div className="tool-content-standard">
+        <AdSlot className="mb-6" />
 
-        {result && (
-          <FluidResultView
-            result={result}
-            resultRef={resultRef}
+        <div className="layout-grid-fluid">
+          <FluidForm
+            patient={patient}
+            setPatient={setPatient}
+            input={input}
+            setInput={setInput}
           />
-        )}
+
+          {result && (
+            <FluidResultView
+              result={result}
+              resultRef={resultRef}
+            />
+          )}
+        </div>
+
+        <AdSlot className="mt-8" />
       </div>
 
       <style>{`
+        .tool-content-standard {
+          max-width: 1200px;
+          margin: 0 auto;
+        }
         .layout-grid-fluid { 
           display: grid; 
           grid-template-columns: 1fr 1fr; 

@@ -3,6 +3,7 @@ import { ChevronLeft, Camera, Calculator, Info, Dog, Cat } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useFoodAmountLogic } from './useFoodAmountLogic';
 import { statusConfig, brandProductPreset } from './data';
+import AdSlot from '../../common/AdSlot';
 
 const FoodAmount: React.FC = () => {
   const {
@@ -43,192 +44,202 @@ const FoodAmount: React.FC = () => {
         </div>
       </div>
 
-      <div className="layout-grid-food">
-        {/* Input Column */}
-        <div className="input-col">
-          <div className="tool-card-container">
-            <div className="tool-card-title">1. 반려동물 프로필</div>
+      <div className="tool-content-standard">
+        <AdSlot className="mb-6" />
 
-            {/* 축종 선택을 탭 스타일로 개선 */}
-            <div className="species-tabs-food">
-              <button 
-                className={`species-tab ${species === 'dog' ? 'active' : ''}`}
-                onClick={() => setSpecies('dog')}
-              >
-                <Dog size={20} /> <span>강아지</span>
-              </button>
-              <button 
-                className={`species-tab ${species === 'cat' ? 'active' : ''}`}
-                onClick={() => setSpecies('cat')}
-              >
-                <Cat size={20} /> <span>고양이</span>
-              </button>
-            </div>
+        <div className="layout-grid-food">
+          {/* Input Column */}
+          <div className="input-col">
+            <div className="tool-card-container">
+              <div className="tool-card-title">1. 반려동물 프로필</div>
 
-            <div className="input-group-food">
-              <label className="input-label-food">이름</label>
-              <input 
-                type="text" 
-                value={petName} 
-                onChange={(e) => setPetName(e.target.value)}
-                placeholder="예: 보리, 나비" 
-                className="input-field-food"
-              />
-            </div>
+              {/* 축종 선택을 탭 스타일로 개선 */}
+              <div className="species-tabs-food">
+                <button 
+                  className={`species-tab ${species === 'dog' ? 'active' : ''}`}
+                  onClick={() => setSpecies('dog')}
+                >
+                  <Dog size={20} /> <span>강아지</span>
+                </button>
+                <button 
+                  className={`species-tab ${species === 'cat' ? 'active' : ''}`}
+                  onClick={() => setSpecies('cat')}
+                >
+                  <Cat size={20} /> <span>고양이</span>
+                </button>
+              </div>
 
-            <div className="patient-grid-food">
-              <div className="input-group-food no-margin">
-                <label className="input-label-food">나이</label>
+              <div className="input-group-food">
+                <label className="input-label-food">이름</label>
                 <input 
                   type="text" 
-                  value={petAge} 
-                  onChange={(e) => setPetAge(e.target.value)}
-                  placeholder="예: 2세" 
+                  value={petName} 
+                  onChange={(e) => setPetName(e.target.value)}
+                  placeholder="예: 보리, 나비" 
                   className="input-field-food"
                 />
               </div>
-              <div className="input-group-food no-margin">
-                <label className="input-label-food">체중 (kg)</label>
-                <input 
-                  type="number" 
-                  value={petWeight} 
-                  onChange={(e) => setPetWeight(e.target.value)}
-                  placeholder="0.0" 
-                  className="input-field-food"
-                />
-              </div>
-            </div>
-          </div>
 
-          <div className="tool-card-container">
-            <div className="tool-card-title">2. 임상 상태 및 사료 정보</div>
-
-            <div className="input-group-food">
-              <label className="input-label-food">임상 상태 (Status Factor)</label>
-              <select 
-                className="select-field-food"
-                value={petStatus}
-                onChange={(e) => setPetStatus(parseFloat(e.target.value))}
-              >
-                {statusConfig[species].map((s, idx) => (
-                  <option key={idx} value={s.val}>{s.text} ({s.val})</option>
-                ))}
-              </select>
-            </div>
-
-            <div className="input-group-food">
-              <label className="input-label-food">사료 제조사</label>
-              <select 
-                className="select-field-food"
-                value={brand}
-                onChange={(e) => setBrand(e.target.value)}
-              >
-                <option value="royal_canin">로얄캐닌 (Royal Canin)</option>
-                <option value="hills">힐스 (Hill's)</option>
-                <option value="healmedix">힐메딕스 (Healmedix)</option>
-                <option value="velixer">벨릭서 (Velixer)</option>
-              </select>
-            </div>
-
-            <div className="input-group-food">
-              <label className="input-label-food">사료 제품명</label>
-              <select 
-                className="select-field-food"
-                value={productKcal}
-                onChange={(e) => setProductKcal(parseFloat(e.target.value))}
-              >
-                {brandProductPreset[species][brand]?.map((p, idx) => (
-                  <option key={idx} value={p.kcal}>{p.name} [{p.kcal.toFixed(2)} kcal/g]</option>
-                ))}
-              </select>
-            </div>
-
-            <button onClick={calculateNutrition} className="btn-calculate-food">
-              <Calculator size={20} /> 급여 가이드라인 생성하기
-            </button>
-          </div>
-        </div>
-
-        {/* Result Column */}
-        <div className="result-col-food" ref={resultColRef}>
-          {!result ? (
-            <div className="result-placeholder-food">
-              <div className="placeholder-icon">📋</div>
-              <h3>급여 설계 준비 완료</h3>
-              <p>환자 정보를 입력하고 버튼을 누르면<br/>정밀 급여량이 산출됩니다.</p>
-            </div>
-          ) : (
-            <div className="result-content-food">
-              <div className="result-card-food" ref={captureZoneRef}>
-                <div className="result-accent-bar"></div>
-                
-                <div className="result-header-food">
-                  <div className="header-left">
-                    <span className="prescription-badge">Dietary Guideline</span>
-                    <h2><span className="pet-name-highlight">{result.name}</span> 맞춤 급여 솔루션</h2>
-                  </div>
-                  <span className="result-date">{result.date}</span>
+              <div className="patient-grid-food">
+                <div className="input-group-food no-margin">
+                  <label className="input-label-food">나이</label>
+                  <input 
+                    type="text" 
+                    value={petAge} 
+                    onChange={(e) => setPetAge(e.target.value)}
+                    placeholder="예: 2세" 
+                    className="input-field-food"
+                  />
                 </div>
-
-                <div className="metrics-grid-food">
-                  <div className="metric-box-food">
-                    <span className="box-label">일일 필요 열량<br/>(DER)</span>
-                    <span className="box-value">{result.der}</span>
-                    <span className="box-unit">kcal</span>
-                  </div>
-                  <div className="metric-box-food">
-                    <span className="box-label">사료 에너지<br/>밀도</span>
-                    <span className="box-value">{result.kcalPerG}</span>
-                    <span className="box-unit">kcal/g</span>
-                  </div>
-                  <div className="metric-box-food highlight">
-                    <span className="box-label highlight">일일 권장<br/>급여량</span>
-                    <span className="box-value highlight">{result.foodG}</span>
-                    <span className="box-unit highlight">g / day</span>
-                  </div>
-                </div>
-
-                <div className="details-list-food">
-                  <div className="detail-item-food">
-                    <span className="detail-label">프로필 요약</span>
-                    <span className="detail-value">{result.profile}</span>
-                  </div>
-                  <div className="detail-item-food">
-                    <span className="detail-label">적용 계수</span>
-                    <span className="detail-value">{result.status}</span>
-                  </div>
-                  <div className="detail-item-food">
-                    <span className="detail-label">RER (기초대사량)</span>
-                    <span className="detail-value">{result.rer} kcal</span>
-                  </div>
-                  <div className="detail-item-food">
-                    <span className="detail-label">선택 제품</span>
-                    <span className="detail-value">{result.foodInfo}</span>
-                  </div>
-                  <div className="detail-item-food highlight-row">
-                    <div className="detail-label cup-label">
-                      계량컵 환산
-                      <small>종이컵(약 75g) 기준</small>
-                    </div>
-                    <span className="detail-value cup-value">{result.cupInfo}</span>
-                  </div>
-                </div>
-
-                <div className="nutrition-warning-food">
-                  <Info size={16} style={{ flexShrink: 0 }} />
-                  <p>본 결과는 참고 수치입니다. 반려동물의 실제 체중 변화에 따라 급여량을 조절해 주세요.</p>
+                <div className="input-group-food no-margin">
+                  <label className="input-label-food">체중 (kg)</label>
+                  <input 
+                    type="number" 
+                    value={petWeight} 
+                    onChange={(e) => setPetWeight(e.target.value)}
+                    placeholder="0.0" 
+                    className="input-field-food"
+                  />
                 </div>
               </div>
+            </div>
 
-              <button onClick={exportToImage} className="btn-save-food">
-                <Camera size={18} /> 설계표 이미지로 저장
+            <div className="tool-card-container">
+              <div className="tool-card-title">2. 임상 상태 및 사료 정보</div>
+
+              <div className="input-group-food">
+                <label className="input-label-food">임상 상태 (Status Factor)</label>
+                <select 
+                  className="select-field-food"
+                  value={petStatus}
+                  onChange={(e) => setPetStatus(parseFloat(e.target.value))}
+                >
+                  {statusConfig[species].map((s, idx) => (
+                    <option key={idx} value={s.val}>{s.text} ({s.val})</option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="input-group-food">
+                <label className="input-label-food">사료 제조사</label>
+                <select 
+                  className="select-field-food"
+                  value={brand}
+                  onChange={(e) => setBrand(e.target.value)}
+                >
+                  <option value="royal_canin">로얄캐닌 (Royal Canin)</option>
+                  <option value="hills">힐스 (Hill's)</option>
+                  <option value="healmedix">힐메딕스 (Healmedix)</option>
+                  <option value="velixer">벨릭서 (Velixer)</option>
+                </select>
+              </div>
+
+              <div className="input-group-food">
+                <label className="input-label-food">사료 제품명</label>
+                <select 
+                  className="select-field-food"
+                  value={productKcal}
+                  onChange={(e) => setProductKcal(parseFloat(e.target.value))}
+                >
+                  {brandProductPreset[species][brand]?.map((p, idx) => (
+                    <option key={idx} value={p.kcal}>{p.name} [{p.kcal.toFixed(2)} kcal/g]</option>
+                  ))}
+                </select>
+              </div>
+
+              <button onClick={calculateNutrition} className="btn-calculate-food">
+                <Calculator size={20} /> 급여 가이드라인 생성하기
               </button>
             </div>
-          )}
+          </div>
+
+          {/* Result Column */}
+          <div className="result-col-food" ref={resultColRef}>
+            {!result ? (
+              <div className="result-placeholder-food">
+                <div className="placeholder-icon">📋</div>
+                <h3>급여 설계 준비 완료</h3>
+                <p>환자 정보를 입력하고 버튼을 누르면<br/>정밀 급여량이 산출됩니다.</p>
+              </div>
+            ) : (
+              <div className="result-content-food">
+                <div className="result-card-food" ref={captureZoneRef}>
+                  <div className="result-accent-bar"></div>
+                  
+                  <div className="result-header-food">
+                    <div className="header-left">
+                      <span className="prescription-badge">Dietary Guideline</span>
+                      <h2><span className="pet-name-highlight">{result.name}</span> 맞춤 급여 솔루션</h2>
+                    </div>
+                    <span className="result-date">{result.date}</span>
+                  </div>
+
+                  <div className="metrics-grid-food">
+                    <div className="metric-box-food">
+                      <span className="box-label">일일 필요 열량<br/>(DER)</span>
+                      <span className="box-value">{result.der}</span>
+                      <span className="box-unit">kcal</span>
+                    </div>
+                    <div className="metric-box-food">
+                      <span className="box-label">사료 에너지<br/>밀도</span>
+                      <span className="box-value">{result.kcalPerG}</span>
+                      <span className="box-unit">kcal/g</span>
+                    </div>
+                    <div className="metric-box-food highlight">
+                      <span className="box-label highlight">일일 권장<br/>급여량</span>
+                      <span className="box-value highlight">{result.foodG}</span>
+                      <span className="box-unit highlight">g / day</span>
+                    </div>
+                  </div>
+
+                  <div className="details-list-food">
+                    <div className="detail-item-food">
+                      <span className="detail-label">프로필 요약</span>
+                      <span className="detail-value">{result.profile}</span>
+                    </div>
+                    <div className="detail-item-food">
+                      <span className="detail-label">적용 계수</span>
+                      <span className="detail-value">{result.status}</span>
+                    </div>
+                    <div className="detail-item-food">
+                      <span className="detail-label">RER (기초대사량)</span>
+                      <span className="detail-value">{result.rer} kcal</span>
+                    </div>
+                    <div className="detail-item-food">
+                      <span className="detail-label">선택 제품</span>
+                      <span className="detail-value">{result.foodInfo}</span>
+                    </div>
+                    <div className="detail-item-food highlight-row">
+                      <div className="detail-label cup-label">
+                        계량컵 환산
+                        <small>종이컵(약 75g) 기준</small>
+                      </div>
+                      <span className="detail-value cup-value">{result.cupInfo}</span>
+                    </div>
+                  </div>
+
+                  <div className="nutrition-warning-food">
+                    <Info size={16} style={{ flexShrink: 0 }} />
+                    <p>본 결과는 참고 수치입니다. 반려동물의 실제 체중 변화에 따라 급여량을 조절해 주세요.</p>
+                  </div>
+                </div>
+
+                <button onClick={exportToImage} className="btn-save-food">
+                  <Camera size={18} /> 설계표 이미지로 저장
+                </button>
+              </div>
+            )}
+          </div>
         </div>
+
+        <AdSlot className="mt-8" />
       </div>
 
       <style>{`
+        .tool-content-standard {
+          max-width: 1200px;
+          margin: 0 auto;
+        }
         .layout-grid-food {
           display: grid;
           grid-template-columns: 1fr 1fr;

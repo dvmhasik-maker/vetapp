@@ -3,6 +3,7 @@ import { ChevronLeft, ShieldAlert, Info } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useParasitesLogic } from './useParasitesLogic';
 import { parasiteData } from './data';
+import AdSlot from '../../common/AdSlot';
 
 const ParasiteMedia: React.FC<{ url: string; videoUrl?: string; alt: string; description: string; magnification: string }> = ({ url, videoUrl, alt, description, magnification }) => {
   const [status, setStatus] = useState<'loading' | 'success' | 'error'>('loading');
@@ -93,85 +94,95 @@ const Parasites: React.FC = () => {
         </div>
       </div>
 
-      <div className="tool-card-container">
-        <div className="tool-card-title">📋 대상 기생충 선택</div>
-        <div className="tag-grid-refined">
-          {sortedData.map((p, idx) => (
-            <button 
-              key={idx}
-              className={`refined-tag ${selectedParasite?.ko === p.ko ? 'active' : ''}`}
-              onClick={() => handleParasiteClick(p)}
-            >
-              🦠 {p.ko.split(' ')[0]}
-            </button>
-          ))}
+      <div className="tool-content-standard">
+        <AdSlot className="mb-6" />
+
+        <div className="tool-card-container">
+          <div className="tool-card-title">📋 대상 기생충 선택</div>
+          <div className="tag-grid-refined">
+            {sortedData.map((p, idx) => (
+              <button 
+                key={idx}
+                className={`refined-tag ${selectedParasite?.ko === p.ko ? 'active' : ''}`}
+                onClick={() => handleParasiteClick(p)}
+              >
+                🦠 {p.ko.split(' ')[0]}
+              </button>
+            ))}
+          </div>
         </div>
+
+        {selectedParasite && (
+          <div className="result-outer-container" ref={resultRef}>
+            <div className="result-header-area">
+              <h2 className="main-result-title">
+                🦠 {selectedParasite.ko}
+              </h2>
+              <p className="sub-result-title">{selectedParasite.en}</p>
+              <p className="sci-name">학명: {selectedParasite.sci}</p>
+            </div>
+
+            {selectedParasite.image && (
+              <ParasiteMedia 
+                url={selectedParasite.image.url}
+                videoUrl={selectedParasite.image.videoUrl}
+                alt={selectedParasite.ko}
+                description={selectedParasite.image.description}
+                magnification={selectedParasite.image.magnification}
+              />
+            )}
+
+            <div className="protocol-stack">
+              <div className="protocol-box dog">
+                <div className="protocol-label">
+                  🐶 개 (Canine)
+                </div>
+                <div className="protocol-content">
+                  <div className="mini-label">부위</div>
+                  <p><b>{selectedParasite.dog.site}</b></p>
+                  <div className="mini-label" style={{ marginTop: '12px' }}>치료법</div>
+                  <div dangerouslySetInnerHTML={{ __html: selectedParasite.dog.treatment }} />
+                </div>
+              </div>
+
+              <div className="protocol-box cat">
+                <div className="protocol-label">
+                  🐱 고양이 (Feline)
+                </div>
+                <div className="protocol-content">
+                  <div className="mini-label">부위</div>
+                  <p><b>{selectedParasite.cat.site}</b></p>
+                  <div className="mini-label" style={{ marginTop: '12px' }}>치료법</div>
+                  <div dangerouslySetInnerHTML={{ __html: selectedParasite.cat.treatment }} />
+                </div>
+              </div>
+            </div>
+
+            <div className="clinical-notice">
+              <ShieldAlert size={20} className="notice-icon" />
+              <div className="notice-text">
+                <strong>임상 위험성 관리 (Clinical Notice)</strong>
+                <ul>
+                  <li>고양이에게 개 전용 외부기생충약(퍼메트린 함유) 절대 금기.</li>
+                  <li>인수공통감염 유의: 접촉 시 위생 장갑 착용 권장.</li>
+                </ul>
+              </div>
+            </div>
+            
+            <div className="footer-ref">
+              <Info size={12} /> CAPC Official Guideline & Plumb's Handbook Reference.
+            </div>
+          </div>
+        )}
+
+        <AdSlot className="mt-8" />
       </div>
 
-      {selectedParasite && (
-        <div className="result-outer-container" ref={resultRef}>
-          <div className="result-header-area">
-            <h2 className="main-result-title">
-              🦠 {selectedParasite.ko}
-            </h2>
-            <p className="sub-result-title">{selectedParasite.en}</p>
-            <p className="sci-name">학명: {selectedParasite.sci}</p>
-          </div>
-
-          {selectedParasite.image && (
-            <ParasiteMedia 
-              url={selectedParasite.image.url}
-              videoUrl={selectedParasite.image.videoUrl}
-              alt={selectedParasite.ko}
-              description={selectedParasite.image.description}
-              magnification={selectedParasite.image.magnification}
-            />
-          )}
-
-          <div className="protocol-stack">
-            <div className="protocol-box dog">
-              <div className="protocol-label">
-                🐶 개 (Canine)
-              </div>
-              <div className="protocol-content">
-                <div className="mini-label">부위</div>
-                <p><b>{selectedParasite.dog.site}</b></p>
-                <div className="mini-label" style={{ marginTop: '12px' }}>치료법</div>
-                <div dangerouslySetInnerHTML={{ __html: selectedParasite.dog.treatment }} />
-              </div>
-            </div>
-
-            <div className="protocol-box cat">
-              <div className="protocol-label">
-                🐱 고양이 (Feline)
-              </div>
-              <div className="protocol-content">
-                <div className="mini-label">부위</div>
-                <p><b>{selectedParasite.cat.site}</b></p>
-                <div className="mini-label" style={{ marginTop: '12px' }}>치료법</div>
-                <div dangerouslySetInnerHTML={{ __html: selectedParasite.cat.treatment }} />
-              </div>
-            </div>
-          </div>
-
-          <div className="clinical-notice">
-            <ShieldAlert size={20} className="notice-icon" />
-            <div className="notice-text">
-              <strong>임상 위험성 관리 (Clinical Notice)</strong>
-              <ul>
-                <li>고양이에게 개 전용 외부기생충약(퍼메트린 함유) 절대 금기.</li>
-                <li>인수공통감염 유의: 접촉 시 위생 장갑 착용 권장.</li>
-              </ul>
-            </div>
-          </div>
-          
-          <div className="footer-ref">
-            <Info size={12} /> CAPC Official Guideline & Plumb's Handbook Reference.
-          </div>
-        </div>
-      )}
-
       <style>{`
+        .tool-content-standard {
+          max-width: 1200px;
+          margin: 0 auto;
+        }
         .tag-grid-refined {
           display: grid;
           grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));

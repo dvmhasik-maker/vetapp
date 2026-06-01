@@ -4,6 +4,7 @@ import { useEchoLogic } from './useEchoLogic';
 import EchoForm from './EchoForm';
 import EchoResultView from './EchoResultView';
 import html2canvas from 'html2canvas';
+import AdSlot from '../../common/AdSlot';
 
 const Echocardiography = () => {
   const {
@@ -49,30 +50,40 @@ const Echocardiography = () => {
         </div>
       </header>
 
-      <div className="tool-content-echo">
-        <EchoForm
-          species={species}
-          setSpecies={setSpecies}
-          patientInfo={patientInfo}
-          setPatientInfo={setPatientInfo}
-          dogInput={dogInput}
-          setDogInput={setDogInput}
-          catInput={catInput}
-          setCatInput={setCatInput}
-          calculateEcho={calculateEcho}
-          saveImg={saveImg}
-          result={!!result}
-        />
+      <div className="tool-content-standard">
+        <AdSlot className="mb-6" />
 
-        {result && (
-          <EchoResultView
-            result={result}
-            resultRef={resultRef}
+        <div className="tool-content-echo">
+          <EchoForm
+            species={species}
+            setSpecies={setSpecies}
+            patientInfo={patientInfo}
+            setPatientInfo={setPatientInfo}
+            dogInput={dogInput}
+            setDogInput={setDogInput}
+            catInput={catInput}
+            setCatInput={setCatInput}
+            calculateEcho={calculateEcho}
+            saveImg={saveImg}
+            result={!!result}
           />
-        )}
+
+          {result && (
+            <EchoResultView
+              result={result}
+              resultRef={resultRef}
+            />
+          )}
+        </div>
+
+        <AdSlot className="mt-8" />
       </div>
 
       <style>{`
+        .tool-content-standard {
+          max-width: 1200px;
+          margin: 0 auto;
+        }
         .tool-content-echo {
           display: flex;
           flex-direction: column;
