@@ -195,7 +195,7 @@ const AtopyResultView: React.FC<AtopyResultViewProps> = ({
         .atopy-map-img-large {
           max-width: 100%;
           height: auto;
-          max-height: 500px;
+          max-height: 800px;
           object-fit: contain;
           border-radius: 4px;
         }
@@ -234,7 +234,7 @@ const AtopyResultView: React.FC<AtopyResultViewProps> = ({
         .color-box.p-100 { background-color: #ef4444; } /* Red */
         .color-box.p-75 { background-color: #f97316; }  /* Orange */
         .color-box.p-50 { background-color: #facc15; }  /* Yellow */
-        .color-box.p-25 { background-color: #fbcfcf; }  /* Pink/Light Red - as per common study coloring */
+        .color-box.p-25 { background-color: #0ea5e9; }  /* Skyblue */
         
         .l-text {
           font-size: 11px;
