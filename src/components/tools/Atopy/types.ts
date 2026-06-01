@@ -7,7 +7,3 @@ export interface AtopyBreed {
   features: string[];
   tip: string;
 }
-
-export interface AtopyResult {
-  breed: AtopyBreed;
-}
