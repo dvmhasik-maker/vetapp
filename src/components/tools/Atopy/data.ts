@@ -1,7 +1,8 @@
 import { AtopyBreed } from './types';
 
-// GitHub Pages base path prefix
-const BASE_PATH = '/Vetapp/assets/images/atopy';
+// Use Vite's BASE_URL for flexible deployment (GitHub Pages or Cloudflare)
+const BASE_URL = import.meta.env.BASE_URL || '/';
+const BASE_PATH = `${BASE_URL.endsWith('/') ? BASE_URL : BASE_URL + '/'}assets/images/atopy`;
 
 export const atopyBreedData: AtopyBreed[] = [
   {
