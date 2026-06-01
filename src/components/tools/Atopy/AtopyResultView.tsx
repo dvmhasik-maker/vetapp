@@ -198,6 +198,11 @@ const AtopyResultView: React.FC<AtopyResultViewProps> = ({
           max-height: 800px;
           object-fit: contain;
           border-radius: 4px;
+          /* Optimization for sharpness */
+          image-rendering: -webkit-optimize-contrast;
+          image-rendering: crisp-edges;
+          transform: translateZ(0); /* Trigger hardware acceleration */
+          -webkit-backface-visibility: hidden;
         }
 
         .prevalence-legend {
