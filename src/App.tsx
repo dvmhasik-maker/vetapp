@@ -8,6 +8,7 @@ import Neurological from './components/tools/Neurological/index';
 import Echocardiography from './components/tools/Echocardiography/index';
 import Poisoning from './components/tools/Poisoning/index';
 import Cushing from './components/tools/Cushing/index';
+import Atopy from './components/tools/Atopy/index';
 
 // Legal & Static Pages
 import About from './components/legal/About';
@@ -28,6 +29,7 @@ function App() {
         <Route path="/echocardiography" element={<Echocardiography />} />
         <Route path="/poisoning" element={<Poisoning />} />
         <Route path="/cushing" element={<Cushing />} />
+        <Route path="/atopy" element={<Atopy />} />
 
         {/* Legal & Static Routes */}
         <Route path="/about" element={<About />} />

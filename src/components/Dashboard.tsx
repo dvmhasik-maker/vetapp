@@ -7,7 +7,8 @@ import {
   Activity, 
   Heart, 
   AlertTriangle, 
-  Layers 
+  Layers,
+  ShieldAlert
 } from 'lucide-react';
 import AdSlot from './common/AdSlot';
 
@@ -75,6 +76,13 @@ const tools: Tool[] = [
     description: '부신피질기능항진증 진단 점수 및 관리 모니터링',
     icon: <Stethoscope size={28} />,
     path: '/cushing'
+  },
+  {
+    id: 'atopy',
+    name: '아토피',
+    description: '견종별 아토피 호발 부위 및 임상 특징 정보',
+    icon: <ShieldAlert size={28} />,
+    path: '/atopy'
   },
 ];
 
