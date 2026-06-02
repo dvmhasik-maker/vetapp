@@ -1,19 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { PatientData, FluidInput, FluidResult, KSupplementResult, TLKInput, TLKResult, TLKDrugResult, TLKLoadingDose } from './types';
-
-const TLK_CONC = { tramadol: 50, lidocaine: 20, ketamine: 50 };
-const TLK_RANGES = {
-  dog: {
-    tramadol: { lo: 1.3, hi: 2.6, step: 0.05, default: 1.3 },
-    lidocaine: { lo: 0.6, hi: 3.0, step: 0.05, default: 1.5 },
-    ketamine: { lo: 0.12, hi: 1.2, step: 0.02, default: 0.6 },
-  },
-  cat: {
-    tramadol: { lo: 1.3, hi: 2.6, step: 0.05, default: 1.3 },
-    lidocaine: { lo: 0.6, hi: 1.5, step: 0.05, default: 1.0 },
-    ketamine: { lo: 0.12, hi: 1.2, step: 0.02, default: 0.6 },
-  },
-};
+import { PatientData, FluidInput, FluidResult, KSupplementResult } from './types';
 
 export const useFluidLogic = () => {
   const [patient, setPatient] = useState<PatientData>({
@@ -26,33 +12,13 @@ export const useFluidLogic = () => {
     dropFactor: '60',
     potassium: '4.0'
   });
-  const [tlkInput, setTlkInput] = useState<TLKInput>({
-    enabled: false,
-    bagSize: '500',
-    fluidRate: '1.0', // Now multiplier
-    isRatePerKg: false,
-    tramadolDose: 1.3,
-    lidocaineDose: 1.5,
-    ketamineDose: 0.6
-  });
   const [result, setResult] = useState<FluidResult | null>(null);
 
   const resultRef = useRef<HTMLDivElement>(null);
 
-  // Update TLK doses when species changes to ensure they are within safe limits
-  useEffect(() => {
-    const ranges = TLK_RANGES[patient.species];
-    setTlkInput(prev => ({
-      ...prev,
-      tramadolDose: Math.min(ranges.tramadol.hi, Math.max(ranges.tramadol.lo, prev.tramadolDose)),
-      lidocaineDose: Math.min(ranges.lidocaine.hi, Math.max(ranges.lidocaine.lo, prev.lidocaineDose)),
-      ketamineDose: Math.min(ranges.ketamine.hi, Math.max(ranges.ketamine.lo, prev.ketamineDose))
-    }));
-  }, [patient.species]);
-
   useEffect(() => {
     calculateFluid();
-  }, [patient, input, tlkInput]);
+  }, [patient, input]);
 
   const calculateFluid = () => {
     const weight = parseFloat(patient.weight);
@@ -137,76 +103,6 @@ export const useFluidLogic = () => {
     const currentKRate = (hourlyFluidRate / 1000) * kTarget;
     const showSafetyWarning = kTarget > 0 && currentKRate >= maxSafeK;
 
-    // 7. TLK Logic
-    let tlkResult: TLKResult | undefined;
-    if (tlkInput.enabled) {
-      const bagSize = parseFloat(tlkInput.bagSize) || 500;
-      const multiplier = parseFloat(tlkInput.fluidRate) || 1.0;
-      
-      const fluidRateAbs = hourlyFluidRate * multiplier;
-      const fluidRatePerKg = fluidRateAbs / weight;
-      const duration = fluidRateAbs > 0 ? bagSize / fluidRateAbs : 0;
-
-      const drugs: TLKDrugResult[] = [
-        {
-          name: 'Tramadol',
-          dose: tlkInput.tramadolDose,
-          totalMg: tlkInput.tramadolDose * weight * duration,
-          volumeMl: (tlkInput.tramadolDose * weight * duration) / TLK_CONC.tramadol,
-          concMgMl: (tlkInput.tramadolDose * weight * duration) / bagSize,
-          color: 'var(--tramadol)'
-        },
-        {
-          name: 'Lidocaine',
-          dose: tlkInput.lidocaineDose,
-          totalMg: tlkInput.lidocaineDose * weight * duration,
-          volumeMl: (tlkInput.lidocaineDose * weight * duration) / TLK_CONC.lidocaine,
-          concMgMl: (tlkInput.lidocaineDose * weight * duration) / bagSize,
-          color: 'var(--lidocaine)'
-        },
-        {
-          name: 'Ketamine',
-          dose: tlkInput.ketamineDose,
-          totalMg: tlkInput.ketamineDose * weight * duration,
-          volumeMl: (tlkInput.ketamineDose * weight * duration) / TLK_CONC.ketamine,
-          concMgMl: (tlkInput.ketamineDose * weight * duration) / bagSize,
-          color: 'var(--ketamine)'
-        }
-      ];
-
-      const loadingDoses: TLKLoadingDose[] = [
-        {
-          name: 'Tramadol 로딩',
-          description: '1.5 mg/kg IV — 천천히 투여',
-          volume: (1.5 * weight) / TLK_CONC.tramadol
-        },
-        {
-          name: patient.species === 'dog' ? 'Lidocaine 로딩 (표준)' : 'Lidocaine 로딩 (저용량)',
-          description: patient.species === 'dog' ? '1.0 mg/kg IV — 개 표준' : '0.25 mg/kg IV — 고양이 권장 (천천히)',
-          volume: (patient.species === 'dog' ? 1.0 : 0.25) * weight / TLK_CONC.lidocaine
-        },
-        {
-          name: 'Ketamine 로딩 (저용량)',
-          description: '0.25 mg/kg IV',
-          volume: (0.25 * weight) / TLK_CONC.ketamine
-        },
-        {
-          name: 'Ketamine 로딩 (고용량)',
-          description: '0.50 mg/kg IV',
-          volume: (0.50 * weight) / TLK_CONC.ketamine
-        }
-      ];
-
-      tlkResult = {
-        drugs,
-        fluidRateAbs,
-        fluidRatePerKg,
-        duration,
-        bagSize,
-        loadingDoses
-      };
-    }
-
     setResult({
       maintenance: Math.round(maintenanceDaily),
       deficit: Math.round(dehydrationDaily),
@@ -222,7 +118,6 @@ export const useFluidLogic = () => {
       maxSafeK,
       currentKRate,
       showSafetyWarning,
-      tlk: tlkResult,
       date: new Date().toLocaleDateString('ko-KR')
     });
   };
@@ -232,9 +127,6 @@ export const useFluidLogic = () => {
     setPatient,
     input,
     setInput,
-    tlkInput,
-    setTlkInput,
-    tlkRanges: TLK_RANGES[patient.species],
     result,
     resultRef
   };

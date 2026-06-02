@@ -1,5 +1,5 @@
 import React from 'react';
-import { Calculator, Info, Syringe, AlertTriangle, Zap } from 'lucide-react';
+import { Calculator, Info, Syringe, AlertTriangle } from 'lucide-react';
 import { FluidResult } from './types';
 
 interface FluidResultViewProps {
@@ -36,78 +36,6 @@ const FluidResultView: React.FC<FluidResultViewProps> = ({
             </div>
           </div>
         </div>
-
-        {/* TLK Result Card (Conditional) */}
-        {result.tlk && (
-          <div className="tool-card-container tlk-result-card border-purple-200">
-            <div className="tool-card-title flex items-center gap-2 tlk-title-text text-purple-600">
-              <Zap size={18} /> TLK 수액 조제 가이드
-            </div>
-
-            <div className="tlk-summary-grid bg-purple-50 p-3 rounded-xl mb-4">
-              <div className="tlk-stat">
-                <span className="tlk-label">수액 백</span>
-                <span className="tlk-val">{result.tlk.bagSize} mL</span>
-              </div>
-              <div className="tlk-stat">
-                <span className="tlk-label">투여 속도</span>
-                <span className="tlk-val">{result.tlk.fluidRateAbs.toFixed(1)} mL/h</span>
-              </div>
-              <div className="tlk-stat">
-                <span className="tlk-label">백 지속 시간</span>
-                <span className="tlk-val">{result.tlk.duration.toFixed(1)} h</span>
-              </div>
-            </div>
-
-            <div className="overflow-x-auto">
-              <table className="tlk-table">
-                <thead>
-                  <tr>
-                    <th>약물</th>
-                    <th className="text-right">Dose</th>
-                    <th className="text-right">Total</th>
-                    <th className="text-right highlight">추가량</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {result.tlk.drugs.map((drug, idx) => (
-                    <tr key={idx}>
-                      <td>
-                        <div className="flex items-center gap-2">
-                          <div className="w-2 h-2 rounded-full" style={{ backgroundColor: drug.color }}></div>
-                          <span className="font-bold">{drug.name}</span>
-                        </div>
-                      </td>
-                      <td className="text-right text-xs">{drug.dose.toFixed(2)}<br/><small className="text-slate-400">mg/kg/h</small></td>
-                      <td className="text-right text-xs font-mono">{drug.totalMg.toFixed(1)}<br/><small className="text-slate-400">mg</small></td>
-                      <td className="text-right font-bold text-purple-600 font-mono">{drug.volumeMl.toFixed(3)}<br/><small className="text-purple-400">mL</small></td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        )}
-
-        {/* Loading Dose Card (Conditional) */}
-        {result.tlk && (
-          <div className="tool-card-container loading-dose-card border-orange-200">
-            <div className="tool-card-title flex items-center gap-2 text-orange-600">
-              <Syringe size={18} /> TLK Loading Dose
-            </div>
-            <div className="space-y-2 mt-2">
-              {result.tlk.loadingDoses.map((ld, idx) => (
-                <div key={idx} className="loading-row-fluid">
-                  <div className="ld-info">
-                    <span className="ld-name">{ld.name}</span>
-                    <span className="ld-desc">{ld.description}</span>
-                  </div>
-                  <span className="ld-val">{ld.volume.toFixed(3)} mL</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
 
         {/* Breakdown Card */}
         <div className="tool-card-container">
@@ -197,34 +125,6 @@ const FluidResultView: React.FC<FluidResultViewProps> = ({
           )}
         </div>
       </div>
-
-      <style>{`
-        .tlk-summary-grid {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 10px;
-          text-align: center;
-        }
-        .tlk-stat { display: flex; flex-direction: column; }
-        .tlk-label { font-size: 10px; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px; }
-        .tlk-val { font-size: 13px; font-weight: 800; color: #7c3aed; }
-        .tlk-table { width: 100%; border-collapse: collapse; }
-        .tlk-table th { font-size: 11px; text-transform: uppercase; color: #94a3b8; padding: 8px; border-bottom: 1px solid #f1f5f9; }
-        .tlk-table td { padding: 12px 8px; border-bottom: 1px solid #f8fafc; font-size: 14px; }
-        .loading-row-fluid {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          padding: 10px;
-          background: #fff;
-          border: 1px solid #fed7aa;
-          border-radius: 8px;
-        }
-        .ld-info { display: flex; flex-direction: column; }
-        .ld-name { font-size: 12px; font-weight: 800; color: #f97316; }
-        .ld-desc { font-size: 10px; color: #94a3b8; }
-        .ld-val { font-family: monospace; font-weight: 800; color: #ea580c; }
-      `}</style>
     </div>
   );
 };
