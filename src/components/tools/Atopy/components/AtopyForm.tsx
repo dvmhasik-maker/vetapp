@@ -1,5 +1,5 @@
 import React from 'react';
-import { AtopyBreed } from './types';
+import { AtopyBreed } from '../types';
 
 interface AtopyFormProps {
   breeds: AtopyBreed[];

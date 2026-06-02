@@ -5,5 +5,6 @@ export interface AtopyBreed {
   img: string;
   sites: string;
   features: string[];
-  tip: string;
+  tips: string[];
+  isSignificant: boolean; // Statistically significant or unique pattern in the study
 }

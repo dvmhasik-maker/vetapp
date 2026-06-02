@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import { ChevronLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useAtopyLogic } from './useAtopyLogic';
-import AtopyForm from './AtopyForm';
-import AtopyResultView from './AtopyResultView';
+import AtopyForm from './components/AtopyForm';
+import AtopyResultView from './components/AtopyResultView';
 import AdSlot from '../../common/AdSlot';
 
 const Atopy: React.FC = () => {
