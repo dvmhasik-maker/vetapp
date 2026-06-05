@@ -9,7 +9,6 @@ export const useFluidLogic = () => {
   const [input, setInput] = useState<FluidInput>({
     dehydration: 0,
     ongoingLoss: '0',
-    dropFactor: '60',
     potassium: '4.0'
   });
   const [result, setResult] = useState<FluidResult | null>(null);
@@ -26,7 +25,6 @@ export const useFluidLogic = () => {
 
     const dehydPct = input.dehydration;
     const ongoingLoss = parseFloat(input.ongoingLoss) || 0;
-    const dropFactor = parseFloat(input.dropFactor) || 60;
     const kSerum = parseFloat(input.potassium) || 4.0;
 
     // 1. Maintenance (AAHA Guidelines)
@@ -40,10 +38,6 @@ export const useFluidLogic = () => {
     // 3. Total 24h & Hourly Rate
     const totalDailyFluid = maintenanceDaily + dehydrationDaily + ongoingLoss;
     const hourlyFluidRate = totalDailyFluid / 24;
-
-    // 4. Drip rates
-    const gttPerMin = (hourlyFluidRate * dropFactor) / 60;
-    const secondsPerDrop = gttPerMin > 0 ? 60 / gttPerMin : 0;
 
     // 5. K+ Logic
     let kTarget = 0;
@@ -109,8 +103,6 @@ export const useFluidLogic = () => {
       ongoing: Math.round(ongoingLoss),
       total24h: Math.round(totalDailyFluid),
       hourlyRate: parseFloat(hourlyFluidRate.toFixed(1)),
-      gttPerMin: Math.round(gttPerMin),
-      secondsPerDrop: parseFloat(secondsPerDrop.toFixed(1)),
       kTarget,
       kStatusText,
       kStatusClass,

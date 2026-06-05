@@ -6,7 +6,6 @@ export interface PatientData {
 export interface FluidInput {
   dehydration: number; // %
   ongoingLoss: string; // ml/day
-  dropFactor: string; // gtt/ml
   potassium: string; // mEq/L
 }
 
@@ -24,8 +23,6 @@ export interface FluidResult {
   ongoing: number;
   total24h: number;
   hourlyRate: number;
-  gttPerMin: number;
-  secondsPerDrop: number;
   kTarget: number;
   kStatusText: string;
   kStatusClass: string;

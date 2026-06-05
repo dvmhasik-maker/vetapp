@@ -20,10 +20,9 @@ const FluidForm: React.FC<FluidFormProps> = ({
       {/* 1. Patient Info */}
       <div className="tool-card-container">
         <div className="tool-card-title flex items-center gap-2">
-          <PawPrint size={18} /> 🐾 환자 기본 정보
+          <PawPrint size={18} /> 환자 기본 정보
         </div>
         
-        {/* 축종 선택을 가장 위로 이동 및 라벨 삭제 */}
         <div className="input-group-fluid">
           <div className="species-toggle-grid">
             <button 
@@ -60,7 +59,7 @@ const FluidForm: React.FC<FluidFormProps> = ({
           💧 수액 요구량 설정
         </div>
         
-        <div className="input-group-fluid">
+        <div className="input-group-fluid" style={{ marginBottom: '1.75rem' }}>
           <div className="flex justify-between items-center mb-2">
             <label className="input-label-fluid">탈수율 (Dehydration %)</label>
             <span className="dehydration-badge">{input.dehydration} %</span>
@@ -80,30 +79,15 @@ const FluidForm: React.FC<FluidFormProps> = ({
           </div>
         </div>
 
-        <div className="patient-grid-fluid">
-          <div className="input-group-fluid">
-            <label className="input-label-fluid">지속 손실량 (ml/일)</label>
-            <input 
-              type="number" 
-              value={input.ongoingLoss} 
-              onChange={(e) => setInput({...input, ongoingLoss: e.target.value})} 
-              placeholder="0" 
-              className="input-field-fluid"
-            />
-          </div>
-          <div className="input-group-fluid">
-            <label className="input-label-fluid">수액 세트 규격</label>
-            <select 
-              value={input.dropFactor} 
-              onChange={(e) => setInput({...input, dropFactor: e.target.value})}
-              className="select-field-fluid"
-            >
-              <option value="60">60 gtt/mL (소아용)</option>
-              <option value="20">20 gtt/mL (중형견)</option>
-              <option value="15">15 gtt/mL (대형견)</option>
-              <option value="10">10 gtt/mL (대량)</option>
-            </select>
-          </div>
+        <div className="input-group-fluid">
+          <label className="input-label-fluid">지속 손실량 (ml/일)</label>
+          <input 
+            type="number" 
+            value={input.ongoingLoss} 
+            onChange={(e) => setInput({...input, ongoingLoss: e.target.value})} 
+            placeholder="0" 
+            className="input-field-fluid"
+          />
         </div>
       </div>
 

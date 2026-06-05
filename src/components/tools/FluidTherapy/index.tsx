@@ -62,70 +62,77 @@ const FluidTherapy: React.FC = () => {
         .layout-grid-fluid { 
           display: grid; 
           grid-template-columns: 1fr 1fr; 
-          gap: 1.5rem; 
+          gap: 1.25rem; 
           margin-top: 1rem; 
           align-items: start;
         }
 
-        .input-group-fluid { margin-bottom: 1.25rem; }
-        .input-group-fluid.no-margin { margin-bottom: 0; }
-        .input-label-fluid { display: block; font-size: 0.8rem; font-weight: 700; color: #475569; margin-bottom: 6px; }
+        /* 공통 카드 여백 통일 */
+        .tool-card-container {
+          margin-bottom: 1.25rem !important;
+          padding: 1.25rem !important;
+        }
 
-        .patient-grid-fluid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .input-group-fluid { margin-bottom: 1rem; }
+        .input-group-fluid.no-margin { margin-bottom: 0; }
+        .input-label-fluid { display: block; font-size: 0.85rem; font-weight: 700; color: #475569; margin-bottom: 0.5rem; line-height: 1.4; }
+
         .input-field-fluid, .select-field-fluid, .input-field-fluid-large {
-          width: 100%; padding: 11px 12px; border-radius: 10px; border: 1.5px solid #e2e8f0;
-          background: #fff; font-size: 0.95rem; color: #1e293b; outline: none; transition: all 0.2s;
+          width: 100%; padding: 0.75rem 0.875rem; border-radius: 10px; border: 1.5px solid #e2e8f0;
+          background: #fff; font-size: 1rem; color: #1e293b; outline: none; transition: all 0.2s;
+          line-height: 1.5;
         }
         .input-field-fluid-large {
-          padding: 18px 16px; font-size: 1.5rem; font-weight: 800; text-align: center; color: #2563eb; border-color: #3b82f6;
+          padding: 1rem; font-size: 1.5rem; font-weight: 800; text-align: center; color: #2563eb; border-color: #3b82f6;
         }
         .input-field-fluid:focus, .select-field-fluid:focus, .input-field-fluid-large:focus { border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1); }
 
-        .species-toggle-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+        .species-toggle-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.625rem; margin-bottom: 1rem; }
         .species-btn-small {
-          display: flex; align-items: center; justify-content: center; gap: 6px;
-          padding: 10px; border-radius: 10px; border: 2px solid #e2e8f0;
-          background: #fff; font-size: 0.85rem; font-weight: 700; cursor: pointer; color: #64748b; transition: all 0.2s;
+          display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+          padding: 0.625rem; border-radius: 10px; border: 2px solid #e2e8f0;
+          background: #fff; font-size: 0.9rem; font-weight: 700; cursor: pointer; color: #64748b; transition: all 0.2s;
         }
         .species-btn-small.active { border-color: #3498db; background: #f0f7ff; color: #1d4ed8; }
 
-        .dehydration-badge { font-size: 0.75rem; font-weight: 800; color: #1d4ed8; background: #eff6ff; padding: 2px 10px; border-radius: 100px; border: 1px solid #dbeafe; }
-        .fluid-range-slider { width: 100%; height: 6px; background: #e2e8f0; border-radius: 999px; outline: none; cursor: pointer; -webkit-appearance: none; }
+        .dehydration-badge { font-size: 0.8rem; font-weight: 800; color: #1d4ed8; background: #eff6ff; padding: 0.25rem 0.75rem; border-radius: 100px; border: 1px solid #dbeafe; }
+        .fluid-range-slider { width: 100%; height: 6px; background: #e2e8f0; border-radius: 999px; outline: none; cursor: pointer; -webkit-appearance: none; margin: 0.5rem 0; }
         .fluid-range-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 22px; height: 22px; background: #3498db; border-radius: 50%; box-shadow: 0 2px 6px rgba(0,0,0,0.15); }
-        .dehydration-ticks { display: flex; justify-content: space-between; margin-top: 8px; }
-        .dehydration-ticks span { font-size: 0.65rem; color: #94a3b8; font-weight: 600; }
+        .dehydration-ticks { display: flex; justify-content: space-between; margin-top: 0.5rem; }
+        .dehydration-ticks span { font-size: 0.6rem; color: #94a3b8; font-weight: 600; }
 
         .k-settings-card { border-left: 4px solid #f59e0b; }
         .k-title-text { color: #b45309; }
         .k-input-field { border-color: #fde68a !important; color: #92400e; font-weight: 800; }
-        .k-help-text { font-size: 0.7rem; color: #94a3b8; margin-top: 6px; font-style: italic; }
+        .k-help-text { font-size: 0.7rem; color: #94a3b8; margin-top: 0.5rem; font-style: italic; line-height: 1.5; }
 
         .fluid-hero-card {
           background: linear-gradient(135deg, #2563eb, #1e40af);
-          border-radius: 16px; padding: 24px; color: #fff; position: relative; overflow: hidden;
+          border-radius: 16px; padding: 1.5rem; color: #fff; position: relative; overflow: hidden;
           box-shadow: 0 10px 25px rgba(37, 99, 235, 0.15);
+          margin-bottom: 1.25rem;
         }
         .hero-icon-bg { position: absolute; right: -20px; bottom: -20px; opacity: 0.1; color: #fff; transform: rotate(-15deg); }
-        .hero-label { font-size: 0.7rem; font-weight: 800; color: #bfdbfe; text-transform: uppercase; letter-spacing: 0.05em; }
-        .hero-main-value { display: flex; align-items: baseline; gap: 8px; margin: 10px 0 20px; }
-        .hero-main-value .value { font-size: 3rem; font-weight: 900; line-height: 1; }
-        .hero-main-value .unit { font-size: 1.1rem; font-weight: 700; color: #bfdbfe; }
-        .hero-sub-metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.15); }
+        .hero-label { font-size: 0.75rem; font-weight: 800; color: #bfdbfe; text-transform: uppercase; letter-spacing: 0.05em; }
+        .hero-main-value { display: flex; align-items: baseline; gap: 0.5rem; margin: 0.75rem 0 1.25rem; }
+        .hero-main-value .value { font-size: 3.5rem; font-weight: 900; line-height: 1; }
+        .hero-main-value .unit { font-size: 1.25rem; font-weight: 700; color: #bfdbfe; }
+        .hero-sub-metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; padding-top: 1.25rem; border-top: 1px solid rgba(255,255,255,0.15); }
         .metric { display: flex; flex-direction: column; }
-        .m-label { font-size: 0.6rem; color: #bfdbfe; font-weight: 600; margin-bottom: 4px; }
-        .m-value { font-size: 1rem; font-weight: 800; }
-        .m-sub { font-size: 0.7rem; color: #bfdbfe; opacity: 0.8; }
+        .m-label { font-size: 0.7rem; color: #bfdbfe; font-weight: 600; margin-bottom: 0.25rem; }
+        .m-value { font-size: 1.1rem; font-weight: 800; }
+        .m-sub { font-size: 0.75rem; color: #bfdbfe; opacity: 0.8; }
 
-        .fluid-items-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-        .f-item { background: #f8fafc; padding: 14px 8px; border-radius: 12px; text-align: center; border: 1px solid #f1f5f9; }
-        .f-label { font-size: 0.6rem; color: #94a3b8; font-weight: 700; display: block; margin-bottom: 6px; }
-        .f-value { font-size: 1.1rem; font-weight: 800; color: #1e293b; }
-        .f-value small { font-size: 0.7rem; color: #94a3b8; font-weight: 400; }
+        .fluid-items-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; }
+        .f-item { background: #f8fafc; padding: 1rem 0.5rem; border-radius: 12px; text-align: center; border: 1px solid #f1f5f9; }
+        .f-label { font-size: 0.7rem; color: #94a3b8; font-weight: 700; display: block; margin-bottom: 0.5rem; line-height: 1.2; }
+        .f-value { font-size: 1.125rem; font-weight: 800; color: #1e293b; line-height: 1; }
+        .f-value small { font-size: 0.75rem; color: #94a3b8; font-weight: 400; margin-left: 1px; }
 
         .k-report-card { border-top: 6px solid #f59e0b; background: #fff; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
-        .k-report-header-refined { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 18px; flex-wrap: nowrap; }
-        .k-report-header-refined h3 { font-size: 0.9rem; font-weight: 800; color: #92400e; margin: 0; white-space: nowrap; flex-shrink: 0; }
-        .k-status-tag { font-size: 0.6rem; font-weight: 800; padding: 4px 8px; border-radius: 6px; border: 1px solid transparent; white-space: nowrap; flex-shrink: 1; overflow: hidden; text-overflow: ellipsis; }
+        .k-report-header-refined { display: flex; justify-content: space-between; align-items: center; gap: 0.75rem; margin-bottom: 1.25rem; flex-wrap: nowrap; }
+        .k-report-header-refined h3 { font-size: 1rem; font-weight: 800; color: #92400e; margin: 0; white-space: nowrap; flex-shrink: 0; }
+        .k-status-tag { font-size: 0.7rem; font-weight: 800; padding: 0.375rem 0.625rem; border-radius: 6px; border: 1px solid transparent; white-space: nowrap; flex-shrink: 1; overflow: hidden; text-overflow: ellipsis; }
         
         .status-normal { background: #f0fdf4; color: #166534; border-color: #dcfce7; }
         .status-warning { background: #fffbeb; color: #92400e; border-color: #fef3c7; }
@@ -133,51 +140,41 @@ const FluidTherapy: React.FC = () => {
         .status-danger { background: #fef2f2; color: #991b1b; border-color: #fee2e2; }
         .status-critical { background: #be123c; color: #fff; border-color: #9f1239; animation: pulse 2s infinite; }
 
-        .k-guideline-box { background: #fffbeb; padding: 12px; border-radius: 10px; border: 1px solid #fef3c7; margin-bottom: 16px; }
-        .g-line { display: flex; align-items: center; gap: 8px; font-size: 0.75rem; margin-bottom: 4px; }
+        .k-guideline-box { background: #fffbeb; padding: 1rem; border-radius: 10px; border: 1px solid #fef3c7; margin-bottom: 1.25rem; }
+        .g-line { display: flex; align-items: center; gap: 0.5rem; font-size: 0.75rem; margin-bottom: 0.375rem; }
         .g-label { font-weight: 700; color: #92400e; opacity: 0.8; }
         .g-val { font-weight: 800; color: #92400e; }
 
         .k-data-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
-        .k-data-table th { background: #f8fafc; padding: 12px 10px; text-align: left; color: #64748b; font-weight: 700; border-bottom: 2px solid #e2e8f0; }
-        .k-data-table td { padding: 14px 10px; border-bottom: 1px solid #f1f5f9; color: #334155; font-weight: 600; }
+        .k-data-table th { background: #f8fafc; padding: 0.75rem 0.5rem; text-align: left; color: #64748b; font-weight: 700; border-bottom: 2px solid #e2e8f0; white-space: nowrap; }
+        .k-data-table td { padding: 0.875rem 0.5rem; border-bottom: 1px solid #f1f5f9; color: #334155; font-weight: 600; white-space: nowrap; }
         .k-data-table .highlight { color: #1d4ed8; }
         .lrs-row { background: #f0fdf4; }
 
-        .k-desktop-only { display: block; }
+        .k-desktop-only { display: block; overflow-x: auto; }
         .k-mobile-only { display: none; }
 
-        .k-row-mini-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px; }
+        .k-row-mini-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 0.875rem; }
         .k-row-mini-card.lrs { border-color: #86efac; background: #f0fdf4; }
-        .mini-card-title { font-size: 0.8rem; font-weight: 800; color: #1e293b; margin-bottom: 10px; }
-        .mini-card-grid, .mini-card-grid-refined { display: grid; gap: 10px; }
-        .mini-card-grid { grid-template-columns: repeat(3, 1fr); }
-        .mini-card-grid-refined { grid-template-columns: 1fr 1fr; }
+        .mini-card-title { font-size: 0.75rem; font-weight: 800; color: #1e293b; margin-bottom: 0.625rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .mini-card-grid-refined { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
         .cell { display: flex; flex-direction: column; align-items: center; }
-        .c-label { font-size: 0.6rem; color: #94a3b8; font-weight: 600; margin-bottom: 2px; }
+        .c-label { font-size: 0.6rem; color: #94a3b8; font-weight: 600; margin-bottom: 0.25rem; }
         .c-val { font-size: 0.9rem; font-weight: 800; color: #334155; }
         .c-val.highlight { color: #1d4ed8; }
 
-        .k-safety-alert { display: flex; gap: 12px; background: #fef2f2; border: 1px solid #fee2e2; border-radius: 12px; padding: 16px; margin-top: 16px; }
+        .k-safety-alert { display: flex; gap: 0.75rem; background: #fef2f2; border: 1px solid #fee2e2; border-radius: 12px; padding: 1.25rem; margin-top: 1.25rem; }
         .alert-icon { color: #ef4444; flex-shrink: 0; }
-        .alert-text { font-size: 0.75rem; color: #991b1b; line-height: 1.5; }
-        .alert-text strong { display: block; margin-bottom: 4px; font-weight: 800; }
-
-        .save-action-area { margin-top: 2rem; display: flex; justify-content: center; }
-        .btn-save-refined-fluid {
-          width: 100%; padding: 16px; background: #10b981; color: white; border: none; border-radius: 12px;
-          font-weight: 700; font-size: 1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px;
-          transition: all 0.2s; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
-        }
-        .btn-save-refined-fluid:hover { background: #059669; transform: translateY(-2px); }
+        .alert-text { font-size: 0.8rem; color: #991b1b; line-height: 1.6; }
+        .alert-text strong { display: block; margin-bottom: 0.25rem; font-weight: 800; }
 
         @media (max-width: 1024px) {
-          .layout-grid-fluid { grid-template-columns: 1fr; }
+          .layout-grid-fluid { grid-template-columns: 1fr; gap: 1rem; }
         }
         @media (max-width: 640px) {
           .patient-grid-fluid { grid-template-columns: 1fr; gap: 0; }
-          .hero-main-value .value { font-size: 2.5rem; }
-          .hero-sub-metrics { grid-template-columns: 1fr; gap: 10px; }
+          .hero-main-value .value { font-size: 2.75rem; }
+          .hero-sub-metrics { grid-template-columns: 1fr; gap: 0.75rem; }
           .fluid-items-grid { grid-template-columns: 1fr; }
           
           .k-desktop-only { display: none; }
@@ -194,4 +191,4 @@ const FluidTherapy: React.FC = () => {
   );
 };
 
-export default FluidTherapy;
+export default FluidTherapy;;

@@ -25,11 +25,6 @@ const FluidResultView: React.FC<FluidResultViewProps> = ({
             </div>
             <div className="hero-sub-metrics">
               <div className="metric">
-                <span className="m-label">수액 점적 속도</span>
-                <span className="m-value">{result.gttPerMin} gtt/min</span>
-                <span className="m-sub">({result.secondsPerDrop}초/방울)</span>
-              </div>
-              <div className="metric">
                 <span className="m-label">24시간 총 수액량</span>
                 <span className="m-value">{result.total24h} mL/day</span>
               </div>
@@ -78,7 +73,7 @@ const FluidResultView: React.FC<FluidResultViewProps> = ({
             </div>
           </div>
 
-          {/* Desktop Table - k-desktop-only 클래스로 중복 방지 */}
+          {/* Desktop Table */}
           <div className="k-desktop-only">
             <table className="k-data-table">
               <thead>
@@ -100,7 +95,7 @@ const FluidResultView: React.FC<FluidResultViewProps> = ({
             </table>
           </div>
 
-          {/* Mobile Card Stack - k-mobile-only 클래스로 중복 방지 */}
+          {/* Mobile Card Stack */}
           <div className="k-mobile-only space-y-2">
             {result.kSupplements.map((sup, idx) => (
               <div key={idx} className={`k-row-mini-card ${sup.isLRS ? 'lrs' : ''}`}>
