@@ -28,7 +28,7 @@ const FluidTherapy: React.FC = () => {
         <div className="icon">💧</div>
         <div>
           <h1>반려동물 정밀 수액 요법 계산기</h1>
-          <p>임상 가이드라인 기반 유지/탈수/손실 수액량 및 전해질 교정 연산</p>
+          <p>임상 가이드라인 기반 수액량 연산</p>
         </div>
       </div>
 
