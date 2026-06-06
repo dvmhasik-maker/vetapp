@@ -58,7 +58,6 @@ const Atopy: React.FC = () => {
 
       <style>{`
         .tool-content {
-          max-width: 1000px;
           margin: 0 auto;
           padding: 1rem 0;
         }

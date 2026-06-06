@@ -180,7 +180,6 @@ const Parasites: React.FC = () => {
 
       <style>{`
         .tool-content-standard {
-          max-width: 1200px;
           margin: 0 auto;
         }
         .tag-grid-refined {

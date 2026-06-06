@@ -237,7 +237,6 @@ const FoodAmount: React.FC = () => {
 
       <style>{`
         .tool-content-standard {
-          max-width: 1200px;
           margin: 0 auto;
         }
         .layout-grid-food {

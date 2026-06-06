@@ -81,7 +81,6 @@ const Neurological: React.FC = () => {
 
       <style>{`
         .tool-content-standard {
-          max-width: 1200px;
           margin: 0 auto;
         }
         .layout-grid-neuro { display: flex; flex-direction: column; gap: 1.5rem; margin-top: 1rem; padding-bottom: 20px; align-items: center; }
@@ -95,7 +94,7 @@ const Neurological: React.FC = () => {
           font-size: 1rem; outline: none; background: #fff;
         }
 
-        .save-action-area { max-width: 1200px; margin: 0 auto; padding: 1rem; display: flex; justify-content: center; }
+        .save-action-area { margin: 0 auto; padding: 1rem; display: flex; justify-content: center; }
         .btn-save-refined-neuro {
           width: 100%; max-width: 600px; padding: 16px; border: none; border-radius: 12px;
           font-size: 1rem; font-weight: 700; cursor: pointer;

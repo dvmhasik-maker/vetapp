@@ -79,7 +79,6 @@ const Cushing = () => {
 
       <style>{`
         .tool-content-standard {
-          max-width: 1200px;
           margin: 0 auto;
         }
         .tool-content-cushing {
