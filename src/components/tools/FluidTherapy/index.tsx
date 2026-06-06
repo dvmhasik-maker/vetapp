@@ -113,10 +113,13 @@ const FluidTherapy: React.FC = () => {
         .dehydration-ticks { display: flex; justify-content: space-between; margin-top: 0.5rem; gap: 4px; }
         .dehydration-ticks span { font-size: 0.55rem; color: #94a3b8; font-weight: 600; text-align: center; flex: 1; }
 
-        .k-settings-card { border-left: 4px solid #f59e0b; }
-        .k-title-text { color: #b45309; }
-        .k-input-field { border-color: #fde68a !important; color: #92400e; font-weight: 800; }
-        .k-help-text { font-size: 0.7rem; color: #94a3b8; margin-top: 0.5rem; font-style: italic; line-height: 1.5; }
+        .k-settings-card { 
+          border-left: 4px solid #f59e0b; 
+          padding-bottom: 1.25rem !important; /* Slightly increased but less than before */
+        }
+        .k-title-text { color: #b45309; margin-bottom: 1.25rem !important; }
+        .k-input-field { border-color: #fde68a !important; color: #92400e; font-weight: 800; margin-bottom: 0.75rem; }
+        .k-help-text { font-size: 0.8rem; color: #94a3b8; margin-top: 0.75rem; font-style: italic; line-height: 1.6; }
 
         .fluid-hero-card {
           background: linear-gradient(135deg, #2563eb, #1e40af);
@@ -147,7 +150,6 @@ const FluidTherapy: React.FC = () => {
           border-top: 6px solid #f59e0b; 
           background: #fff; 
           box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); 
-          min-height: 450px; 
           display: flex;
           flex-direction: column;
           width: 100%; /* 고정 너비 해제 및 부모 너비 추종 */
@@ -170,20 +172,19 @@ const FluidTherapy: React.FC = () => {
           flex-shrink: 0; 
         }
         .k-status-tag { 
-          font-size: 0.55rem; 
+          font-size: 0.75rem; /* Restored to a readable size */
           font-weight: 800; 
-          padding: 0.375rem 0.5rem; 
+          padding: 0.375rem 0.75rem; 
           border-radius: 6px; 
           border: 1px solid transparent; 
           white-space: nowrap; 
-          width: 160px; 
+          width: auto; /* Changed to auto to fit text naturally */
+          min-width: 140px;
           display: inline-flex;
           align-items: center;
           justify-content: center;
           text-align: center;
           flex-shrink: 0;
-          overflow: hidden;
-          text-overflow: ellipsis;
         }
         
         .status-normal { background: #f0fdf4; color: #166534; border-color: #dcfce7; }
@@ -234,7 +235,7 @@ const FluidTherapy: React.FC = () => {
           .k-mobile-only { display: block; }
           
           .k-report-header-refined { justify-content: space-between; text-align: left; }
-          .k-status-tag { width: 160px; min-width: 160px; font-size: 0.5rem; }
+          .k-status-tag { width: auto; min-width: 120px; font-size: 0.65rem; }
         }
 
         @keyframes pulse {
