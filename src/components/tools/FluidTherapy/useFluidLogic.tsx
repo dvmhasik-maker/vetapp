@@ -9,11 +9,25 @@ export const useFluidLogic = () => {
   const [input, setInput] = useState<FluidInput>({
     dehydration: 0,
     ongoingLoss: '0',
-    potassium: '4.0'
+    potassium: '4.0',
+    bagSize: 500,
+    tramadol: 1.30,
+    lidocaine: 1.50,
+    ketamine: 0.60
   });
   const [result, setResult] = useState<FluidResult | null>(null);
 
   const resultRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // Reset defaults when species changes
+    if (patient.species === 'cat') {
+      setInput(prev => ({
+        ...prev,
+        lidocaine: Math.min(prev.lidocaine, 1.50)
+      }));
+    }
+  }, [patient.species]);
 
   useEffect(() => {
     calculateFluid();
@@ -38,6 +52,9 @@ export const useFluidLogic = () => {
     // 3. Total 24h & Hourly Rate
     const totalDailyFluid = maintenanceDaily + dehydrationDaily + ongoingLoss;
     const hourlyFluidRate = totalDailyFluid / 24;
+
+    // 4. Bag Duration
+    const duration = input.bagSize / hourlyFluidRate;
 
     // 5. K+ Logic
     let kTarget = 0;
@@ -97,12 +114,41 @@ export const useFluidLogic = () => {
     const currentKRate = (hourlyFluidRate / 1000) * kTarget;
     const showSafetyWarning = kTarget > 0 && currentKRate >= maxSafeK;
 
+    // 7. TLK CRI Logic
+    const CONC = { tramadol: 50, lidocaine: 20, ketamine: 50 };
+    
+    const calculateDrugCRI = (dose: number, conc: number) => {
+      const totalMg = dose * weight * duration;
+      const volumeMl = totalMg / conc;
+      const concInBag = totalMg / input.bagSize;
+      return {
+        dose,
+        totalMg: totalMg.toFixed(2),
+        volumeMl: volumeMl.toFixed(2),
+        concInBag: concInBag.toFixed(2)
+      };
+    };
+
+    const tlk = {
+      tramadol: calculateDrugCRI(input.tramadol, CONC.tramadol),
+      lidocaine: calculateDrugCRI(input.lidocaine, CONC.lidocaine),
+      ketamine: calculateDrugCRI(input.ketamine, CONC.ketamine),
+      loadingDoses: {
+        tramadol: ((1.50 * weight) / CONC.tramadol).toFixed(2),
+        lidocaine: (((patient.species === 'dog' ? 1.00 : 0.25) * weight) / CONC.lidocaine).toFixed(2),
+        ketamineLo: ((0.25 * weight) / CONC.ketamine).toFixed(2),
+        ketamineHi: ((0.50 * weight) / CONC.ketamine).toFixed(2)
+      }
+    };
+
     setResult({
       maintenance: Math.round(maintenanceDaily),
       deficit: Math.round(dehydrationDaily),
       ongoing: Math.round(ongoingLoss),
       total24h: Math.round(totalDailyFluid),
       hourlyRate: parseFloat(hourlyFluidRate.toFixed(1)),
+      bagSize: input.bagSize,
+      bagDuration: duration.toFixed(1),
       kTarget,
       kStatusText,
       kStatusClass,
@@ -110,6 +156,7 @@ export const useFluidLogic = () => {
       maxSafeK,
       currentKRate,
       showSafetyWarning,
+      tlk,
       date: new Date().toLocaleDateString('ko-KR')
     });
   };

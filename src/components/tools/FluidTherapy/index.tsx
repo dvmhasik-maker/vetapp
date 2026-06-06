@@ -1,5 +1,5 @@
 import React from 'react';
-import { ChevronLeft } from 'lucide-react';
+import { ChevronLeft, AlertTriangle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useFluidLogic } from './useFluidLogic';
 import FluidForm from './FluidForm';
@@ -51,6 +51,28 @@ const FluidTherapy: React.FC = () => {
           )}
         </div>
 
+        {result && (
+          <div className={`tlk-info-banner ${patient.species === 'dog' ? 'dog' : 'cat'}`}>
+            {patient.species === 'dog' ? (
+              <>
+                <AlertTriangle size={18} />
+                <div>
+                  <strong>🐶 개 기준 적용 중</strong>
+                  <p>Lidocaine 최대 3.0 mg/kg/hr · Tramadol 최대 2.6 mg/kg/hr | Lidocaine 로딩: 1.0 mg/kg IV (표준)</p>
+                </div>
+              </>
+            ) : (
+              <>
+                <AlertTriangle size={18} />
+                <div>
+                  <strong>🐱 고양이 기준 적용 중</strong>
+                  <p>Lidocaine 최대 1.5 mg/kg/hr 엄수 — 과량 투여 주의 | Lidocaine 로딩: 최대 0.25 mg/kg IV (천천히)</p>
+                </div>
+              </>
+            )}
+          </div>
+        )}
+
         <AdSlot className="mt-8" />
       </div>
 
@@ -67,7 +89,106 @@ const FluidTherapy: React.FC = () => {
           align-items: start;
         }
 
-        /* 공통 카드 여백 통일 및 고정 너비 방지 */
+        /* TLK 추가 스타일 */
+        .field-label-tlk { display: block; font-size: 11px; font-weight: 600; color: #8a96ab; letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 8px; }
+        
+        .drug-block-tlk { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
+        .drug-header-tlk { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+        .drug-name-group-tlk { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+        .drug-dot-tlk { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+        .drug-name-tlk { font-size: 13px; font-weight: 700; color: #1a2236; }
+        .drug-badge-tlk { font-size: 10px; font-weight: 500; color: #8a96ab; background: #f0f3f8; border: 1px solid #e4e8ef; border-radius: 5px; padding: 1px 6px; }
+        .drug-val-badge-tlk { font-size: 12px; font-weight: 700; border-radius: 20px; padding: 3px 10px; white-space: nowrap; transition: all 0.2s; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        
+        .slider-wrap-tlk { position: relative; padding: 8px 0; }
+        .range-tlk { 
+          -webkit-appearance: none; appearance: none; height: 4px; border-radius: 9999px; outline: none; cursor: pointer; width: 100%;
+          background: #e2e8f0;
+        }
+        .range-tlk::-webkit-slider-thumb { 
+          -webkit-appearance: none; width: 22px; height: 22px; border-radius: 50%; border: 2.5px solid #fff; box-shadow: 0 1px 6px rgba(0,0,0,0.18); cursor: pointer; transition: transform 0.1s;
+        }
+        .range-tlk:active::-webkit-slider-thumb { transform: scale(1.15); }
+
+        .def-marker-tlk {
+          position: absolute; top: 11px; width: 2px; height: 10px; border-radius: 1px; background: rgba(0,0,0,0.2); z-index: 2; pointer-events: none;
+        }
+
+        .range-tlk.tram-track::-webkit-slider-thumb { background: #1a6cf5; }
+        .range-tlk.lido-track::-webkit-slider-thumb { background: #0ea370; }
+        .range-tlk.keta-track::-webkit-slider-thumb { background: #e8620a; }
+
+        .slider-labels-tlk { display: flex; justify-content: space-between; margin-top: 4px; }
+        .slider-labels-tlk span { font-size: 10px; color: #8a96ab; font-weight: 600; font-variant-numeric: tabular-nums; }
+        .slider-labels-tlk .mid { font-weight: 800; }
+
+        .result-row-tlk { display: flex; align-items: center; justify-content: space-between; padding: 11px 13px; background: #fafbfd; border: 1px solid #f0f3f8; border-radius: 8px; }
+        .tlk-name { font-size: 12px; font-weight: 700; color: #1a2236; }
+        .tlk-sub { font-size: 10px; color: #8a96ab; margin-top: 1px; }
+        .tlk-vol { font-size: 14px; font-weight: 800; }
+        .tlk-conc { font-size: 10px; color: #8a96ab; margin-top: 1px; }
+
+        .ld-row-tlk { display: flex; align-items: center; justify-content: space-between; padding: 10px 13px; background: #fffdf0; border: 1px solid #f5e6a0; border-radius: 8px; }
+        .ld-name { font-size: 12px; font-weight: 700; color: #6b4c00; }
+        .ld-sub { font-size: 10px; color: #a08040; margin-top: 1px; }
+        .ld-val { font-size: 13px; font-weight: 800; color: #8a5f00; }
+
+        .tlk-info-banner { display: flex; align-items: center; gap: 12px; padding: 16px; border-radius: 12px; margin-top: 1.5rem; width: 100%; box-sizing: border-box; }
+        .tlk-info-banner.dog { background: #e8f3ff; border: 1px solid #bdd6f9; color: #1a4080; }
+        .tlk-info-banner.cat { background: #fff0f0; border: 1px solid #f9c0c0; color: #8a1a1a; }
+        .tlk-info-banner strong { display: block; font-size: 0.9rem; margin-bottom: 2px; }
+        .tlk-info-banner p { font-size: 0.75rem; opacity: 0.8; }
+
+        /* 이미지 기반 TLK 신규 스타일 */
+        .hero-divider-tlk { height: 1px; background: rgba(255,255,255,0.15); margin: 14px 0; }
+        .hero-meta-tlk { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .meta-item-tlk .meta-lbl-tlk { font-size: 10px; color: rgba(255,255,255,0.5); margin-bottom: 2px; font-weight: 700; }
+        .meta-item-tlk .meta-val-tlk { font-size: 13px; font-weight: 700; color: #fff; line-height: 1.3; }
+
+        .result-row-img {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 11px 13px;
+          background: #fafbfd;
+          border: 1px solid #f0f3f8;
+          border-radius: 8px;
+          margin-bottom: 6px;
+        }
+        .r-drug-name { font-size: 12px; font-weight: 700; color: #1a2236; }
+        .r-drug-sub  { font-size: 10px; color: #8a96ab; margin-top: 1px; }
+        .r-vol       { font-size: 14px; font-weight: 800; }
+        .r-conc      { font-size: 10px; color: #8a96ab; margin-top: 1px; }
+
+        .ld-row-img {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 10px 13px;
+          background: #fffdf0;
+          border: 1px solid #f5e6a0;
+          border-radius: 8px;
+          margin-bottom: 6px;
+          gap: 12px;
+        }
+        .ld-flex-group { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+        .ld-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; display: block; }
+        .ld-unit-wrap { display: flex; flex-direction: column; align-items: flex-end; text-align: right; }
+        .ld-unit-wrap-row { display: flex; align-items: baseline; gap: 6px; }
+        .ld-name { font-size: 12px; font-weight: 700; color: #6b4c00; font-family: inherit; }
+        .ld-sub  { font-size: 10px; color: #a08040; margin-top: 1px; font-family: inherit; }
+        .ld-val  { font-size: 13px; font-weight: 800; color: #8a5f00; font-variant-numeric: tabular-nums; font-family: inherit; }
+        .ld-label-small { font-size: 9px; color: #a08040; margin-bottom: 1px; font-weight: 700; font-family: inherit; }
+        .ld-divider { width: 1px; height: 24px; background: #f0d98a; flex-shrink: 0; display: block; }
+        .ld-help-text { font-size: 11px; color: #94a3b8; font-style: italic; text-align: center; margin-top: 12px; font-family: inherit; }
+
+        /* 카드 강조색 (레드) */
+        .tool-card-container.tlk-red-border {
+          border-top: 4px solid #ef4444 !important;
+        }
+        .tlk-red-text {
+          color: #ef4444 !important;
+        }
         .tool-card-container {
           margin-bottom: 1.25rem !important;
           padding: 1.25rem !important;

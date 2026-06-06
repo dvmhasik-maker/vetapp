@@ -1,5 +1,5 @@
 import React from 'react';
-import { Calculator, Info, Syringe, AlertTriangle } from 'lucide-react';
+import { Calculator, Info, Syringe, AlertTriangle, FlaskConical, Zap } from 'lucide-react';
 import { FluidResult } from './types';
 
 interface FluidResultViewProps {
@@ -18,15 +18,28 @@ const FluidResultView: React.FC<FluidResultViewProps> = ({
         <div className="fluid-hero-card">
           <div className="hero-icon-bg"><Calculator size={120} /></div>
           <div className="hero-content">
-            <p className="hero-label">Total Fluid Rate</p>
+            <p className="hero-label">TLK CRI Result</p>
             <div className="hero-main-value">
               <span className="value">{result.hourlyRate}</span>
               <span className="unit">mL/h</span>
             </div>
-            <div className="hero-sub-metrics">
-              <div className="metric">
-                <span className="m-label">24시간 총 수액량</span>
-                <span className="m-value">{result.total24h} mL/day</span>
+            <div className="hero-divider-tlk"></div>
+            <div className="hero-meta-tlk">
+              <div className="meta-item-tlk">
+                <div className="meta-lbl-tlk">24시간 총 수액량</div>
+                <div className="meta-val-tlk">{result.total24h} mL/day</div>
+              </div>
+              <div className="meta-item-tlk">
+                <div className="meta-lbl-tlk">수액 백</div>
+                <div className="meta-val-tlk">{result.bagSize} mL</div>
+              </div>
+              <div className="meta-item-tlk">
+                <div className="meta-lbl-tlk">mL/kg/hr</div>
+                <div className="meta-val-tlk">{(result.hourlyRate / (result.total24h / result.hourlyRate / 24 || 1)).toFixed(2)} mL/kg/hr</div>
+              </div>
+              <div className="meta-item-tlk">
+                <div className="meta-lbl-tlk">백 지속 시간</div>
+                <div className="meta-val-tlk">{result.bagDuration} hr</div>
               </div>
             </div>
           </div>
@@ -118,6 +131,115 @@ const FluidResultView: React.FC<FluidResultViewProps> = ({
               </div>
             </div>
           )}
+        </div>
+
+        {/* TLK CRI Result Card */}
+        <div className="tool-card-container tlk-red-border">
+          <div className="tool-card-title flex items-center gap-2 tlk-red-text">
+            <FlaskConical size={18} /> 수액 백 내 TLK 첨가약물량 ({result.bagSize}mL 기준)
+          </div>
+          
+          <div className="space-y-2 mt-3">
+            {/* Tramadol */}
+            <div className="result-row-img" style={{ borderLeft: '3px solid #1a6cf5' }}>
+              <div className="flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full" style={{ background: '#1a6cf5' }}></span>
+                <div>
+                  <div className="r-drug-name">Tramadol</div>
+                  <div className="r-drug-sub">{result.tlk.tramadol.dose.toFixed(2)} mg/kg/hr → 총 {result.tlk.tramadol.totalMg} mg</div>
+                </div>
+              </div>
+              <div className="text-right">
+                <div className="r-vol" style={{ color: '#1a6cf5' }}>{result.tlk.tramadol.volumeMl} mL</div>
+                <div className="r-conc">{result.tlk.tramadol.concInBag} mg/mL in bag</div>
+              </div>
+            </div>
+
+            {/* Lidocaine */}
+            <div className="result-row-img" style={{ borderLeft: '3px solid #0ea370' }}>
+              <div className="flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full" style={{ background: '#0ea370' }}></span>
+                <div>
+                  <div className="r-drug-name">Lidocaine</div>
+                  <div className="r-drug-sub">{result.tlk.lidocaine.dose.toFixed(2)} mg/kg/hr → 총 {result.tlk.lidocaine.totalMg} mg</div>
+                </div>
+              </div>
+              <div className="text-right">
+                <div className="r-vol" style={{ color: '#0ea370' }}>{result.tlk.lidocaine.volumeMl} mL</div>
+                <div className="r-conc">{result.tlk.lidocaine.concInBag} mg/mL in bag</div>
+              </div>
+            </div>
+
+            {/* Ketamine */}
+            <div className="result-row-img" style={{ borderLeft: '3px solid #e8620a' }}>
+              <div className="flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full" style={{ background: '#e8620a' }}></span>
+                <div>
+                  <div className="r-drug-name">Ketamine</div>
+                  <div className="r-drug-sub">{result.tlk.ketamine.dose.toFixed(2)} mg/kg/hr → 총 {result.tlk.ketamine.totalMg} mg</div>
+                </div>
+              </div>
+              <div className="text-right">
+                <div className="r-vol" style={{ color: '#e8620a' }}>{result.tlk.ketamine.volumeMl} mL</div>
+                <div className="r-conc">{result.tlk.ketamine.concInBag} mg/mL in bag</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Loading Dose Card */}
+        <div className="tool-card-container tlk-red-border">
+          <div className="tool-card-title flex items-center gap-2 tlk-red-text">
+            <Zap size={18} fill="#ef4444" className="text-red-500" /> TLK 로딩 도즈 (Loading Dose)
+          </div>
+          
+          <div className="space-y-2 mt-3">
+            <div className="ld-row-img">
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <span className="ld-dot" style={{ background: '#1a6cf5' }}></span>
+                <div>
+                  <div className="ld-name">Tramadol 로딩</div>
+                  <div className="ld-sub">1.5 mg/kg IV — 천천히 투여</div>
+                </div>
+              </div>
+              <span className="ld-val">{result.tlk.loadingDoses.tramadol} mL</span>
+            </div>
+
+            <div className="ld-row-img">
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <span className="ld-dot" style={{ background: '#0ea370' }}></span>
+                <div>
+                  <div className="ld-name">Lidocaine 로딩 ({result.kStatusClass === 'status-normal' ? '표준' : '저용량'})</div>
+                  <div className="ld-sub">{result.kStatusClass === 'status-normal' ? '1.0 mg/kg IV — 개 표준' : '0.25 mg/kg IV — 고양이 권장 (천천히)'}</div>
+                </div>
+              </div>
+              <span className="ld-val">{result.tlk.loadingDoses.lidocaine} mL</span>
+            </div>
+
+            <div className="ld-row-img">
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <span className="ld-dot" style={{ background: '#e8620a' }}></span>
+                <div>
+                  <div className="ld-name">Ketamine 로딩</div>
+                  <div className="ld-sub">저용량 및 고용량 동시 산출</div>
+                </div>
+              </div>
+              <div className="ld-flex-group">
+                <div className="ld-unit-wrap-row">
+                  <span className="ld-label-small">0.25 mg/kg</span>
+                  <span className="ld-val">{result.tlk.loadingDoses.ketamineLo} mL</span>
+                </div>
+                <div className="ld-divider"></div>
+                <div className="ld-unit-wrap-row">
+                  <span className="ld-label-small">0.50 mg/kg</span>
+                  <span className="ld-val">{result.tlk.loadingDoses.ketamineHi} mL</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p className="ld-help-text">
+            * TLK 로딩 도즈는 원액을 천천히 IV 투여하는 권장량입니다.
+          </p>
         </div>
       </div>
     </div>
