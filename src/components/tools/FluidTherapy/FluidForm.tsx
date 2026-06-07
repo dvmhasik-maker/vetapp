@@ -1,5 +1,5 @@
 import React from 'react';
-import { PawPrint, Dog, Cat, FlaskConical, Droplets, Syringe } from 'lucide-react';
+import { PawPrint, Dog, Cat, FlaskConical, Droplets, Syringe, Milk } from 'lucide-react';
 import { PatientData, FluidInput } from './types';
 
 interface FluidFormProps {
@@ -18,11 +18,13 @@ const FluidForm: React.FC<FluidFormProps> = ({
   const isDog = patient.species === 'dog';
   
   const ranges = {
-    tramadol: { lo: 1.30, hi: 2.60, step: 0.05, def: 1.30 },
+    tramadol: { lo: 0.05, hi: 0.20, step: 0.01, def: 0.10 },
     lidocaine: isDog 
-      ? { lo: 0.60, hi: 3.00, step: 0.05, def: 1.50 }
-      : { lo: 0.60, hi: 1.50, step: 0.05, def: 1.00 },
-    ketamine: { lo: 0.12, hi: 1.20, step: 0.02, def: 0.60 },
+      ? { lo: 1.50, hi: 6.00, step: 0.1, def: 3.00 }
+      : { lo: 0.00, hi: 1.20, step: 0.05, def: 0.00 },
+    ketamine: isDog
+      ? { lo: 0.30, hi: 1.20, step: 0.05, def: 0.60 }
+      : { lo: 0.30, hi: 0.90, step: 0.05, def: 0.30 },
   };
 
   const calculatePct = (val: number, min: number, max: number) => ((val - min) / (max - min)) * 100;
@@ -71,7 +73,7 @@ const FluidForm: React.FC<FluidFormProps> = ({
           💧 수액 요구량 설정
         </div>
         
-        <div className="input-group-fluid" style={{ marginBottom: '1.75rem' }}>
+        <div className="input-group-fluid" style={{ marginBottom: '2.5rem' }}>
           <div className="flex justify-between items-center mb-2">
             <label className="input-label-fluid">탈수율 (Dehydration %)</label>
             <span className="dehydration-badge">{input.dehydration} %</span>
@@ -133,21 +135,21 @@ const FluidForm: React.FC<FluidFormProps> = ({
           <label className="field-label-tlk">수액 백 용량</label>
           <div className="species-toggle-grid">
             <button 
-              className={`species-btn-small ${input.bagSize === 100 ? 'active' : ''}`}
+              className={`bag-btn-large ${input.bagSize === 100 ? 'active' : ''}`}
               onClick={() => setInput({...input, bagSize: 100})}
             >
-              <FlaskConical size={16} /> <span>100 mL</span>
+              <Milk size={18} /> <span>100 mL</span>
             </button>
             <button 
-              className={`species-btn-small ${input.bagSize === 500 ? 'active' : ''}`}
+              className={`bag-btn-large ${input.bagSize === 500 ? 'active' : ''}`}
               onClick={() => setInput({...input, bagSize: 500})}
             >
-              <Droplets size={16} /> <span>500 mL</span>
+              <Milk size={18} /> <span>500 mL</span>
             </button>
           </div>
         </div>
 
-        <div className="space-y-6 mt-4">
+        <div className="space-y-10" style={{ marginTop: '6rem' }}>
           {/* Tramadol */}
           <div className="drug-block-tlk">
             <div className="drug-header-tlk">

@@ -69,7 +69,7 @@ const FluidResultView: React.FC<FluidResultViewProps> = ({
         {/* K+ Prescription Card */}
         <div className="tool-card-container k-report-card">
           <div className="k-report-header-refined">
-            <h3 className="flex items-center gap-2"><Syringe size={18} /> KCl-40 첨가 리포트</h3>
+            <h3 className="flex items-center gap-2">🧪 KCl-40 첨가 리포트</h3>
             <span className={`k-status-tag ${result.kStatusClass}`}>
               {result.kStatusText}
             </span>
@@ -134,9 +134,9 @@ const FluidResultView: React.FC<FluidResultViewProps> = ({
         </div>
 
         {/* TLK CRI Result Card */}
-        <div className="tool-card-container tlk-red-border">
+        <div className="tool-card-container tlk-red-border-top">
           <div className="tool-card-title flex items-center gap-2 tlk-red-text">
-            <FlaskConical size={18} /> 수액 백 내 TLK 첨가약물량 ({result.bagSize}mL 기준)
+            <Syringe size={18} /> 수액 백 내 TLK 첨가약물량 ({result.bagSize}mL 기준)
           </div>
           
           <div className="space-y-2 mt-3">
@@ -188,50 +188,73 @@ const FluidResultView: React.FC<FluidResultViewProps> = ({
         </div>
 
         {/* Loading Dose Card */}
-        <div className="tool-card-container tlk-red-border">
+        <div className="tool-card-container tlk-red-border-top">
           <div className="tool-card-title flex items-center gap-2 tlk-red-text">
-            <Zap size={18} fill="#ef4444" className="text-red-500" /> TLK 로딩 도즈 (Loading Dose)
+            <Syringe size={18} /> TLK 로딩 도즈 (Loading Dose)
           </div>
           
-          <div className="space-y-2 mt-3">
+          <div className="space-y-3 mt-4">
+            {/* Tramadol LD */}
             <div className="ld-row-img">
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <span className="ld-dot" style={{ background: '#1a6cf5' }}></span>
-                <div>
-                  <div className="ld-name">Tramadol 로딩</div>
-                  <div className="ld-sub">1.5 mg/kg IV — 천천히 투여</div>
-                </div>
-              </div>
-              <span className="ld-val">{result.tlk.loadingDoses.tramadol} mL</span>
-            </div>
-
-            <div className="ld-row-img">
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <span className="ld-dot" style={{ background: '#0ea370' }}></span>
-                <div>
-                  <div className="ld-name">Lidocaine 로딩 ({result.kStatusClass === 'status-normal' ? '표준' : '저용량'})</div>
-                  <div className="ld-sub">{result.kStatusClass === 'status-normal' ? '1.0 mg/kg IV — 개 표준' : '0.25 mg/kg IV — 고양이 권장 (천천히)'}</div>
-                </div>
-              </div>
-              <span className="ld-val">{result.tlk.loadingDoses.lidocaine} mL</span>
-            </div>
-
-            <div className="ld-row-img">
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <span className="ld-dot" style={{ background: '#e8620a' }}></span>
-                <div>
-                  <div className="ld-name">Ketamine 로딩</div>
-                  <div className="ld-sub">저용량 및 고용량 동시 산출</div>
-                </div>
-              </div>
               <div className="ld-flex-group">
-                <div className="ld-unit-wrap-row">
-                  <span className="ld-label-small">0.25 mg/kg</span>
+                <span className="ld-dot" style={{ background: '#1a6cf5' }}></span>
+                <div className="ld-info">
+                  <div className="ld-name">Tramadol LD</div>
+                  <div className="ld-sub">원액 (50mg/mL)</div>
+                </div>
+              </div>
+              <div className="ld-unit-wrap-row">
+                <div className="ld-unit-wrap">
+                  <span className="ld-label-small">LOW (2mg/kg)</span>
+                  <span className="ld-val">{result.tlk.loadingDoses.tramadolLo} mL</span>
+                </div>
+                <div className="ld-divider"></div>
+                <div className="ld-unit-wrap">
+                  <span className="ld-label-small">HIGH (4mg/kg)</span>
+                  <span className="ld-val">{result.tlk.loadingDoses.tramadolHi} mL</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Lidocaine LD */}
+            <div className="ld-row-img">
+              <div className="ld-flex-group">
+                <span className="ld-dot" style={{ background: '#0ea370' }}></span>
+                <div className="ld-info">
+                  <div className="ld-name">Lidocaine LD</div>
+                  <div className="ld-sub">원액 (20mg/mL)</div>
+                </div>
+              </div>
+              <div className="ld-unit-wrap-row">
+                <div className="ld-unit-wrap">
+                  <span className="ld-label-small">LOW ({result.species === 'dog' ? '1.0' : '0.25'}mg/kg)</span>
+                  <span className="ld-val">{result.tlk.loadingDoses.lidocaineLo} mL</span>
+                </div>
+                <div className="ld-divider"></div>
+                <div className="ld-unit-wrap">
+                  <span className="ld-label-small">HIGH ({result.species === 'dog' ? '2.0' : '0.5'}mg/kg)</span>
+                  <span className="ld-val">{result.tlk.loadingDoses.lidocaineHi} mL</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Ketamine LD */}
+            <div className="ld-row-img">
+              <div className="ld-flex-group">
+                <span className="ld-dot" style={{ background: '#e8620a' }}></span>
+                <div className="ld-info">
+                  <div className="ld-name">Ketamine LD</div>
+                  <div className="ld-sub">원액 (50mg/mL)</div>
+                </div>
+              </div>
+              <div className="ld-unit-wrap-row">
+                <div className="ld-unit-wrap">
+                  <span className="ld-label-small">LOW ({result.species === 'dog' ? '0.25' : '0.3'}mg/kg)</span>
                   <span className="ld-val">{result.tlk.loadingDoses.ketamineLo} mL</span>
                 </div>
                 <div className="ld-divider"></div>
-                <div className="ld-unit-wrap-row">
-                  <span className="ld-label-small">0.50 mg/kg</span>
+                <div className="ld-unit-wrap">
+                  <span className="ld-label-small">HIGH (0.5mg/kg)</span>
                   <span className="ld-val">{result.tlk.loadingDoses.ketamineHi} mL</span>
                 </div>
               </div>

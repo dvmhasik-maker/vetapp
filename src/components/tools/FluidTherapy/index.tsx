@@ -52,28 +52,8 @@ const FluidTherapy: React.FC = () => {
         </div>
 
         {result && (
-          <div className={`tlk-info-banner ${patient.species === 'dog' ? 'dog' : 'cat'}`}>
-            {patient.species === 'dog' ? (
-              <>
-                <AlertTriangle size={18} />
-                <div>
-                  <strong>🐶 개 기준 적용 중</strong>
-                  <p>Lidocaine 최대 3.0 mg/kg/hr · Tramadol 최대 2.6 mg/kg/hr | Lidocaine 로딩: 1.0 mg/kg IV (표준)</p>
-                </div>
-              </>
-            ) : (
-              <>
-                <AlertTriangle size={18} />
-                <div>
-                  <strong>🐱 고양이 기준 적용 중</strong>
-                  <p>Lidocaine 최대 1.5 mg/kg/hr 엄수 — 과량 투여 주의 | Lidocaine 로딩: 최대 0.25 mg/kg IV (천천히)</p>
-                </div>
-              </>
-            )}
-          </div>
+          <AdSlot className="mt-8" />
         )}
-
-        <AdSlot className="mt-8" />
       </div>
 
       <style>{`
@@ -92,7 +72,8 @@ const FluidTherapy: React.FC = () => {
         /* TLK 추가 스타일 */
         .field-label-tlk { display: block; font-size: 11px; font-weight: 600; color: #8a96ab; letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 8px; }
         
-        .drug-block-tlk { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
+        .drug-block-tlk { display: flex; flex-direction: column; gap: 10px; margin-bottom: 32px; }
+        .drug-block-tlk:last-child { margin-bottom: 0; }
         .drug-header-tlk { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
         .drug-name-group-tlk { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
         .drug-dot-tlk { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
@@ -157,7 +138,7 @@ const FluidTherapy: React.FC = () => {
         }
         .r-drug-name { font-size: 12px; font-weight: 700; color: #1a2236; }
         .r-drug-sub  { font-size: 10px; color: #8a96ab; margin-top: 1px; }
-        .r-vol       { font-size: 14px; font-weight: 800; }
+        .r-vol       { font-size: 1.25rem; font-weight: 900; letter-spacing: -0.02em; }
         .r-conc      { font-size: 10px; color: #8a96ab; margin-top: 1px; }
 
         .ld-row-img {
@@ -174,7 +155,7 @@ const FluidTherapy: React.FC = () => {
         .ld-flex-group { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
         .ld-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; display: block; }
         .ld-unit-wrap { display: flex; flex-direction: column; align-items: flex-end; text-align: right; }
-        .ld-unit-wrap-row { display: flex; align-items: baseline; gap: 6px; }
+        .ld-unit-wrap-row { display: flex; align-items: center; gap: 10px; }
         .ld-name { font-size: 12px; font-weight: 700; color: #6b4c00; font-family: inherit; }
         .ld-sub  { font-size: 10px; color: #a08040; margin-top: 1px; font-family: inherit; }
         .ld-val  { font-size: 13px; font-weight: 800; color: #8a5f00; font-variant-numeric: tabular-nums; font-family: inherit; }
@@ -184,7 +165,11 @@ const FluidTherapy: React.FC = () => {
 
         /* 카드 강조색 (레드) */
         .tool-card-container.tlk-red-border {
-          border-top: 4px solid #ef4444 !important;
+          border-left: 4px solid #ef4444 !important;
+          padding: 1.5rem !important;
+        }
+        .tool-card-container.tlk-red-border-top {
+          border-top: 6px solid #ef4444 !important;
         }
         .tlk-red-text {
           color: #ef4444 !important;
@@ -214,6 +199,7 @@ const FluidTherapy: React.FC = () => {
           background: #fff; font-size: 1rem; color: #1e293b; outline: none; transition: all 0.2s;
           line-height: 1.5;
           box-sizing: border-box;
+          text-align: center;
         }
         .input-field-fluid-large {
           padding: 1rem; font-size: 1.5rem; font-weight: 800; text-align: center; color: #2563eb; border-color: #3b82f6;
@@ -228,6 +214,14 @@ const FluidTherapy: React.FC = () => {
         }
         .species-btn-small.active { border-color: #3498db; background: #f0f7ff; color: #1d4ed8; }
 
+        .bag-btn-large {
+          display: flex; align-items: center; justify-content: center; gap: 0.625rem;
+          padding: 0.875rem; border-radius: 12px; border: 2px solid #e2e8f0;
+          background: #fff; font-size: 1rem; font-weight: 700; cursor: pointer; color: #64748b; transition: all 0.2s;
+          width: 100%;
+        }
+        .bag-btn-large.active { border-color: #ef4444; background: #fef2f2; color: #ef4444; }
+
         .dehydration-badge { font-size: 0.8rem; font-weight: 800; color: #1d4ed8; background: #eff6ff; padding: 0.25rem 0.75rem; border-radius: 100px; border: 1px solid #dbeafe; flex-shrink: 0; }
         .fluid-range-slider { width: 100%; height: 6px; background: #e2e8f0; border-radius: 999px; outline: none; cursor: pointer; -webkit-appearance: none; margin: 0.5rem 0; }
         .fluid-range-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 22px; height: 22px; background: #3498db; border-radius: 50%; box-shadow: 0 2px 6px rgba(0,0,0,0.15); }
@@ -236,11 +230,12 @@ const FluidTherapy: React.FC = () => {
 
         .k-settings-card { 
           border-left: 4px solid #f59e0b; 
-          padding-bottom: 1.25rem !important; /* Slightly increased but less than before */
+          padding: 1.5rem !important; 
+          margin-bottom: 2rem !important;
         }
         .k-title-text { color: #b45309; margin-bottom: 1.25rem !important; }
-        .k-input-field { border-color: #fde68a !important; color: #92400e; font-weight: 800; margin-bottom: 0.75rem; }
-        .k-help-text { font-size: 0.8rem; color: #94a3b8; margin-top: 0.75rem; font-style: italic; line-height: 1.6; }
+        .k-input-field { border-color: #fde68a !important; color: #92400e; font-weight: 800; margin-bottom: 1rem; }
+        .k-help-text { font-size: 0.8rem; color: #94a3b8; margin-top: 1rem; font-style: italic; line-height: 1.6; text-align: center; }
 
         .fluid-hero-card {
           background: linear-gradient(135deg, #2563eb, #1e40af);
@@ -282,7 +277,9 @@ const FluidTherapy: React.FC = () => {
           gap: 0.75rem; 
           margin-bottom: 1.25rem; 
           flex-wrap: wrap; 
-          min-height: 2.5rem; 
+          min-height: 2.5rem;
+          padding-bottom: 10px;
+          border-bottom: 2px solid #f0f7ff;
         }
         .k-report-header-refined h3 { 
           font-size: 1rem; 

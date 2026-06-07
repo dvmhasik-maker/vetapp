@@ -11,8 +11,8 @@ export const useFluidLogic = () => {
     ongoingLoss: '0',
     potassium: '4.0',
     bagSize: 500,
-    tramadol: 1.30,
-    lidocaine: 1.50,
+    tramadol: 0.10,
+    lidocaine: 3.00,
     ketamine: 0.60
   });
   const [result, setResult] = useState<FluidResult | null>(null);
@@ -21,10 +21,19 @@ export const useFluidLogic = () => {
 
   useEffect(() => {
     // Reset defaults when species changes
-    if (patient.species === 'cat') {
+    if (patient.species === 'dog') {
       setInput(prev => ({
         ...prev,
-        lidocaine: Math.min(prev.lidocaine, 1.50)
+        tramadol: 0.10,
+        lidocaine: 3.00,
+        ketamine: 0.60
+      }));
+    } else {
+      setInput(prev => ({
+        ...prev,
+        tramadol: 0.10,
+        lidocaine: 0.00,
+        ketamine: 0.30
       }));
     }
   }, [patient.species]);
@@ -134,10 +143,12 @@ export const useFluidLogic = () => {
       lidocaine: calculateDrugCRI(input.lidocaine, CONC.lidocaine),
       ketamine: calculateDrugCRI(input.ketamine, CONC.ketamine),
       loadingDoses: {
-        tramadol: ((1.50 * weight) / CONC.tramadol).toFixed(2),
-        lidocaine: (((patient.species === 'dog' ? 1.00 : 0.25) * weight) / CONC.lidocaine).toFixed(2),
-        ketamineLo: ((0.25 * weight) / CONC.ketamine).toFixed(2),
-        ketamineHi: ((0.50 * weight) / CONC.ketamine).toFixed(2)
+        tramadolLo: ((2.0 * weight) / CONC.tramadol).toFixed(2),
+        tramadolHi: ((4.0 * weight) / CONC.tramadol).toFixed(2),
+        lidocaineLo: (((patient.species === 'dog' ? 1.0 : 0.25) * weight) / CONC.lidocaine).toFixed(2),
+        lidocaineHi: (((patient.species === 'dog' ? 2.0 : 0.5) * weight) / CONC.lidocaine).toFixed(2),
+        ketamineLo: (((patient.species === 'dog' ? 0.25 : 0.3) * weight) / CONC.ketamine).toFixed(2),
+        ketamineHi: ((0.5 * weight) / CONC.ketamine).toFixed(2)
       }
     };
 
@@ -156,6 +167,7 @@ export const useFluidLogic = () => {
       maxSafeK,
       currentKRate,
       showSafetyWarning,
+      species: patient.species,
       tlk,
       date: new Date().toLocaleDateString('ko-KR')
     });

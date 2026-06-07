@@ -43,13 +43,16 @@ export interface FluidResult {
   maxSafeK: number;
   currentKRate: number;
   showSafetyWarning: boolean;
+  species: 'dog' | 'cat';
   tlk: {
     tramadol: DrugCRIResult;
     lidocaine: DrugCRIResult;
     ketamine: DrugCRIResult;
     loadingDoses: {
-      tramadol: string;
-      lidocaine: string;
+      tramadolLo: string;
+      tramadolHi: string;
+      lidocaineLo: string;
+      lidocaineHi: string;
       ketamineLo: string;
       ketamineHi: string;
     };
