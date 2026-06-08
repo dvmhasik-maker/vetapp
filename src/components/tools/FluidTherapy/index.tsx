@@ -17,7 +17,7 @@ const FluidTherapy: React.FC = () => {
   } = useFluidLogic();
 
   return (
-    <div className="tool-page fluid-tool-page">
+    <div className="tool-page">
       <div className="tool-nav">
         <Link to="/" className="back-btn-prominent">
           <ChevronLeft size={18} /> 대시보드
@@ -32,7 +32,7 @@ const FluidTherapy: React.FC = () => {
         </div>
       </div>
 
-      <div className="tool-content-standard">
+      <div className="tool-content">
         <AdSlot className="mb-6" />
 
         <div className="layout-grid-fluid">
@@ -57,13 +57,14 @@ const FluidTherapy: React.FC = () => {
       </div>
 
       <style>{`
-        .tool-content-standard {
+        .tool-content {
           width: 100%;
+          padding: 1rem 0;
         }
 
         .layout-grid-fluid { 
           display: grid; 
-          grid-template-columns: 1fr 1fr; /* 좌우 너비 동일하게 설정 */
+          grid-template-columns: 1fr 1fr;
           gap: 1.5rem; 
           margin-top: 1rem; 
           align-items: start;
@@ -341,10 +342,8 @@ const FluidTherapy: React.FC = () => {
 
         @media (max-width: 1024px) {
           .layout-grid-fluid { grid-template-columns: 1fr; gap: 1rem; }
-          .tool-content-standard { padding: 0 1rem; }
         }
         @media (max-width: 640px) {
-          .fluid-tool-page { padding: 1rem 0.5rem; }
           .hero-main-value .value { font-size: 2.75rem; word-break: break-all; }
           .hero-sub-metrics { grid-template-columns: 1fr; gap: 0.75rem; }
           .fluid-items-grid { grid-template-columns: 1fr; }
