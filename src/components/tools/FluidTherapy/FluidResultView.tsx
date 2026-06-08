@@ -1,5 +1,5 @@
 import React from 'react';
-import { Calculator, Info, Syringe, AlertTriangle, FlaskConical, Zap } from 'lucide-react';
+import { Calculator, Info, Syringe, AlertTriangle } from 'lucide-react';
 import { FluidResult } from './types';
 
 interface FluidResultViewProps {

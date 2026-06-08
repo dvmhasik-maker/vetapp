@@ -1,5 +1,5 @@
 import React from 'react';
-import { PawPrint, Dog, Cat, FlaskConical, Droplets, Syringe, Milk } from 'lucide-react';
+import { PawPrint, Dog, Cat, Syringe, Milk } from 'lucide-react';
 import { PatientData, FluidInput } from './types';
 
 interface FluidFormProps {

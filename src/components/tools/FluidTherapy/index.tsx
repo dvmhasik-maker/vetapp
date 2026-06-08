@@ -1,5 +1,5 @@
 import React from 'react';
-import { ChevronLeft, AlertTriangle } from 'lucide-react';
+import { ChevronLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useFluidLogic } from './useFluidLogic';
 import FluidForm from './FluidForm';
