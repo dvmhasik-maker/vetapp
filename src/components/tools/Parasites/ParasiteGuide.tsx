@@ -15,6 +15,7 @@ const ParasiteGuide: React.FC = () => {
         <ul className="guide-list">
           <li><strong>심장사상충(Dirofilaria immitis):</strong> 모기에 의해 전파되며 폐동맥 및 우심방에 기생. 호흡곤란, 복수 유발.</li>
           <li><strong>지알디아(Giardia):</strong> 오염된 물/분변을 통해 감염. 만성적인 점액성 설사가 특징.</li>
+          <li><strong>트리코모나스(Trichomoniasis):</strong> 고양이 대장에 기생하며 만성적인 악취성 설사 유발. PCR 검사가 골든 스탠다드.</li>
           <li><strong>회충/구충:</strong> 어린 개체에서 영양실조 및 빈혈 유발. 사람의 피부나 내장에 침투 가능.</li>
           <li><strong>외부기생충(진드기, 벼룩):</strong> 피부염뿐만 아니라 바베시아, SFTS 등 치명적인 전염병 매개.</li>
         </ul>

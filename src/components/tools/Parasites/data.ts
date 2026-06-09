@@ -2,24 +2,25 @@ import { ParasiteData } from './types';
 
 export const parasiteData: ParasiteData[] = [
   {
-    ko: "원충 (지아르디아 / 콕시듐 등)",
-    en: "Protozoa (Giardia, Coccidia spp.)",
-    sci: "Giardia duodenalis / Cystoisospora spp.",
+    ko: "원충 (지아르디아 / 트리코모나스 등)",
+    en: "Protozoa (Giardia, Trichomoniasis)",
+    sci: "Giardia duodenalis / Tritrichomonas blagburni",
     dog: {
-      site: "소장 점막 상피세포 및 장관 내 고착 생존",
+      site: "소장 및 대장 장관 내 점막",
       treatment: `
         <ul>
           <li><b>Giardia 치료:</b> Fenbendazole 50 mg/kg, PO, q24h 간격으로 3~5일 연속 투여 (가장 안전). 또는 Metronidazole 25 mg/kg, PO, q12h 간격으로 5~7일간 투여.</li>
-          <li><b>Coccidia 치료:</b> Sulfadimethoxine 부하량 55 mg/kg 1회 투여 후 유지량 27.5 mg/kg, PO, q24h로 증상 소실 시까지 투여. Ponazuril 20~50 mg/kg, PO, 1~3일 투여도 효과적.</li>
+          <li><b>Trichomoniasis (T. blagburni):</b> 개에서의 감염은 드물며, 확진 시 고양이에 준한 치료를 고려함.</li>
         </ul>
       `
     },
     cat: {
-      site: "소장 및 대장 장관 내 점막",
+      site: "소장(Giardia) 및 하행결장/맹장(Trichomonas)",
       treatment: `
         <ul>
           <li><b>Giardia 치료:</b> Fenbendazole 50 mg/kg, PO, q24h 간격으로 3~5일 연속 투여. 고양이는 Metronidazole 전정신경독성에 매우 민감하므로 <b>일일 총량이 25mg/kg/day를 넘지 않도록 극도로 주의</b>.</li>
-          <li><b>Coccidia 치료:</b> Sulfadimethoxine 부하량 55 mg/kg 복용 후 27.5 mg/kg, PO, q24h 간격으로 5~10일간 유지. Ponazuril 20 mg/kg 단회 혹은 3일 요법 가능.</li>
+          <li><b>Trichomoniasis 치료 (CAPC 가이드라인):</b> <b>Ronidazole 30 mg/kg, PO, SID(1일 1회)로 14일간 투여</b>. 
+            <br/><span style="color:red;">⚠️ 주의: Ronidazole은 신경독성(기립불능, 발작 등)이 있으므로 증상 발현 시 즉시 투약 중단 필수.</span></li>
         </ul>
       `
     },
