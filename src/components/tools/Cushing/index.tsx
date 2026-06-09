@@ -4,6 +4,8 @@ import { useCushingLogic } from './useCushingLogic';
 import CushingForm from './CushingForm';
 import CushingResultView from './CushingResultView';
 import { CushingMode } from './types';
+import CushingGuide from './CushingGuide';
+import CollapsibleInfo from '../../common/CollapsibleInfo';
 import AdSlot from '../../common/AdSlot';
 
 const Cushing = () => {
@@ -73,6 +75,10 @@ const Cushing = () => {
             />
           )}
         </div>
+
+        <CollapsibleInfo title="쿠싱 증후군 진단 및 모니터링 가이드">
+          <CushingGuide />
+        </CollapsibleInfo>
 
         <AdSlot className="mt-8" />
       </div>

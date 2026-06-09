@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import { useHypoLogic } from './useHypoLogic';
 import DiagnosisForm from './DiagnosisForm';
 import ResultView from './ResultView';
+import HypoGuide from './HypoGuide';
+import CollapsibleInfo from '../../common/CollapsibleInfo';
 import AdSlot from '../../common/AdSlot';
 
 const Hypothyroidism: React.FC = () => {
@@ -67,6 +69,7 @@ const Hypothyroidism: React.FC = () => {
           saveImg={saveImg}
           patientCardRef={patientCardRef}
           inputPanelRef={inputPanelRef}
+          result={Boolean(result)}
         />
 
         {result && (
@@ -78,6 +81,10 @@ const Hypothyroidism: React.FC = () => {
             resultRef={resultRef}
           />
         )}
+
+        <CollapsibleInfo title="갑상선기능저하증 진단 및 관리 가이드">
+          <HypoGuide />
+        </CollapsibleInfo>
 
         <AdSlot className="mt-8" />
       </div>

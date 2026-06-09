@@ -163,10 +163,9 @@ body {
 
 /* Dashboard Layout - One Page View Optimized */
 .dashboard-container {
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  overflow: hidden; /* 스크롤 방지 */
 }
 
 .main-header {

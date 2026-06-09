@@ -21,6 +21,10 @@ export const useNeuroLogic = () => {
     );
   };
 
+  const resetSigns = () => {
+    setSelectedSymptoms([]);
+  };
+
   const localizeLesion = () => {
     if (selectedSymptomIds.length === 0) {
       alert('관찰되는 이상 증상을 최소 1개 이상 선택해 주세요.');
@@ -116,6 +120,7 @@ export const useNeuroLogic = () => {
     result,
     resultRef,
     captureRef,
-    localizeLesion
+    localizeLesion,
+    resetSigns
   };
 };

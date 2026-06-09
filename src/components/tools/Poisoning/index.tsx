@@ -3,6 +3,8 @@ import { ChevronLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { usePoisoningLogic } from './usePoisoningLogic';
 import { toxinDatabase } from './data';
+import PoisoningGuide from './PoisoningGuide';
+import CollapsibleInfo from '../../common/CollapsibleInfo';
 import AdSlot from '../../common/AdSlot';
 
 const Poisoning: React.FC = () => {
@@ -127,6 +129,10 @@ const Poisoning: React.FC = () => {
             </div>
           </div>
         )}
+
+        <CollapsibleInfo title="독성 물질 섭취 응급 처치 및 위험 가이드">
+          <PoisoningGuide />
+        </CollapsibleInfo>
 
         <AdSlot className="mt-8" />
       </div>

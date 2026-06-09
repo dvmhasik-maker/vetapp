@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import { useAtopyLogic } from './useAtopyLogic';
 import AtopyForm from './components/AtopyForm';
 import AtopyResultView from './components/AtopyResultView';
+import AtopyGuide from './components/AtopyGuide';
+import CollapsibleInfo from '../../common/CollapsibleInfo';
 import AdSlot from '../../common/AdSlot';
 
 const Atopy: React.FC = () => {
@@ -52,6 +54,10 @@ const Atopy: React.FC = () => {
             resultRef={resultRef}
           />
         )}
+
+        <CollapsibleInfo title="수의학적 근거 및 아토피 진단 가이드">
+          <AtopyGuide />
+        </CollapsibleInfo>
 
         <AdSlot className="mt-8" />
       </div>

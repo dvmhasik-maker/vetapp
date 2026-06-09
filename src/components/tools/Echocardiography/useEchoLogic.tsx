@@ -1,4 +1,5 @@
 import { useState, useRef } from 'react';
+import html2canvas from 'html2canvas';
 import { Species, PatientInfo, DogInput, CatInput, EchoResult, EchoResultItem } from './types';
 
 const initialPatientInfo: PatientInfo = {
@@ -238,6 +239,18 @@ export const useEchoLogic = () => {
     }, 100);
   };
 
+  const saveImg = () => {
+    if (!resultRef.current) return;
+
+    html2canvas(resultRef.current, { background: '#ffffff', scale: 2, useCORS: true, logging: false } as any)
+      .then((canvas) => {
+        const link = document.createElement('a');
+        link.download = `VETAPP_심초음파_분석_${new Date().getTime()}.jpg`;
+        link.href = canvas.toDataURL('image/jpeg', 0.9);
+        link.click();
+      });
+  };
+
   return {
     species, setSpecies,
     patientInfo, setPatientInfo,
@@ -245,6 +258,7 @@ export const useEchoLogic = () => {
     catInput, setCatInput,
     result, setResult,
     resultRef, captureRef,
-    calculateEcho
+    calculateEcho,
+    saveImg
   };
 };

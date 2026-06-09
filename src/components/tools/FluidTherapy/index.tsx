@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import { useFluidLogic } from './useFluidLogic';
 import FluidForm from './FluidForm';
 import FluidResultView from './FluidResultView';
+import FluidGuide from './FluidGuide';
+import CollapsibleInfo from '../../common/CollapsibleInfo';
 import AdSlot from '../../common/AdSlot';
 
 const FluidTherapy: React.FC = () => {
@@ -50,6 +52,10 @@ const FluidTherapy: React.FC = () => {
             />
           )}
         </div>
+
+        <CollapsibleInfo title="정밀 수액 요법 및 탈수 교정 가이드">
+          <FluidGuide />
+        </CollapsibleInfo>
 
         {result && (
           <AdSlot className="mt-8" />

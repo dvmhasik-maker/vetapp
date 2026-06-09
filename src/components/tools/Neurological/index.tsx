@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom';
 import { useNeuroLogic } from './useNeuroLogic';
 import NeuroForm from './NeuroForm';
 import NeuroResultView from './NeuroResultView';
-import html2canvas from 'html2canvas';
+import NeuroGuide from './NeuroGuide';
+import CollapsibleInfo from '../../common/CollapsibleInfo';
 import AdSlot from '../../common/AdSlot';
 
 const Neurological: React.FC = () => {
@@ -15,27 +16,9 @@ const Neurological: React.FC = () => {
     toggleSymptom,
     result,
     resultRef,
-    captureRef,
-    localizeLesion
+    localizeLesion,
+    resetSigns
   } = useNeuroLogic();
-
-  const saveImg = () => {
-    const target = resultRef.current;
-    if (!target || !result) {
-      alert('분석 결과가 없습니다. 먼저 분석을 실행해 주세요.');
-      return;
-    }
-
-    const ptName = patient.name || '환자';
-    const today = new Date().toLocaleDateString('ko-KR').replace(/\. /g, '-').replace('.', '');
-
-    html2canvas(target, { background: '#f4f6f9', scale: 2 } as any).then((canvas) => {
-      const link = document.createElement('a');
-      link.download = `${ptName}_신경병변_분석결과_${today}.jpg`;
-      link.href = canvas.toDataURL('image/jpeg', 1.0);
-      link.click();
-    });
-  };
 
   return (
     <div className="tool-page">
@@ -45,36 +28,38 @@ const Neurological: React.FC = () => {
         </Link>
       </div>
 
-      <header className="page-header-tool-white">
+      <div className="page-header-tool-white">
         <div className="icon">🧠</div>
         <div>
-          <h1>반려동물 신경증상 기반 병변 위치 분석기</h1>
-          <p>Veterinary Neurological Localization System (이상 증상 및 좌/우 방향 판정)</p>
+          <h1>신경계 병변 국소화 보조 도구</h1>
+          <p>신경 증상 기반 병변 위치 감별 (Neuro-Localization)</p>
         </div>
-      </header>
+      </div>
 
       <div className="tool-content-standard">
         <AdSlot className="mb-6" />
 
-        <div className="layout-grid-neuro" ref={captureRef}>
-          <NeuroForm
-            patient={patient}
-            setPatient={setPatient}
-            selectedSymptomIds={selectedSymptomIds}
-            toggleSymptom={toggleSymptom}
-            localizeLesion={localizeLesion}
-            saveImg={saveImg}
-            result={!!result}
-          />
+        <NeuroForm
+          patient={patient}
+          setPatient={setPatient}
+          selectedSymptomIds={selectedSymptomIds}
+          toggleSymptom={toggleSymptom}
+          localizeLesion={localizeLesion}
+          resetSigns={resetSigns}
+          result={Boolean(result)}
+        />
 
-          {result && (
-            <NeuroResultView
-              result={result}
-              patient={patient}
-              resultRef={resultRef}
-            />
-          )}
-        </div>
+        {result && (
+          <NeuroResultView
+            result={result}
+            patient={patient}
+            resultRef={resultRef}
+          />
+        )}
+
+        <CollapsibleInfo title="신경계 검사 및 병변 국소화 가이드">
+          <NeuroGuide />
+        </CollapsibleInfo>
 
         <AdSlot className="mt-8" />
       </div>
@@ -83,32 +68,109 @@ const Neurological: React.FC = () => {
         .tool-content-standard {
           margin: 0 auto;
         }
-        .layout-grid-neuro { display: flex; flex-direction: column; gap: 1.5rem; margin-top: 1rem; padding-bottom: 20px; align-items: center; }
-        .layout-grid-neuro > div { width: 100%; }
-        
+
         .patient-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
         .pf { display: flex; flex-direction: column; gap: 6px; }
         .pf label { font-size: .85rem; color: #4a5568; font-weight: 700; }
         .pf input, .pf select {
-          padding: 10px 12px; border: 1px solid #cbd5e1; border-radius: 8px;
-          font-size: 1rem; outline: none; background: #fff;
+          padding: 10px 12px;
+          border: 1px solid #cbd5e1;
+          border-radius: 8px;
+          font-size: 1rem;
+          outline: none;
+          transition: border-color 0.2s;
+        }
+        .pf input:focus, .pf select:focus { border-color: #3498db; }
+
+        .cat-title {
+          font-size: .95rem;
+          font-weight: 700;
+          color: #2c3e50;
+          background: #f0f7ff;
+          padding: 10px 14px;
+          border-radius: 8px;
+          margin: 22px 0 12px;
+          border-left: 4px solid #3498db;
+          text-align: center;
+        }
+        
+        .pair-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .single-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
+        
+        .chk-label {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          padding: 14px;
+          border: 2px solid #f1f5f9;
+          border-radius: 10px;
+          background: #f8fafc;
+          cursor: pointer;
+          transition: all 0.2s;
+          font-size: .95rem;
+          color: #334155;
+          min-height: 72px;
+          line-height: 1.3;
+          text-align: left;
+          white-space: pre-line;
+        }
+        .chk-label input { width: 18px; height: 18px; flex-shrink: 0; }
+        .chk-label:hover { border-color: #3498db; background: #f0f7ff; }
+        .chk-label.checked {
+          background: #e0f2fe;
+          border-color: #3498db;
+          color: #2980b9;
+          font-weight: 700;
         }
 
-        .save-action-area { margin: 0 auto; padding: 1rem; display: flex; justify-content: center; }
-        .btn-save-refined-neuro {
-          width: 100%; max-width: 600px; padding: 16px; border: none; border-radius: 12px;
-          font-size: 1rem; font-weight: 700; cursor: pointer;
-          display: flex; align-items: center; justify-content: center; gap: 10px;
-          background: #10b981; color: #fff; transition: all 0.2s;
-          box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+        .action-area-common {
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+          margin-top: 25px;
         }
-        .btn-save-refined-neuro:hover { background: #059669; transform: translateY(-2px); box-shadow: 0 6px 15px rgba(16, 185, 129, 0.3); }
 
-        @media (max-width: 1024px) {
-          .layout-grid-neuro { grid-template-columns: 1fr; }
+        .btn-primary-action {
+          width: 100%;
+          padding: 16px;
+          background: #3498db;
+          color: #fff;
+          border: none;
+          border-radius: 10px;
+          font-size: 1.1rem;
+          font-weight: 700;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: background 0.2s;
+          gap: 8px;
+        }
+        .btn-primary-action:hover { background: #2980b9; }
+
+        .btn-secondary-action {
+          width: 100%;
+          padding: 12px;
+          background: #1abc9c;
+          color: #fff;
+          border: none;
+          border-radius: 8px;
+          font-size: .9rem;
+          font-weight: 700;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+          transition: background 0.2s;
+        }
+        .btn-secondary-action:hover { background: #16a085; }
+
+        @media (min-width: 1024px) {
+          .single-grid { grid-template-columns: 1fr 1fr; }
         }
         @media (max-width: 768px) {
-          .patient-grid { grid-template-columns: 1fr; }
+          .patient-grid, .pair-grid { grid-template-columns: 1fr; }
         }
       `}</style>
     </div>

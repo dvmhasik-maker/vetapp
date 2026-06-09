@@ -1,8 +1,10 @@
 import React from 'react';
-import { ChevronLeft, Camera, Calculator, Info, Dog, Cat } from 'lucide-react';
+import { ChevronLeft, Dog, Cat, Calculator, Camera, Info } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useFoodAmountLogic } from './useFoodAmountLogic';
 import { statusConfig, brandProductPreset } from './data';
+import FoodGuide from './FoodGuide';
+import CollapsibleInfo from '../../common/CollapsibleInfo';
 import AdSlot from '../../common/AdSlot';
 
 const FoodAmount: React.FC = () => {
@@ -53,7 +55,6 @@ const FoodAmount: React.FC = () => {
             <div className="tool-card-container">
               <div className="tool-card-title">1. 반려동물 프로필</div>
 
-              {/* 축종 선택을 탭 스타일로 개선 */}
               <div className="species-tabs-food">
                 <button 
                   className={`species-tab ${species === 'dog' ? 'active' : ''}`}
@@ -231,6 +232,10 @@ const FoodAmount: React.FC = () => {
             )}
           </div>
         </div>
+
+        <CollapsibleInfo title="반려동물 영양 요구량 및 급여량 계산 가이드">
+          <FoodGuide />
+        </CollapsibleInfo>
 
         <AdSlot className="mt-8" />
       </div>

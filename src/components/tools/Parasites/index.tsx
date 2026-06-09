@@ -3,6 +3,8 @@ import { ChevronLeft, ShieldAlert, Info } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useParasitesLogic } from './useParasitesLogic';
 import { parasiteData } from './data';
+import ParasiteGuide from './ParasiteGuide';
+import CollapsibleInfo from '../../common/CollapsibleInfo';
 import AdSlot from '../../common/AdSlot';
 
 const ParasiteMedia: React.FC<{ url: string; videoUrl?: string; alt: string; description: string; magnification: string }> = ({ url, videoUrl, alt, description, magnification }) => {
@@ -174,6 +176,10 @@ const Parasites: React.FC = () => {
             </div>
           </div>
         )}
+
+        <CollapsibleInfo title="기생충 예방 및 치료 종합 가이드">
+          <ParasiteGuide />
+        </CollapsibleInfo>
 
         <AdSlot className="mt-8" />
       </div>

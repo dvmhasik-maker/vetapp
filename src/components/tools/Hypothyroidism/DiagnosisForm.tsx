@@ -12,6 +12,7 @@ interface DiagnosisFormProps {
   saveImg: (targetType: 'input' | 'result') => void;
   patientCardRef: React.RefObject<HTMLDivElement>;
   inputPanelRef: React.RefObject<HTMLDivElement>;
+  result: boolean;
 }
 
 const DiagnosisForm: React.FC<DiagnosisFormProps> = ({
@@ -23,7 +24,8 @@ const DiagnosisForm: React.FC<DiagnosisFormProps> = ({
   executeAnalysis,
   saveImg,
   patientCardRef,
-  inputPanelRef
+  inputPanelRef,
+  result
 }) => {
   return (
     <>
@@ -93,9 +95,11 @@ const DiagnosisForm: React.FC<DiagnosisFormProps> = ({
           <button className="btn-primary-action" onClick={executeAnalysis}>
             <Search size={20} /> 상태 분석하기
           </button>
-          <button className="btn-secondary-action" onClick={() => saveImg('result')}>
-            <Camera size={20} /> 분석 결과 리포트 이미지 저장
-          </button>
+          {result && (
+            <button className="btn-secondary-action" onClick={() => saveImg('result')}>
+              <Camera size={20} /> 분석 결과 리포트 이미지 저장
+            </button>
+          )}
         </div>
       </div>
     </>
