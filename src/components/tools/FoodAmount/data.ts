@@ -103,7 +103,10 @@ export const brandProductPreset: { dog: BrandProducts; cat: BrandProducts } = {
       { name: "처방식 - 유리너리 S/O (비뇨기)", kcal: 3.87 },
       { name: "처방식 - 유리너리 S/O 올팩토리 (식욕촉진)", kcal: 3.88 },
       { name: "처방식 - 유리너리 S/O + 블래더 컴포트 (스트레스 관리)", kcal: 3.49 },
+      { name: "처방식 - 유리너리 S/O + 블래더 컴포트 + 세타이어티", kcal: 3.13 },
+      { name: "처방식 - 유리너리 S/O + 하이포알레르기", kcal: 3.63 },
       { name: "처방식 - 레날 (만성 신부전)", kcal: 3.92 },
+      { name: "처방식 - 레날 + 하이포알레르기", kcal: 3.98 },
 
       {name: "처방식 - 얼리 레날 (조기 신부전)", kcal: 3.93},
       {name: "처방식 - 레날 셀렉트 (기호성 강화)", kcal: 4.11},
