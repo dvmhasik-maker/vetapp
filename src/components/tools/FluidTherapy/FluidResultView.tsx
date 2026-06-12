@@ -18,7 +18,7 @@ const FluidResultView: React.FC<FluidResultViewProps> = ({
         <div className="fluid-hero-card">
           <div className="hero-icon-bg"><Calculator size={120} /></div>
           <div className="hero-content">
-            <p className="hero-label">TLK CRI Result</p>
+            <p className="hero-label">Total Fluid Rate</p>
             <div className="hero-main-value">
               <span className="value">{result.hourlyRate}</span>
               <span className="unit">mL/h</span>
@@ -133,7 +133,7 @@ const FluidResultView: React.FC<FluidResultViewProps> = ({
           )}
         </div>
 
-        {/* TLK CRI Result Card */}
+        {/* Total Fluid Rate Card */}
         <div className="tool-card-container tlk-red-border-top">
           <div className="tool-card-title flex items-center gap-2 tlk-red-text">
             <Syringe size={18} /> 수액 백 내 TLK 첨가약물량 ({result.bagSize}mL 기준)
