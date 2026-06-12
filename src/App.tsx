@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import ScrollToTop from './components/common/ScrollToTop';
 import Dashboard from './components/Dashboard';
 import Hypothyroidism from './components/tools/Hypothyroidism/index';
 import Parasites from './components/tools/Parasites/index';
@@ -19,6 +20,7 @@ import Contact from './components/legal/Contact';
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Dashboard />} />
         <Route path="/hypothyroidism" element={<Hypothyroidism />} />
