@@ -35,8 +35,8 @@ const Echocardiography: React.FC = () => {
       <div className="page-header-tool-white">
         <div className="icon">❤️</div>
         <div>
-          <h1>반려견 심초음파 분석기</h1>
-          <p>LVIDdn, LA/Ao 및 심장 크기 지표 계산</p>
+          <h1>반려동물 심초음파 분석기</h1>
+          <p>심장 초음파 지표 계산 및 해석</p>
         </div>
       </div>
 

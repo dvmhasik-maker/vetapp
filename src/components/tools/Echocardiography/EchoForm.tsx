@@ -126,7 +126,7 @@ const EchoForm: React.FC<EchoFormProps> = ({
             <div className="vertical-form">
               <div className="pf-horizontal"><label>MPA/Ao ratio</label><input type="number" id="dog_MPA_Ao" value={dogInput.MPA_Ao} onChange={handleDogChange} step="any" /></div>
               <div className="pf-horizontal"><label>RPAD index (%)</label><input type="number" id="dog_RPAD" value={dogInput.RPAD} onChange={handleDogChange} step="any" /></div>
-              <div className="pf-horizontal"><label>PA 속도 (m/s)</label><input type="number" id="dog_PA_vel" value={dogInput.PA_vel} onChange={handleDogChange} step="any" /></div>
+              <div className="pf-horizontal"><label>PV 속도 (m/s)</label><input type="number" id="dog_PA_vel" value={dogInput.PA_vel} onChange={handleDogChange} step="any" /></div>
               <div className="pf-horizontal"><label>PR 속도 (m/s)</label><input type="number" id="dog_PR_vel" value={dogInput.PR_vel} onChange={handleDogChange} step="any" /></div>
             </div>
 
@@ -263,14 +263,14 @@ const EchoForm: React.FC<EchoFormProps> = ({
             <div className="cat-title">LA4C</div>
             <div className="vertical-form">
               <div className="pf-horizontal">
-                <label>PA Turbulence</label>
+                <label>PV Turbulence</label>
                 <select id="cat_PA_turb" value={catInput.PA_turb} onChange={handleCatChange}>
                   <option value="">선택</option>
                   <option value="있음">있음</option>
                   <option value="없음">없음</option>
                 </select>
               </div>
-              <div className="pf-horizontal"><label>PA 속도 (m/s)</label><input type="number" id="cat_PA_vel" value={catInput.PA_vel} onChange={handleCatChange} step="any" /></div>
+              <div className="pf-horizontal"><label>PV 속도 (m/s)</label><input type="number" id="cat_PA_vel" value={catInput.PA_vel} onChange={handleCatChange} step="any" /></div>
               <div className="pf-horizontal"><label>PR 속도 (m/s)</label><input type="number" id="cat_PR_vel" value={catInput.PR_vel} onChange={handleCatChange} step="any" /></div>
               <div className="pf-horizontal"><label>MV E (m/s)</label><input type="number" id="cat_MV_E" value={catInput.MV_E} onChange={handleCatChange} step="any" /></div>
               <div className="pf-horizontal"><label>MV A (m/s)</label><input type="number" id="cat_MV_A" value={catInput.MV_A} onChange={handleCatChange} step="any" /></div>

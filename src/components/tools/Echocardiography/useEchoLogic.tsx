@@ -208,7 +208,7 @@ export const useEchoLogic = () => {
       { id: 'MV_Sprime', label: "MV S' wave" }, { id: 'MV_Aprime', label: "MV A' wave" },
       { id: 'MV_EAp', label: "MV E'/A' ratio" }, { id: 'MR_vel', label: 'MR 속도' },
       { id: 'MR_Frac', label: 'MR Fraction(PISA)' }, { id: 'TR_vel', label: 'TR 속도' },
-      { id: 'PR_vel', label: 'PR 속도' }, { id: 'PA_vel', label: 'PA 속도' },
+      { id: 'PR_vel', label: 'PR 속도' }, { id: 'PA_vel', label: 'PV 속도' },
       { id: 'AV_vel', label: 'AV 속도' }, { id: 'ET', label: 'ET' },
       { id: 'PEP', label: 'PEP' }, { id: 'PEP_ET', label: 'PEP/ET' },
       { id: 'SV', label: 'SV' }, { id: 'CO', label: 'CO' },
