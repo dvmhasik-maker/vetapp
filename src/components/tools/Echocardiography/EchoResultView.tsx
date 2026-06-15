@@ -44,14 +44,27 @@ const EchoResultView: React.FC<EchoResultViewProps> = ({ result, resultRef }) =>
                 let color = '#64748b', txt = '-';
 
                 if (!isNaN(n) && isFinite(n) && n !== 0) {
+                  // 1. 상태 텍스트 결정
                   if (it.range) {
-                    if (n < it.range[0]) { color = it.inv ? '#059669' : '#1d4ed8'; txt = it.lo; }
-                    else if (n > it.range[1]) { color = it.inv ? '#1d4ed8' : '#b91c1c'; txt = it.hi; }
-                    else { color = '#059669'; txt = '정상'; }
+                    if (n < it.range[0]) txt = it.lo;
+                    else if (n > it.range[1]) txt = it.hi;
+                    else txt = '정상';
                   } else if (it.normal !== null) {
-                    if (n < it.normal) { color = it.inv ? '#059669' : '#1d4ed8'; txt = it.lo; }
-                    else if (n > it.normal) { color = it.inv ? '#1d4ed8' : '#b91c1c'; txt = it.hi; }
-                    else { color = '#059669'; txt = '정상'; }
+                    if (n < it.normal) txt = it.lo;
+                    else if (n > it.normal) txt = it.hi;
+                    else txt = '정상';
+                  }
+
+                  // 2. 색상 결정 (텍스트가 '정상'이면 항상 초록색)
+                  if (txt === '정상') {
+                    color = '#27ae60'; // 정상: 초록색 (통일)
+                  } else if (txt !== '-') {
+                    // 비정상일 때: 측정값이 기준보다 낮으면 파란색, 높으면 빨간색
+                    if (it.range) {
+                      color = (n < it.range[0]) ? '#2980b9' : '#c0392b';
+                    } else if (it.normal !== null) {
+                      color = (n < it.normal) ? '#2980b9' : '#c0392b';
+                    }
                   }
                 }
 
