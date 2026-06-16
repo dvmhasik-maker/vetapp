@@ -373,6 +373,7 @@ const EchoForm: React.FC<EchoFormProps> = ({
           transition: border-color 0.2s;
           background: #fffdf0;
           text-align: center;
+          text-align-last: center;
         }
         .pf-horizontal input:focus, .pf-horizontal select:focus { border-color: #3498db; }
         .pf label { font-size: .85rem; color: #4a5568; font-weight: 700; }
@@ -384,6 +385,8 @@ const EchoForm: React.FC<EchoFormProps> = ({
           outline: none;
           transition: border-color 0.2s;
           background: #fffdf0;
+          text-align: center;
+          text-align-last: center;
         }
         .pf input:focus, .pf select:focus { border-color: #3498db; }
 
