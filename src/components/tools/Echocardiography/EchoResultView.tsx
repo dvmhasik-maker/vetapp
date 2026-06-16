@@ -103,11 +103,15 @@ const EchoResultView: React.FC<EchoResultViewProps> = ({ result, resultRef }) =>
       const n = parseFloat(val);
       if (isNaN(n) || n === 0) return '-';
 
-      let color = '#27ae60'; // 정상: 초록색
-      if (thresh.min !== undefined && n < thresh.min) {
-        color = '#2980b9'; // 낮음: 파란색
-      } else if (thresh.max !== undefined && n > thresh.max) {
-        color = '#c0392b'; // 높음: 빨간색
+      let color = '#27ae60'; // 기본 초록색 (정상)
+      if (thresh) {
+        if (thresh.min !== undefined && n < thresh.min) {
+          color = '#2980b9'; // 낮음: 파란색
+        } else if (thresh.max !== undefined && n > thresh.max) {
+          color = '#c0392b'; // 높음: 빨간색
+        }
+      } else {
+        color = '#334155'; // 기준치 없는 경우 기본 텍스트 색상
       }
 
       return (
