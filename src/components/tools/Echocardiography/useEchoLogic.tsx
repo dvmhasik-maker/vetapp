@@ -107,6 +107,7 @@ export const useEchoLogic = () => {
   };
 
   const calculateCat = () => {
+    const weight = v(catInput.weight);
     const catThresh: any = {
       D2_IVSd: { max: 6 }, D2_LVPWd: { max: 6 }, D2_LVwall: { max: 6 },
       M_IVSd: { max: 0.6 }, M_LVPWd: { max: 0.6 }, M_LVIDd: { max: 1.8 }, M_LVIDs: { max: 0.9 },
@@ -116,7 +117,8 @@ export const useEchoLogic = () => {
       MV_Sprime: { min: 4.4 }, MV_EAp: { min: 1.0 }, MV_EEp: { max: 8.07 },
       MR_vel: { max: 1.5 }, TR_vel: { max: 2.5 }, AV_vel: { max: 1.3 },
       ET: { min: 116 }, PEP: { min: 44 }, PEP_ET: { max: 0.41 },
-      SV: { min: 3, max: 5 }, CO: { min: 0.5, max: 1.0 }
+      SV: weight > 0 ? { min: 1 * weight, max: 2 * weight } : null,
+      CO: weight > 0 ? { min: (200 * weight) / 1000, max: (300 * weight) / 1000 } : null
     };
 
     // Auto-calcs
@@ -138,11 +140,12 @@ export const useEchoLogic = () => {
 
     const r = lvotLen * 10 / 2 * 0.1;
     const SV = (lvotLen && lvotVTI) ? Math.PI * r * r * lvotVTI : 0;
-    const CO = SV * hr;
+    const CO = (SV * hr) / 1000; // L/min 으로 변환
     const mrFrac = (mrVTI && SV) ? (mrVTI / (mrVTI + SV)) * 100 : 0;
 
     const currentValues: any = {
       ...catInput,
+      weight,
       MV_EA: mvEA,
       MV_EEp: mvEEp,
       MV_EAp: mvEAp,
@@ -263,7 +266,7 @@ export const useEchoLogic = () => {
       { id: 'PR_vel', label: 'PR 속도' }, { id: 'PA_vel', label: 'PV 속도' },
       { id: 'AV_vel', label: 'AV 속도' }, { id: 'ET', label: 'ET' },
       { id: 'PEP', label: 'PEP' }, { id: 'PEP_ET', label: 'PEP/ET' },
-      { id: 'SV', label: 'SV' }, { id: 'CO', label: 'CO' },
+      { id: 'SV', label: 'SV (mL)' }, { id: 'CO', label: 'CO (L/min)' },
     ].map(r => ({ ...r, measured: currentValues[r.id], thresh: catThresh[r.id] }));
 
     setResult({
