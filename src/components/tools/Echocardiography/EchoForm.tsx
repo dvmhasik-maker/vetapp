@@ -385,10 +385,12 @@ const EchoForm: React.FC<EchoFormProps> = ({
           outline: none;
           transition: border-color 0.2s;
           background: #fffdf0;
-          text-align: center;
-          text-align-last: center;
         }
         .pf input:focus, .pf select:focus { border-color: #3498db; }
+
+        .pf-horizontal select option {
+          text-align: center;
+        }
 
         .cat-title {
           font-size: .95rem;
