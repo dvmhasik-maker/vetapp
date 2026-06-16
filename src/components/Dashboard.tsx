@@ -11,9 +11,7 @@ import {
   ShieldAlert,
   ChevronDown,
   Info,
-  Monitor,
-  Copy,
-  CheckCircle2
+  Monitor
 } from 'lucide-react';
 import { useState } from 'react';
 import AdSlot from './common/AdSlot';
@@ -94,13 +92,6 @@ const tools: Tool[] = [
 
 const Dashboard: React.FC = () => {
   const [showInfo, setShowInfo] = useState(false);
-  const [copied, setCopied] = useState(false);
-
-  const copyUrl = () => {
-    navigator.clipboard.writeText(window.location.origin);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
 
   return (
     <div className="dashboard-container">
@@ -112,6 +103,8 @@ const Dashboard: React.FC = () => {
       </header>
 
       <main className="main-content">
+        <AdSlot className="top-ad" />
+
         <div className="tool-grid">
           {[...tools].sort((a, b) => a.name.localeCompare(b.name, 'ko')).map((tool) => (
             <Link key={tool.id} to={tool.path} className="tool-card">
