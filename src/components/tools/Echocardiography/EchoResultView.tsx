@@ -90,9 +90,16 @@ const EchoResultView: React.FC<EchoResultViewProps> = ({ result, resultRef }) =>
     const styledCat = (val: any, thresh: any) => {
       const n = parseFloat(val);
       if (isNaN(n) || n === 0) return '-';
-      const isOut = (thresh.min !== undefined && n < thresh.min) || (thresh.max !== undefined && n > thresh.max);
+
+      let color = '#27ae60'; // 정상: 초록색
+      if (thresh.min !== undefined && n < thresh.min) {
+        color = '#2980b9'; // 낮음: 파란색
+      } else if (thresh.max !== undefined && n > thresh.max) {
+        color = '#c0392b'; // 높음: 빨간색
+      }
+
       return (
-        <span style={{ color: isOut ? '#c0392b' : '#27ae60', fontWeight: 'bold' }}>
+        <span style={{ color, fontWeight: 'bold' }}>
           {n >= 100 ? n.toFixed(0) : n.toFixed(2)}
         </span>
       );

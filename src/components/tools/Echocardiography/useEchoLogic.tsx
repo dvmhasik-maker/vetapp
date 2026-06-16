@@ -71,7 +71,7 @@ export const useEchoLogic = () => {
 
     const items: EchoResultItem[] = [
       { group: 'Volume Overload', name: 'LVIDDN', val: LVIDDN, normal: 1.7, range: null, inv: false, lo: '정상', hi: 'DMVD 의심' },
-      { group: 'Volume Overload', name: 'MV E wave', val: mvE, normal: 1.0, range: null, inv: false, lo: '정상', hi: 'LV 충만기압 증가 (1.25이상→DMVD)' },
+      { group: 'Volume Overload', name: 'MV E wave', val: mvE, normal: null, range: [0.7, 1.0], inv: false, lo: 'LV 충만기압 감소', hi: 'LV 충만기압 증가 (1.25이상→DMVD)' },
       { group: 'Volume Overload', name: 'MR Fraction(PISA)', val: mrFrac, normal: 33, range: null, inv: false, lo: '정상', hi: 'MR 존재' },
       { group: 'Volume Overload', name: 'E/IVRT ratio', val: EIVRT, normal: 1.25, range: null, inv: false, lo: '정상', hi: 'LV 충만기압 증가 (2.5이상→DMVD)' },
       { group: 'Volume Overload', name: 'LA/Ao ratio', val: v(dogInput.LA_Ao), normal: 1.6, range: null, inv: false, lo: '정상', hi: 'LA 비대' },
@@ -87,7 +87,7 @@ export const useEchoLogic = () => {
       
       { group: 'Diastolic Failure', name: 'LVIDs3/BSA', val: LVIDs3BSA, normal: 30, range: null, inv: false, lo: '정상', hi: '수축능력 저하' },
       { group: 'Diastolic Failure', name: 'MV E/A ratio', val: EA, normal: null, range: [0.8, 1.5], inv: false, lo: '이완기능부전 stage 1', hi: '이완기능부전 stage 3' },
-      { group: 'Diastolic Failure', name: 'DTE', val: v(dogInput.DTE), normal: null, range: [50, 80], inv: false, lo: '이완기능부전 stage 3', hi: '이완기능부전 stage 1' },
+      { group: 'Diastolic Failure', name: 'DTE', val: v(dogInput.DTE), normal: null, range: [60, 100], inv: false, lo: '이완기능부전 stage 3', hi: '이완기능부전 stage 1' },
       { group: 'Diastolic Failure', name: "MV E/E' ratio", val: EEp, normal: 12.0, range: null, inv: false, lo: '정상', hi: '이완기능부전 stage 1b 이상' },
       { group: 'Diastolic Failure', name: 'IVRT', val: ivrt, normal: null, range: [41, 65], inv: false, lo: '이완기능부전 stage 3', hi: '이완기능부전 stage 1' },
       
