@@ -116,6 +116,7 @@ export const useEchoLogic = () => {
       MV_Sprime: { min: 4.4 }, MV_EAp: { min: 1.0 }, MV_EEp: { max: 8.07 },
       MR_vel: { max: 1.5 }, TR_vel: { max: 2.5 }, AV_vel: { max: 1.3 },
       ET: { min: 116 }, PEP: { min: 44 }, PEP_ET: { max: 0.41 },
+      SV: { min: 3, max: 5 }, CO: { min: 0.5, max: 1.0 }
     };
 
     // Auto-calcs

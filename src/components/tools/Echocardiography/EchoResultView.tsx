@@ -100,8 +100,9 @@ const EchoResultView: React.FC<EchoResultViewProps> = ({ result, resultRef }) =>
     const dx = result.catDiagnosis!;
     
     const styledCat = (val: any, thresh: any) => {
+      if (val === undefined || val === null || val === '') return '-';
       const n = parseFloat(val);
-      if (isNaN(n) || n === 0) return '-';
+      if (isNaN(n)) return '-';
 
       let color = '#27ae60'; // 기본 초록색 (정상)
       if (thresh) {
@@ -116,7 +117,7 @@ const EchoResultView: React.FC<EchoResultViewProps> = ({ result, resultRef }) =>
 
       return (
         <span style={{ color, fontWeight: 'bold' }}>
-          {n >= 100 ? n.toFixed(0) : n.toFixed(2)}
+          {Math.abs(n) >= 100 ? n.toFixed(0) : n.toFixed(2)}
         </span>
       );
     };
@@ -143,11 +144,11 @@ const EchoResultView: React.FC<EchoResultViewProps> = ({ result, resultRef }) =>
           <table className="result-table-echo cat-stage-table">
             <thead>
               <tr>
-                <th>항목</th>
-                <th>B1</th>
-                <th>B2</th>
-                <th>C</th>
-                <th>측정값</th>
+                <th style={{ width: '25%' }}>항목</th>
+                <th style={{ width: '15%' }}>B1</th>
+                <th style={{ width: '15%' }}>B2</th>
+                <th style={{ width: '15%' }}>C</th>
+                <th style={{ width: '30%' }}>측정값</th>
               </tr>
             </thead>
             <tbody>
