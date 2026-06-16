@@ -217,17 +217,17 @@ export const useEchoLogic = () => {
     };
 
     const stageRows = [
-      { id: 'D2_IVSd', label: '2D: IVSd', b1: '>= 6', b2: '>= 7', c: '>= 7' },
-      { id: 'D2_LVPWd', label: '2D: LVPWd', b1: '>= 6', b2: '>= 7', c: '>= 7' },
-      { id: 'D2_LVwall', label: '2D: LV wall', b1: '>= 6', b2: '>= 7', c: '>= 7' },
-      { id: 'M_IVSd', label: 'M: IVSd', b1: '>= 0.6', b2: '>= 0.7', c: '>= 0.7' },
-      { id: 'M_LVPWd', label: 'M: LVPWd', b1: '>= 0.6', b2: '>= 0.7', c: '>= 0.7' },
-      { id: 'LA_len', label: 'LA 길이', b1: '< 1.6', b2: '>= 1.6', c: '>= 1.6' },
-      { id: 'LA_Ao', label: 'LA/Ao ratio', b1: '< 1.5', b2: '>= 1.5', c: '>= 1.5' },
-      { id: 'M_LAFS', label: 'M: LAFS', b1: '> 24', b2: '<= 24', c: '<= 24' },
-      { id: 'MV_EA', label: 'MV E/A ratio', b1: '< 1', b2: '>= 1', c: '>= 1' },
+      { id: 'D2_IVSd', label: '2D: IVSd', b1: '≥ 6', b2: '≥ 7', c: '≥ 7' },
+      { id: 'D2_LVPWd', label: '2D: LVPWd', b1: '≥ 6', b2: '≥ 7', c: '≥ 7' },
+      { id: 'D2_LVwall', label: '2D: LV wall', b1: '≥ 6', b2: '≥ 7', c: '≥ 7' },
+      { id: 'M_IVSd', label: 'M: IVSd', b1: '≥ 0.6', b2: '≥ 0.7', c: '≥ 0.7' },
+      { id: 'M_LVPWd', label: 'M: LVPWd', b1: '≥ 0.6', b2: '≥ 0.7', c: '≥ 0.7' },
+      { id: 'LA_len', label: 'LA 길이', b1: '< 1.6', b2: '≥ 1.6', c: '≥ 1.6' },
+      { id: 'LA_Ao', label: 'LA/Ao ratio', b1: '< 1.5', b2: '≥ 1.5', c: '≥ 1.5' },
+      { id: 'M_LAFS', label: 'M: LAFS', b1: '> 24', b2: '≤ 24', c: '≤ 24' },
+      { id: 'MV_EA', label: 'MV E/A ratio', b1: '< 1', b2: '≥ 1', c: '≥ 1' },
       { id: 'MV_Eprime', label: "MV E' wave", b1: '< 7.2', b2: '< 7.2', c: '< 7.2' },
-      { id: 'MV_EEp', label: "MV E/E' ratio", b1: '< 8.07', b2: '>= 8.07', c: '>= 8.07' },
+      { id: 'MV_EEp', label: "MV E/E' ratio", b1: '< 8.07', b2: '≥ 8.07', c: '≥ 8.07' },
     ].map(r => {
       const val = v(currentValues[r.id]);
       return { ...r, measured: currentValues[r.id], thresh: catThresh[r.id], matched: getRowStage(r.id, val) };
