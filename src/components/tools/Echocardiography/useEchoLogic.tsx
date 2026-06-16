@@ -188,6 +188,34 @@ export const useEchoLogic = () => {
       dxLabel = formPrefix + (isHOCM ? 'HOCM' : 'HCM');
     }
 
+    const getRowStage = (id: string, val: number): string[] => {
+      if (isNaN(val) || val === 0) return [];
+      switch (id) {
+        case 'D2_IVSd': case 'D2_LVPWd': case 'D2_LVwall':
+          if (val >= 7) return ['b2', 'c'];
+          if (val >= 6) return ['b1'];
+          break;
+        case 'M_IVSd': case 'M_LVPWd':
+          if (val >= 0.7) return ['b2', 'c'];
+          if (val >= 0.6) return ['b1'];
+          break;
+        case 'LA_len':
+          return val >= 1.6 ? ['b2', 'c'] : ['b1'];
+        case 'LA_Ao':
+          return val >= 1.5 ? ['b2', 'c'] : ['b1'];
+        case 'M_LAFS':
+          return val <= 24 ? ['b2', 'c'] : ['b1'];
+        case 'MV_EA':
+          return val >= 1 ? ['b2', 'c'] : ['b1'];
+        case 'MV_Eprime':
+          if (val < 7.2) return ['b1', 'b2', 'c'];
+          break;
+        case 'MV_EEp':
+          return val >= 8.07 ? ['b2', 'c'] : ['b1'];
+      }
+      return [];
+    };
+
     const stageRows = [
       { id: 'D2_IVSd', label: '2D: IVSd', b1: '>= 6', b2: '>= 7', c: '>= 7' },
       { id: 'D2_LVPWd', label: '2D: LVPWd', b1: '>= 6', b2: '>= 7', c: '>= 7' },
@@ -200,7 +228,30 @@ export const useEchoLogic = () => {
       { id: 'MV_EA', label: 'MV E/A ratio', b1: '< 1', b2: '>= 1', c: '>= 1' },
       { id: 'MV_Eprime', label: "MV E' wave", b1: '< 7.2', b2: '< 7.2', c: '< 7.2' },
       { id: 'MV_EEp', label: "MV E/E' ratio", b1: '< 8.07', b2: '>= 8.07', c: '>= 8.07' },
-    ].map(r => ({ ...r, measured: currentValues[r.id], thresh: catThresh[r.id] }));
+    ].map(r => {
+      const val = v(currentValues[r.id]);
+      return { ...r, measured: currentValues[r.id], thresh: catThresh[r.id], matched: getRowStage(r.id, val) };
+    });
+
+    // Aggregate final stage
+    const counts = { b1: 0, b2: 0, c: 0 };
+    stageRows.forEach(r => {
+      r.matched.forEach(s => {
+        if (s === 'b1') counts.b1++;
+        if (s === 'b2') counts.b2++;
+        if (s === 'c') counts.c++;
+      });
+    });
+
+    let finalStage = '';
+    const maxCount = Math.max(counts.b1, counts.b2, counts.c);
+    if (maxCount > 0) {
+      const winners = [];
+      if (counts.b1 === maxCount) winners.push('B1');
+      if (counts.b2 === maxCount) winners.push('B2');
+      if (counts.c === maxCount) winners.push('C');
+      finalStage = winners.join(' / ');
+    }
 
     const extraRows = [
       { id: 'FS', label: 'FS (%)' }, { id: 'EPSS', label: 'EPSS' },
@@ -223,7 +274,8 @@ export const useEchoLogic = () => {
         label: dxLabel,
         thrombosisRisk: catInput.SEC === '있음' ? '⚠️ 혈전 발생 가능성 높음' : catInput.SEC === '없음' ? '✅ 혈전 발생 가능성 낮음' : '',
         lvotTurbulence: catInput.LVOT_turb === '있음' ? '⚠️ LVOT Turbulence 있음' : '',
-        samPresent: catInput.SAM === '있음' ? '⚠️ SAM (LVOT 폐쇄) 있음' : ''
+        samPresent: catInput.SAM === '있음' ? '⚠️ SAM (LVOT 폐쇄) 있음' : '',
+        finalStage
       },
       catStageRows: stageRows,
       catExtraRows: extraRows,

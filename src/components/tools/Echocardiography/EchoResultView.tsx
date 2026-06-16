@@ -155,14 +155,20 @@ const EchoResultView: React.FC<EchoResultViewProps> = ({ result, resultRef }) =>
               {result.catStageRows?.map((r, idx) => (
                 <tr key={idx}>
                   <td>{r.label}</td>
-                  <td className="ref-val">{r.b1}</td>
-                  <td className="ref-val">{r.b2}</td>
-                  <td className="ref-val">{r.c}</td>
+                  <td className={`ref-val ${r.matched.includes('b1') ? 'matched-stage' : ''}`}>{r.b1}</td>
+                  <td className={`ref-val ${r.matched.includes('b2') ? 'matched-stage' : ''}`}>{r.b2}</td>
+                  <td className={`ref-val ${r.matched.includes('c') ? 'matched-stage' : ''}`}>{r.c}</td>
                   <td>{styledCat(r.measured, r.thresh)}</td>
                 </tr>
               ))}
             </tbody>
           </table>
+          {dx.finalStage && (
+            <div className="final-stage-summary">
+              <span className="label">종합 ACVIM 단계 판정:</span>
+              <span className="value">Stage {dx.finalStage}</span>
+            </div>
+          )}
         </div>
 
         <div className="result-group-echo" style={{ background: '#f5f3ff' }}>
@@ -289,6 +295,36 @@ const EchoResultView: React.FC<EchoResultViewProps> = ({ result, resultRef }) =>
 
         .result-table-echo tr:last-child td { border-bottom: none; }
         .ref-val { font-size: 0.75rem !important; color: #94a3b8 !important; }
+        .matched-stage { 
+          background: #dbeafe !important; 
+          color: #1d4ed8 !important; 
+          font-weight: 800 !important;
+          border: 1.5px solid #3b82f6;
+        }
+
+        .final-stage-summary {
+          padding: 15px 20px;
+          background: #fff;
+          border-top: 2px solid #e2e8f0;
+          display: flex;
+          align-items: center;
+          justify-content: flex-end;
+          gap: 12px;
+        }
+        .final-stage-summary .label {
+          font-size: 0.9rem;
+          font-weight: 700;
+          color: #475569;
+        }
+        .final-stage-summary .value {
+          font-size: 1.1rem;
+          font-weight: 900;
+          color: #2563eb;
+          background: #eff6ff;
+          padding: 4px 12px;
+          border-radius: 6px;
+          border: 1px solid #bfdbfe;
+        }
 
         .ref-label-echo {
           margin-top: 2rem;

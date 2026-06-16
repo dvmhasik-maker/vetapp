@@ -98,6 +98,7 @@ export interface CatDiagnosis {
   thrombosisRisk?: string;
   lvotTurbulence?: string;
   samPresent?: string;
+  finalStage?: string;
 }
 
 export interface EchoResult {
