@@ -211,8 +211,8 @@ const Dashboard: React.FC = () => {
 
       <style>{`
         .pc-access-section {
-          margin-top: 3.5rem;
-          margin-bottom: 1rem;
+          margin-top: 5rem;
+          margin-bottom: 0.2rem;
         }
         
         .pc-access-card {
@@ -325,7 +325,7 @@ const Dashboard: React.FC = () => {
         }
 
         .dashboard-info-section {
-          margin: 0.5rem 0 2rem 0;
+          margin: 0 0 2rem 0;
           background: #fff;
           border-radius: 16px;
           border: 1px solid #e2e8f0;
