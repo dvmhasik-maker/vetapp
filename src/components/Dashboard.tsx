@@ -10,7 +10,10 @@ import {
   Layers,
   ShieldAlert,
   ChevronDown,
-  Info
+  Info,
+  Monitor,
+  Copy,
+  CheckCircle2
 } from 'lucide-react';
 import { useState } from 'react';
 import AdSlot from './common/AdSlot';
@@ -91,6 +94,13 @@ const tools: Tool[] = [
 
 const Dashboard: React.FC = () => {
   const [showInfo, setShowInfo] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  const copyUrl = () => {
+    navigator.clipboard.writeText(window.location.origin);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
 
   return (
     <div className="dashboard-container">
@@ -102,6 +112,34 @@ const Dashboard: React.FC = () => {
       </header>
 
       <main className="main-content">
+        {/* PC Access & Shortcut Section */}
+        <div className="pc-access-section">
+          <div className="pc-access-card">
+            <div className="pc-access-info">
+              <Monitor className="pc-icon" size={24} />
+              <div>
+                <h4>💻 큰 화면에서 더 편하게 보세요!</h4>
+                <p>PC 브라우저(Chrome, Edge 등)에서도 동일하게 이용 가능합니다.</p>
+              </div>
+            </div>
+            <div className="pc-access-btns">
+              <button onClick={copyUrl} className={`pc-btn copy ${copied ? 'copied' : ''}`}>
+                {copied ? <CheckCircle2 size={16} /> : <Copy size={16} />}
+                {copied ? '복사 완료!' : '홈페이지 주소 복사'}
+              </button>
+              <a 
+                href="https://www.google.com/search?q=크롬+바탕화면+바로가기+만들기" 
+                target="_blank" 
+                rel="noreferrer" 
+                className="pc-btn shortcut"
+              >
+                <Monitor size={16} />
+                PC 바로가기 만드는 법
+              </a>
+            </div>
+          </div>
+        </div>
+
         <AdSlot className="top-ad" />
 
         <div className="tool-grid">
@@ -189,6 +227,116 @@ const Dashboard: React.FC = () => {
       </footer>
 
       <style>{`
+        .pc-access-section {
+          margin-bottom: 2rem;
+        }
+        
+        .pc-access-card {
+          background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+          border: 1px solid #bae6fd;
+          border-radius: 16px;
+          padding: 1.5rem;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 1.5rem;
+          box-shadow: 0 4px 12px rgba(14, 165, 233, 0.08);
+        }
+        
+        .pc-access-info {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+        }
+        
+        .pc-icon {
+          color: #0ea5e9;
+          flex-shrink: 0;
+        }
+        
+        .pc-access-info h4 {
+          margin: 0 0 0.25rem 0;
+          font-size: 1.05rem;
+          color: #0369a1;
+          font-weight: 800;
+        }
+        
+        .pc-access-info p {
+          margin: 0;
+          font-size: 0.9rem;
+          color: #0c4a6e;
+          opacity: 0.8;
+        }
+        
+        .pc-access-btns {
+          display: flex;
+          gap: 0.75rem;
+          flex-shrink: 0;
+        }
+        
+        .pc-btn {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          padding: 0.75rem 1rem;
+          border-radius: 10px;
+          font-size: 0.85rem;
+          font-weight: 700;
+          cursor: pointer;
+          transition: all 0.2s;
+          text-decoration: none;
+        }
+        
+        .pc-btn.copy {
+          background: #fff;
+          border: 1.5px solid #0ea5e9;
+          color: #0ea5e9;
+        }
+        
+        .pc-btn.copy:hover {
+          background: #f0f9ff;
+        }
+        
+        .pc-btn.copy.copied {
+          background: #0ea5e9;
+          color: #fff;
+        }
+        
+        .pc-btn.shortcut {
+          background: #0ea5e9;
+          border: 1.5px solid #0ea5e9;
+          color: #fff;
+        }
+        
+        .pc-btn.shortcut:hover {
+          background: #0284c7;
+          border-color: #0284c7;
+        }
+        
+        @media (max-width: 768px) {
+          .pc-access-card {
+            flex-direction: column;
+            text-align: center;
+            padding: 1.25rem;
+            gap: 1.25rem;
+          }
+          
+          .pc-access-info {
+            flex-direction: column;
+            gap: 0.75rem;
+          }
+          
+          .pc-access-btns {
+            width: 100%;
+            flex-direction: column;
+          }
+          
+          .pc-btn {
+            justify-content: center;
+            width: 100%;
+          }
+        }
+
         .dashboard-info-section {
           margin: 2rem 0;
           background: #fff;
