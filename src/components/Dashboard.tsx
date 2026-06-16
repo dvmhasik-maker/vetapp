@@ -112,36 +112,6 @@ const Dashboard: React.FC = () => {
       </header>
 
       <main className="main-content">
-        {/* PC Access & Shortcut Section */}
-        <div className="pc-access-section">
-          <div className="pc-access-card">
-            <div className="pc-access-info">
-              <Monitor className="pc-icon" size={24} />
-              <div>
-                <h4>💻 큰 화면에서 더 편하게 보세요!</h4>
-                <p>PC 브라우저(Chrome, Edge 등)에서도 동일하게 이용 가능합니다.</p>
-              </div>
-            </div>
-            <div className="pc-access-btns">
-              <button onClick={copyUrl} className={`pc-btn copy ${copied ? 'copied' : ''}`}>
-                {copied ? <CheckCircle2 size={16} /> : <Copy size={16} />}
-                {copied ? '복사 완료!' : '홈페이지 주소 복사'}
-              </button>
-              <a 
-                href="https://www.google.com/search?q=크롬+바탕화면+바로가기+만들기" 
-                target="_blank" 
-                rel="noreferrer" 
-                className="pc-btn shortcut"
-              >
-                <Monitor size={16} />
-                PC 바로가기 만드는 법
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <AdSlot className="top-ad" />
-
         <div className="tool-grid">
           {[...tools].sort((a, b) => a.name.localeCompare(b.name, 'ko')).map((tool) => (
             <Link key={tool.id} to={tool.path} className="tool-card">
@@ -153,6 +123,26 @@ const Dashboard: React.FC = () => {
               </div>
             </Link>
           ))}
+        </div>
+
+        {/* PC Access & Shortcut Section - Moved below tools */}
+        <div className="pc-access-section">
+          <div className="pc-access-card">
+            <div className="pc-access-info">
+              <Monitor className="pc-icon" size={24} />
+              <div>
+                <h4>💻 큰 화면에서 더 편하게 보세요!</h4>
+                <p>PC 브라우저(Chrome, Edge 등)에서도 동일하게 이용 가능합니다.</p>
+              </div>
+            </div>
+            <div className="pc-access-btns">
+              <div className="pc-url-display">
+                <span className="url-label">웹 접속 주소</span>
+                <span className="url-divider"></span>
+                <code className="url-text">https://vetapp-b1i.pages.dev/</code>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* SEO & Info Section - Collapsible to avoid blocking UX */}
@@ -270,55 +260,64 @@ const Dashboard: React.FC = () => {
         
         .pc-access-btns {
           display: flex;
+          flex-direction: column;
           gap: 0.75rem;
-          flex-shrink: 0;
+          flex-grow: 1;
         }
         
-        .pc-btn {
+        .pc-url-display {
+          background: #fff;
+          border: 1.5px solid #bae6fd;
+          border-radius: 12px;
+          padding: 0.85rem 1.25rem;
           display: flex;
           align-items: center;
-          gap: 8px;
-          padding: 0.75rem 1rem;
-          border-radius: 10px;
+          justify-content: center;
+          gap: 12px;
+          box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.02);
+        }
+        
+        .url-label {
           font-size: 0.85rem;
-          font-weight: 700;
-          cursor: pointer;
-          transition: all 0.2s;
-          text-decoration: none;
+          font-weight: 800;
+          color: #0369a1;
+          letter-spacing: -0.01em;
         }
         
-        .pc-btn.copy {
-          background: #fff;
-          border: 1.5px solid #0ea5e9;
+        .url-divider {
+          width: 1px;
+          height: 14px;
+          background: #bae6fd;
+        }
+        
+        .url-text {
+          font-size: 0.95rem;
           color: #0ea5e9;
-        }
-        
-        .pc-btn.copy:hover {
-          background: #f0f9ff;
-        }
-        
-        .pc-btn.copy.copied {
-          background: #0ea5e9;
-          color: #fff;
-        }
-        
-        .pc-btn.shortcut {
-          background: #0ea5e9;
-          border: 1.5px solid #0ea5e9;
-          color: #fff;
-        }
-        
-        .pc-btn.shortcut:hover {
-          background: #0284c7;
-          border-color: #0284c7;
+          font-weight: 700;
+          font-family: 'JetBrains Mono', 'Cascadia Code', monospace;
+          line-height: 1;
+          display: flex;
+          align-items: center;
+          padding-top: 1px; /* 미세한 수직 위치 조정 */
         }
         
         @media (max-width: 768px) {
           .pc-access-card {
             flex-direction: column;
             text-align: center;
-            padding: 1.25rem;
+            padding: 1.5rem;
             gap: 1.25rem;
+          }
+          
+          .pc-url-display {
+            flex-direction: column;
+            gap: 8px;
+            padding: 1rem;
+          }
+
+          .url-divider {
+            width: 40px;
+            height: 1px;
           }
           
           .pc-access-info {
@@ -327,12 +326,6 @@ const Dashboard: React.FC = () => {
           }
           
           .pc-access-btns {
-            width: 100%;
-            flex-direction: column;
-          }
-          
-          .pc-btn {
-            justify-content: center;
             width: 100%;
           }
         }
