@@ -86,7 +86,7 @@ export const useEchoLogic = () => {
       { group: 'Myocardial Failure', name: 'CO', val: CO, normal: normCO, range: null, inv: true, lo: '심박출량 저하', hi: '정상 이상' },
       
       { group: 'Diastolic Failure', name: 'LVIDs3/BSA', val: LVIDs3BSA, normal: 30, range: null, inv: false, lo: '정상', hi: '수축능력 저하' },
-      { group: 'Diastolic Failure', name: 'MV E/A ratio', val: EA, normal: null, range: [0.8, 1.5], inv: false, lo: '이완기능부전 stage 1', hi: '이완기능부전 stage 3' },
+      { group: 'Diastolic Failure', name: 'MV E/A ratio', val: EA, normal: null, range: [1.0, 2.0], inv: false, lo: '이완기능부전 stage 1', hi: '이완기능부전 stage 3' },
       { group: 'Diastolic Failure', name: 'DTE', val: v(dogInput.DTE), normal: null, range: [60, 100], inv: false, lo: '이완기능부전 stage 3', hi: '이완기능부전 stage 1' },
       { group: 'Diastolic Failure', name: "MV E/E' ratio", val: EEp, normal: 12.0, range: null, inv: false, lo: '정상', hi: '이완기능부전 stage 1b 이상' },
       { group: 'Diastolic Failure', name: 'IVRT', val: ivrt, normal: null, range: [41, 65], inv: false, lo: '이완기능부전 stage 3', hi: '이완기능부전 stage 1' },
