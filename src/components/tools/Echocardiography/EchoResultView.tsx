@@ -144,11 +144,11 @@ const EchoResultView: React.FC<EchoResultViewProps> = ({ result, resultRef }) =>
           <table className="result-table-echo cat-stage-table">
             <thead>
               <tr>
-                <th style={{ width: '25%' }}>항목</th>
-                <th style={{ width: '15%' }}>B1</th>
-                <th style={{ width: '15%' }}>B2</th>
-                <th style={{ width: '15%' }}>C</th>
-                <th style={{ width: '30%' }}>측정값</th>
+                <th>항목</th>
+                <th>B1</th>
+                <th>B2</th>
+                <th>C</th>
+                <th>측정값</th>
               </tr>
             </thead>
             <tbody>
@@ -287,11 +287,18 @@ const EchoResultView: React.FC<EchoResultViewProps> = ({ result, resultRef }) =>
           font-size: 0.8rem;
           border-bottom: 1px solid #e2e8f0;
         }
-        /* 컬럼별 너비 지정 */
-        .result-table-echo th:nth-child(1), .result-table-echo td:nth-child(1) { width: 22%; } /* 항목 */
-        .result-table-echo th:nth-child(2), .result-table-echo td:nth-child(2) { width: 18%; } /* 정상범위 */
-        .result-table-echo th:nth-child(3), .result-table-echo td:nth-child(3) { width: 15%; } /* 측정값 */
-        .result-table-echo th:nth-child(4), .result-table-echo td:nth-child(4) { width: 45%; text-align: left; padding-left: 10px; } /* 해석 - 최대 너비 확보 및 좌측 정렬 */
+        /* 일반 리포트 테이블 (항목, 정상범위, 측정값, 해석) */
+        .result-table-echo:not(.cat-stage-table) th:nth-child(1), .result-table-echo:not(.cat-stage-table) td:nth-child(1) { width: 22%; }
+        .result-table-echo:not(.cat-stage-table) th:nth-child(2), .result-table-echo:not(.cat-stage-table) td:nth-child(2) { width: 18%; }
+        .result-table-echo:not(.cat-stage-table) th:nth-child(3), .result-table-echo:not(.cat-stage-table) td:nth-child(3) { width: 15%; }
+        .result-table-echo:not(.cat-stage-table) th:nth-child(4), .result-table-echo:not(.cat-stage-table) td:nth-child(4) { width: 45%; text-align: left; padding-left: 10px; }
+
+        /* 고양이 ACVIM 단계 테이블 전용 너비 (항목, B1, B2, C, 측정값) */
+        .cat-stage-table th:nth-child(1), .cat-stage-table td:nth-child(1) { width: 25%; }
+        .cat-stage-table th:nth-child(2), .cat-stage-table td:nth-child(2),
+        .cat-stage-table th:nth-child(3), .cat-stage-table td:nth-child(3),
+        .cat-stage-table th:nth-child(4), .cat-stage-table td:nth-child(4) { width: 15%; }
+        .cat-stage-table th:nth-child(5), .cat-stage-table td:nth-child(5) { width: 30%; }
 
         .result-table-echo tr:last-child td { border-bottom: none; }
         .ref-val { font-size: 0.75rem !important; color: #94a3b8 !important; }
