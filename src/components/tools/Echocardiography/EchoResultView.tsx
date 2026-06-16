@@ -40,7 +40,19 @@ const EchoResultView: React.FC<EchoResultViewProps> = ({ result, resultRef }) =>
             <tbody>
               {groupItems.map((it, idx) => {
                 const n = it.val;
-                const normalDisp = it.range ? `${it.range[0]} ~ ${it.range[1]}` : (it.normal !== null ? fmt(it.normal) : '-');
+                
+                // 정상범위 표시 포맷 (MV E wave, MV E/A ratio는 소수점 1자리 고정)
+                const fmtVal = (val: number) => {
+                  if (it.name === 'MV E wave' || it.name === 'MV E/A ratio') {
+                    return val.toFixed(1);
+                  }
+                  return val.toString();
+                };
+
+                const normalDisp = it.range 
+                  ? `${fmtVal(it.range[0])} ~ ${fmtVal(it.range[1])}` 
+                  : (it.normal !== null ? fmt(it.normal) : '-');
+                  
                 let color = '#64748b', txt = '-';
 
                 if (!isNaN(n) && isFinite(n) && n !== 0) {
