@@ -124,9 +124,13 @@ const EchoResultView: React.FC<EchoResultViewProps> = ({ result, resultRef }) =>
 
     const threshLabel = (t: any) => {
       if (!t) return '-';
-      if (t.min !== undefined && t.max !== undefined) return `${t.min} ~ ${t.max}`;
-      if (t.min !== undefined) return `≥ ${t.min}`;
-      if (t.max !== undefined) return `≤ ${t.max}`;
+      const fmtVal = (val: number) => {
+        if (val === undefined || val === null || isNaN(val)) return '';
+        return Number.isInteger(val) ? val.toString() : (Math.round(val * 100) / 100).toString();
+      };
+      if (t.min !== undefined && t.max !== undefined) return `${fmtVal(t.min)} ~ ${fmtVal(t.max)}`;
+      if (t.min !== undefined) return `≥ ${fmtVal(t.min)}`;
+      if (t.max !== undefined) return `≤ ${fmtVal(t.max)}`;
       return '-';
     };
 
